@@ -1,0 +1,12 @@
+{
+  "name": "college_issue_reporting_system",
+  "version": "1.0.0",
+  "description": "The final project of cs546-C-group11",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yucheng Su, Yinglu Wang, Raj Paynailk, Yash Koladia",
+  "license": "ISC"
+}
