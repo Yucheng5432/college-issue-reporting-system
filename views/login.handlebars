@@ -1,20 +1,30 @@
-<div class="page-container">
-    <div id="login-form" class="col text-center">
+<div class="login-div">
+        <div id= "header" class="header">
+            <h1 class="title">College Issue Reporting System</h1>
         </div>
-      <h1>College Issue Reporting System</h1>
-      <div>
-        <form method="post" id="login" action = "/login">
+        <div class="createAccount-nav">
 
-        <label for="username">Username:</label>
-        <input type="text" id="usernameField" name="username" placeholder="username" required>
-        </br>
-        <label for="password">Password:</label>
-        <input type="password" id="passwordField" name="password" placeholder="password" required>
-      </div>
+        </div>
 
-      <button class="btn btn-primary" id="loginButton" type="submit">Log In</button>
-        <p><a href="/createAccount">Create Account</a></p>
+        <div class="loginForm-div">
+            <div class="loginForm">
+                <h2>Login</h2>
+                <form method="post" id="login" action = "/login">
+                    <label for="username">username:</label>
+                    <input type="text" id="usernameField" name="username" placeholder="username" required>
+                    </br>
+                    <label for="password">password:</label>
+                    <input type="password" id="passwordField" name="password" placeholder="password" required>
+                    <br><br>
+                    <button class="btn btn-primary" id="loginButton" type="submit">Log In</button>
+                    <p><a href="/createAccount">Create Account</a></p>
+                </form>
+            </div>
+        </div>
     </div>
-    </form>
-</div>
-{{> footer}}
+
+    <div>
+        <footer class="footer">
+            <P>College Issue Reporting System™ || For all of News In our College || Stevens Institute of Technology || Hoboken, New Jersey</p>
+        </footer>
+    </div>
