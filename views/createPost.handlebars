@@ -1,36 +1,47 @@
 <div>
-    <div id="header"><img src=""/>
-        <div id="nav">
-            <ul class= "menu">
-                <li class="pageItem">
-                    <a href="index">Home</a>>
-                </li>
-                <li>
-                    <a href="#">Dashboard</a>
-                </li>
-                <li>
-                    <a href="#">My Profile</a>
-                </li>
-            </ul>
+        <div id="header">
+            <h1 class="title">College Issue Reporting System</h1>
+            <div id="nav">
+                <ul class= "menu">
+                    <li class="home">
+                        <a href="index.html">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="myPosts.html">My Posts</a>
+                    </li>
+                    <li>
+                        <a href="myprofile.html">My Profile</a>
+                    </li>
+                    <li style="float:right">
+                        <a href="login.html">Log Out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+         <div class="postForm-div">
+             <div class="createPost-form">
+            <form id="createPost" method="post" name="postForm">
+                <h2>Create a new Post</h2>
+                <label for="title" id="title">Title:</label>
+                <input type="text" id="title" placeholder="Title" name="title">
+                <br>
+                <label for="description" id="description">Description:</label>
+                <textarea class="description" id="description" placeholder="description"></textarea>
+                <br>
+                <label for="tag" id="tag">Tag:</label>
+                <input type="checkbox" name="tag" value="tag1">tag1
+                <input type="checkbox" name="tag" value="tag2">tag2
+                <input type="checkbox" name="tag" value="tag3">tag3
+                <br><br>
+                <button type="button" class="btrn" id="btn">Create</button>
+            </form>
+            </div>
+        </div>
+    
+        <div>
+            <footer class="footer">
+                <P>College Issue Reporting System™ || For all of News In our College || Stevens Institute of Technology || Hoboken, New Jersey</p>
+            </footer>
         </div>
     </div>
-
-     <div id="post">
-        <form id="createPost" method="post" name="postForm">
-            <button type="button" class="btrn" id="btn">Create a Post</button>
-            <label for="title" id="title">Title:</label>
-            <input type="text" id="title" placeholder="Title" name="title">
-            <br>
-            <textarea name="description" id="description" placeholder="description"></textarea>
-            <input type="checkbox" name="tag" value="tag1">tag1
-            <input type="checkbox" name="tag" value="tag2">tag2
-            <input type="checkbox" name="tag" value="tag3">tag3
-        </form>
-    </div>
-
-    <div>
-        <footer>
-            <P>College Issue Reporting System™ || For all of News In our College || Stevens Institute of Technology || Hoboken, New Jersey</p>
-        </footer>
-    </div>
-</div>

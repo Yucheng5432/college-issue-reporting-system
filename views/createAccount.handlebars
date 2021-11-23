@@ -1,37 +1,52 @@
 <div>
-    <div id= "header"> 
-        <img src=""/>
-    </div>
+        <div id= "header" class="header">
+            <h1 class="title">College Issue Reporting System</h1>
+        </div>
+        <div class="createAccount-nav">
 
-    <div>
-        <form id="createPost" method="post" name="create-accountForm">
-            <label class="username" for="usernameText">username:</label>
-            <input type="text" id="username" placeholder="username" name="username">
-            <br>
-            <label class="password" for="passwordText">password:</label>
-            <input type="text" id="password" placeholder="password" name="password">
-            <br>
-            <label class="firstname" for="firstnameText">firstname:</label>
-            <input type="text" id="firstname" placeholder="firstname" name="firstname">
-            <br>
-            <label class="lastname" for="lastnameText">lastname:</label>
-            <input type="text" id="lastname" placeholder="lastname" name="lastname">
-            <br>
-            <label class="email" for="emailText">email:</label>
-            <input type="text" id="email" placeholder="email" name="email">
-            <br>
-            <label class="major" for="majorText">major:</label>
-            <input type="text" id="major" placeholder="major" name="major">
-            <br>
-            <label class="year" for="yearText"year:></label>
-            <input type="text" id="year" placeholder="year" name="year">
-            <button type="button" class="btn" name="btn">Create</button>
-        </form>
-    </div>
+        </div>
 
-    <div>
-        <footer>
-            <P>College Issue Reporting System™ || For all of News In our College || Stevens Institute of Technology || Hoboken, New Jersey</p>
-        </footer>
+        <div class="create-accountForm-div">
+            <div class="create-accountForm">
+                <h2> Create Account</h1>
+                <form id="createPost" method="post" name="create-accountForm">
+                    <label class="username" for="usernameText">username:</label>
+                    <input type="text" id="username" placeholder="username" name="username">
+                    <br><br>
+                    <label class="password" for="passwordText">password:</label>
+                    <input type="text" id="password" placeholder="password" name="password">
+                    <br><br>
+                    <label class="firstname" for="firstnameText">firstname:</label>
+                    <input type="text" id="firstname" placeholder="firstname" name="firstname">
+                    <br><br>
+                    <label class="lastname" for="lastnameText">lastname:</label>
+                    <input type="text" id="lastname" placeholder="lastname" name="lastname">
+                    <br><br>
+                    <label class="email" for="emailText">email:</label>
+                    <input type="text" id="email" placeholder="email" name="email">
+                    <br><br>
+                    <label class="major" for="majorText">major:</label>
+                    <select name="major" id="major">
+                        <option value="computerScience">Computer Science</option>
+                        <option value="business">Business</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="System-and-Analytics">System and Analytics</option>
+                        <option value="MechanicalEngineering">Mechanical Engineering</option>
+                        <option value="Chemical Engineering">Chemical Engineering</option>
+                        <option value="Materials Science">Materials Science</option>
+                    </select>
+                    <br><br>
+                    <label class="year" for="yearText"year:>year:</label>
+                    <input type="text" id="year" placeholder="year" name="year">
+                    <br><br>
+                    <button type="button" class="btn" name="btn">Create</button>
+                </form>
+            </div>
+        </div>
+    
+        <div>
+            <footer class="footer">
+                <P>College Issue Reporting System™ || For all of News In our College || Stevens Institute of Technology || Hoboken, New Jersey</p>
+            </footer>
+        </div>
     </div>
-</div>

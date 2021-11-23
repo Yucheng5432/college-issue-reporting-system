@@ -1,43 +1,57 @@
 <div>
-    <div id= "header"> <img src=""/> <!-- this img will be a stevens photo -->
-        <div id="nav">
-            <ul class= "menu">
-                <li class="pageItem">
-                    <a href="index">Home</a>>
-                </li>
-                <li>
-                    <a href="#">Dashboard</a>
-                </li>
-                <li>
-                    <a href="#">My Profile</a>
-                </li>
-                <li>
-                    <a href="login">Log Out</a>
-                </li>
-            </ul>
+        <div id= "header">
+            <h1 class="title">College Issue Reporting System</h1>
+            <div id="nav">
+                <ul class= "menu">
+                    <li class="pageItem">
+                        <a href="index.html">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="myPosts.html">My Posts</a>
+                    </li>
+                    <li>
+                        <a href="myprofile.html">My Profile</a>
+                    </li>
+                    <li style="float:right">
+                        <a href="login.html">Log Out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    
+        <div>
+            <div class="editProfile-div">
+                <div class="editProfile-form">
+                <form id="editProfile" method="post" name="profileForm">
+                    <h2>Edit Profile</h2>
+                    <label for="email" id="email">email:</label>
+                    <input type="text" id="email" placeholder="email" name="email" >
+                    <br>
+                    <label for="major" id="department">department:</label>
+                    <select>
+                        <option value="computerScience">Computer Science</option>
+                        <option value="business">Business</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="System-and-Analytics">System and Analytics</option>
+                        <option value="MechanicalEngineering">Mechanical Engineering</option>
+                        <option value="Chemical Engineering">Chemical Engineering</option>
+                        <option value="Materials Science">Materials Science</option>
+                    </select>
+                    <br>
+                    <label for="year" id="year">year:</label>
+                    <input type="text" id="year" placeholder="year" name="year">
+                    <br>
+                    <label for="bio" id="bio">bio:</label>
+                    <input type="text" id="bio" placeholder="bio" name="bio">
+                    <button type="button" class="btn" id="btn">Save</button>
+                </form>
+                </div>
+            </div>
+        </div>
+    
+        <div>
+            <footer class="footer">
+                <P>College Issue Reporting System™ || For all of News In our College || Stevens Institute of Technology || Hoboken, New Jersey</p>
+            </footer>
         </div>
     </div>
-
-    <div>
-        <div id="post">
-            <form id="editProfile" method="post" name="profileForm">
-                <label for="name" id="name">name:</label>
-                <br>
-                <input type="text" id="name" placeholder="name" name="name">
-                <br>
-                <label for="name" id="name"></label>
-                <input type="text" name="tag" value="tag1">
-                <label for="name" id="name">n</label>
-                <input type="text" name="tag" value="tag2">
-                <input type="text" name="tag" value="tag3">
-                <button type="button" class="btrn" id="btn">Save</button>
-            </form>
-        </div>
-    </div>
-
-    <div>
-        <footer>
-            <P>College Issue Reporting System™ || For all of News In our College || Stevens Institute of Technology || Hoboken, New Jersey</p>
-        </footer>
-    </div>
-</div>
