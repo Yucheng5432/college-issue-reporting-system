@@ -30,6 +30,32 @@ async function getAllPosts() {
   }
 }
 
+//Get users posts
+async function getUserPosts(userName) {
+  if (!userName) {
+    //validates is userName is undefined or not
+    throw "Incorrect number of arguments.";
+  }
+  if (
+    !userName ||
+    typeof userName != "string" ||
+    userName.trim("").length == 0
+  ) {
+    throw "Username is invalid or empty.";
+  }
+
+  try {
+    const postCollection = await posts();
+    const allPosts = await postCollection
+      .find({ username: userName })
+      .sort({ date: -1 })
+      .toArray();
+    return allPosts;
+  } catch (error) {
+    throw error.message;
+  }
+}
+
 // create a post
 async function addPost(userName, postTitle, postBody, postTags) {
   if (arguments.length != 4) {
@@ -67,7 +93,7 @@ async function addPost(userName, postTitle, postBody, postTags) {
       tags: postTags,
       username: userName,
       resolved: false,
-      date: new Date(),
+      date: new Date().toUTCString(),
       image: {},
       comments: [],
     };
@@ -79,7 +105,7 @@ async function addPost(userName, postTitle, postBody, postTags) {
       throw "Post was not added.";
     }
 
-    // return await this.getPost(addNewPost.insertedId.toString()); //Return newly added post
+    return await this.getPost(addNewPost.insertedId.toString()); //Return newly added post
   } catch (error) {
     throw error.message;
   }
@@ -87,4 +113,7 @@ async function addPost(userName, postTitle, postBody, postTags) {
 
 module.exports = {
   addPost,
+  getUserPosts,
+  getAllPosts,
+  getPost,
 };
