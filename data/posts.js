@@ -129,10 +129,45 @@ async function deletePost(postID) {
   }
 }
 
+// edit a post
+async function editPost(postID, postTitle, postBody) {
+  if (!postID || !objectId.isValid(postID)) {
+    throw "Post ID is invalid.";
+  }
+  if (postTitle && typeof postTitle != "string") {
+    throw "Post title should be of type string.";
+  }
+  if (postBody && typeof postBody != "string") {
+    throw "Post body should be of type string.";
+  }
+
+  try {
+    const postCollection = await posts();
+
+    const oldPost = await postCollection.findOne({ _id: objectId(postID) });
+    // console.log(oldPost);
+    let editedTitle = postTitle ? postTitle : oldPost.title; //Set existing title if not provided
+    let editedBody = postBody ? postBody : oldPost.body; //Set existing body if not provided
+    const editedPost = await postCollection.updateOne(
+      { _id: objectId(postID) },
+      { $set: { title: editedTitle, body: editedBody } }
+    );
+    if (!editedPost || editedPost.modifiedCount === 0) {
+      throw new Error("Failed to edit post.");
+    }
+
+    let post = await this.getPost(postID);
+    return post;
+  } catch (error) {
+    throw error.message;
+  }
+}
+
 module.exports = {
   addPost,
   getUserPosts,
   getAllPosts,
   getPost,
   deletePost,
+  editPost,
 };
