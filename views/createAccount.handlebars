@@ -14,7 +14,7 @@
                     <input type="text" id="username" placeholder="username" name="username">
                     <br><br>
                     <label class="password" for="passwordText">password:</label>
-                    <input type="text" id="password" placeholder="password" name="password">
+                    <input type="password" id="password" placeholder="password" name="password">
                     <br><br>
                     <label class="firstname" for="firstnameText">firstname:</label>
                     <input type="text" id="firstname" placeholder="firstname" name="firstname">
@@ -39,8 +39,13 @@
                     <label class="year" for="yearText"year:>year:</label>
                     <input type="text" id="year" placeholder="year" name="year">
                     <br><br>
-                    <button type="button" class="btn" name="btn">Create</button>
+                    <button type="submit" class="btn" name="btn">Create</button>
                 </form>
+                {{#if error}}
+                    <div id="login-error" class="error">
+                    <h3>{{error}}</h3>
+                    </div>
+                    {{/if}}
             </div>
         </div>
     

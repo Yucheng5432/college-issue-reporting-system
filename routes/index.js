@@ -1,16 +1,13 @@
-const userRoutes = require('./users');
-const signupRoutes = require('./signup')
-const privateRoutes = require('./private');
+
+const users = require("./users");
 
 const constructorMethod = (app) => {
-  app.use('/', userRoutes);
-  app.use('/signup',signupRoutes)
-  app.use('/private', privateRoutes);
 
-  app.use('*', (req, res) => {
-    res.sendStatus(404);
+  app.use("/", users);
+
+  app.use("*", (req, res) => {
+    res.status(404).json({ error: "URL is invalid!" });
   });
 };
-
 
 module.exports = constructorMethod;

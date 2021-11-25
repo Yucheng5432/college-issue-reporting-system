@@ -11,14 +11,19 @@
                 <h2>Login</h2>
                 <form method="post" id="login" action = "/login">
                     <label for="username">username:</label>
-                    <input type="text" id="usernameField" name="username" placeholder="username" required>
+                    <input type="text" id="usernameField" name="username" placeholder="username" >
                     </br>
                     <label for="password">password:</label>
-                    <input type="password" id="passwordField" name="password" placeholder="password" required>
+                    <input type="password" id="passwordField" name="password" placeholder="password" >
                     <br><br>
                     <button class="btn btn-primary" id="loginButton" type="submit">Log In</button>
-                    <p><a href="/createAccount">Create Account</a></p>
+                    <p><a href="/signup">Create Account</a></p>
                 </form>
+                    {{#if error}}
+                    <div id="login-error" class="error">
+                    <h3>{{error}}</h3>
+                    </div>
+                    {{/if}}
             </div>
         </div>
     </div>
