@@ -111,9 +111,28 @@ async function addPost(userName, postTitle, postBody, postTags) {
   }
 }
 
+//delete a post
+async function deletePost(postID) {
+  if (!postID || !objectId.isValid(postID)) {
+    throw "Post ID is invalid.";
+  }
+  try {
+    const postCollection = await posts();
+    const postToDelete = await this.getPost(postID); //Get details of post to delete
+    const post = await postCollection.removeOne({ _id: objectId(postID) });
+    if (!post || post.deletedCount == 0) {
+      throw `Post with ID ${postID} was not deleted.`;
+    }
+    return postToDelete;
+  } catch (error) {
+    throw error.message;
+  }
+}
+
 module.exports = {
   addPost,
   getUserPosts,
   getAllPosts,
   getPost,
+  deletePost,
 };
