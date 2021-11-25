@@ -57,7 +57,7 @@ async function getUserPosts(userName) {
 }
 
 // create a post
-async function addPost(userName, postTitle, postBody, postTags) {
+async function addPost(userName, postTitle, postBody, postTags, postDate) {
   if (arguments.length != 4) {
     throw "Incorrect number of arguments.";
   }
@@ -93,7 +93,7 @@ async function addPost(userName, postTitle, postBody, postTags) {
       tags: postTags,
       username: userName,
       resolved: false,
-      date: new Date().toUTCString(),
+      date: postDate,
       image: {},
       comments: [],
     };
