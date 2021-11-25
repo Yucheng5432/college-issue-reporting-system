@@ -163,6 +163,84 @@ async function editPost(postID, postTitle, postBody) {
   }
 }
 
+// add comments
+async function addComment(commentID, userID, postID, username, body) {
+  if (!postID || !objectId.isValid(postID)) {
+    throw "Post ID is invalid.";
+  }
+
+  if (!userID || !objectId.isValid(userID)) {
+    throw "UserId is invalid";
+  }
+
+  try {
+    const postCollection = await posts();
+    const post = await postCollection.updateOne(
+      { _id: objectId(postID) },
+      {
+        $push: {
+          comments: {
+            _id: commentID,
+            userID: userID,
+            username: username,
+            body: body,
+            date: new Date(),
+            answer: false,
+          },
+        },
+      }
+    );
+    const comment = postCollection.findOne(
+      { _id: objectId(postID) },
+      { comments: { $elemMatch: { _id: commentID } } }
+    );
+    return comment;
+  } catch (error) {
+    throw error.message;
+  }
+}
+
+// mark post as resolve
+async function resolvePost(postID, commentID) {
+  if (
+    !postID ||
+    !objectId.isValid(postID) ||
+    !commentID ||
+    !objectId.isValid(commentID)
+  ) {
+    throw "Post ID is invalid.";
+  }
+  try {
+    const postCollection = await posts();
+    const postToResolve = await postCollection.findOne({
+      _id: objectId(postID),
+    });
+    let resolveComments = postToResolve.comments.map((e) =>
+      e._id.equals(objectId(commentID)) ? ((e.answer = true), e) : e
+    );
+    const post = await postCollection.updateOne(
+      { _id: objectId(postID) },
+      { $set: { resolved: !postToResolve.resolved, comments: resolveComments } }
+    );
+    if (!post || post.modifiedCount === 0) {
+      throw "Error, could not resolve post.";
+    }
+  } catch (error) {
+    throw error.message;
+  }
+}
+
+// find post by search term
+async function findPostsbySearchterm(searchterm) {
+  if (!searchterm) throw "No Search Term provided";
+  const postCollection = await posts();
+  var phrase = '"' + searchterm + '"';
+  const searchedPosts = await postCollection
+    .aggregate([{ $match: { $text: { $search: phrase } } }])
+    .toArray();
+  return searchedPosts;
+}
+
 module.exports = {
   addPost,
   getUserPosts,
@@ -170,4 +248,7 @@ module.exports = {
   getPost,
   deletePost,
   editPost,
+  findPostsbySearchterm,
+  resolvePost,
+  addComment,
 };
