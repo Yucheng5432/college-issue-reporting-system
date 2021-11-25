@@ -169,6 +169,10 @@ async function addComment(commentID, userID, postID, username, body) {
     throw "Post ID is invalid.";
   }
 
+  if (!commentID || !objectId.isValid(commentID)) {
+    throw "CommentId is invalid.";
+  }
+
   if (!userID || !objectId.isValid(userID)) {
     throw "UserId is invalid";
   }
