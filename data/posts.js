@@ -163,47 +163,6 @@ async function editPost(postID, postTitle, postBody) {
   }
 }
 
-// add comments
-async function addComment(commentID, userID, postID, username, body) {
-  if (!postID || !objectId.isValid(postID)) {
-    throw "Post ID is invalid.";
-  }
-
-  if (!commentID || !objectId.isValid(commentID)) {
-    throw "CommentId is invalid.";
-  }
-
-  if (!userID || !objectId.isValid(userID)) {
-    throw "UserId is invalid";
-  }
-
-  try {
-    const postCollection = await posts();
-    const post = await postCollection.updateOne(
-      { _id: objectId(postID) },
-      {
-        $push: {
-          comments: {
-            _id: commentID,
-            userID: userID,
-            username: username,
-            body: body,
-            date: new Date(),
-            answer: false,
-          },
-        },
-      }
-    );
-    const comment = postCollection.findOne(
-      { _id: objectId(postID) },
-      { comments: { $elemMatch: { _id: commentID } } }
-    );
-    return comment;
-  } catch (error) {
-    throw error.message;
-  }
-}
-
 // mark post as resolve
 async function resolvePost(postID, commentID) {
   if (
@@ -254,5 +213,4 @@ module.exports = {
   editPost,
   findPostsbySearchterm,
   resolvePost,
-  addComment,
 };
