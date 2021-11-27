@@ -109,4 +109,106 @@ router.post("/", async (req, res) => {
   }
 });
 
+// 6. editing a post
+router.patch("/edit/:id", async (req, res) => {
+  try {
+    if (!req.params || !req.params.id) {
+      throw "Post ID not provided for edit!";
+    }
+    if (!req.body) {
+      throw "No request body provided!";
+    }
+    if (req.body.postTitle && typeof req.body.postTitle != "string") {
+      return res.status(400).json({
+        error: "Invalid post title, cannot be empty, type should be string.",
+      });
+    }
+    if (req.body.postBody && typeof req.body.postBody != "string") {
+      return res.status(400).json({
+        error: "Invalid post body, cannot be empty, type should be string.",
+      });
+    }
+    await postFunctions.getPost(req.params.id);
+    const editedPost = await postFunctions.editPost(
+      req.params.id,
+      req.body.postTitle,
+      req.body.postBody
+    );
+    return res.status(200).json(editedPost);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+// 7. adding a comment
+router.patch("/comments/:id", async (req, res) => {
+  try {
+    if (!req.params || !req.params.id) {
+      throw "Post ID not provided for resolve!";
+    }
+    if (!req.body) {
+      throw "No request body provided!";
+    }
+    const newComment = req.body;
+    if (!newComment.username && typeof newComment.body != "string") {
+      return res.status(400).json({
+        error: "Invalid post title, cannot be empty, type should be string.",
+      });
+    }
+
+    const comment = await postFunctions.addComment(
+      objectId(newComment._id),
+      newComment.userID,
+      req.params.id,
+      newComment.username,
+      newComment.body
+    );
+    return res.status(200).json(comment);
+  } catch (error) {
+    if (error.message.includes("Post having ID")) {
+      return res.status(404).json({ error: error.message });
+    }
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+// 8. resolving a post
+router.patch("/resolve/:id/:cid", async (req, res) => {
+  try {
+    if (!req.params || !req.params.id || !req.params.cid) {
+      throw "Post ID not provided for resolve!";
+    }
+    await postFunctions.getPost(req.params.id);
+    const resolvePost = await postFunctions.resolvePost(
+      req.params.id,
+      req.params.cid
+    );
+    return res.status(200).json(resolvePost);
+  } catch (error) {
+    if (error.message.includes("Post having ID")) {
+      return res.status(404).json({ error: error.message });
+    }
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+// 9. deleting a post
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    if (!req.params || !req.params.id) {
+      throw "Post ID not provided for resolve!";
+    }
+
+    const checkIfPostExists = await postFunctions.getPost(req.params.id);
+
+    await postFunctions.deletePost(req.params.id);
+    return res.status(200).json(checkIfPostExists);
+  } catch (error) {
+    if (error.message.includes("Post having ID")) {
+      return res.status(404).json({ error: error.message });
+    }
+    return res.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = router;
