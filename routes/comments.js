@@ -1,67 +1,46 @@
 const express = require("express");
 const router = express.Router();
-const commentFunctions = require("../data/comments");
-const ObjectId = require("mongodb");
-const { type } = require("os");
+const data = require("../data");
+const commentsData = data.comments;
+const postsData = data.posts;
+let { ObjectId } = require("mongodb");
 
-// 1. get all comments
-router.get("/", async (req, res) => {
+// 1.GET comments/{commentId}   get all posts comments by given postID
+router.get("/:id", async (req, res) => {
+  const { id } = ObjectId(req.params.id);
   try {
-    const commData = await commentFunctions();
-    let allComms = await commData.getAllComments();
-    res.json(allComms);
+    const post = await postsData.getPost(id);
+    if (!post) {
+      throw "Post does not exist.";
+    }
+
+    const comments = commentsData.getAllPostComments(id);
+
+    res.status(200).json(comments);
   } catch (e) {
-    res.status(404).json({ error: "comments not found" });
+    res.status(404).json({ error: "No comments found" });
   }
 });
 
-// 2. get all posts comments by id
-router.get("/:pid", async (req, res) => {
-  if (!req.params.pid) {
-    throw "No id provided.";
-  }
+// 2. Delete comment    /comments/{commentId)
+
+router.delete("/:id", async (req, res) => {
+  const { id } = ObjectId(req.params.id);
   try {
-    let id = ObjectId(req.params.pid);
-
-    let comments = commData.getAllPostComments(id);
-    res.json(comments);
+    await commentsData.getComment(id);
   } catch (e) {
-    res.status(404).json({ error: "comments not found" });
+    res.status(404).json({ error: "No comment found with this comment id." });
+    return;
   }
-});
-
-// 3. post comments
-router.post("/", async (req, res) => {
-  const commentData = req.body;
 
   try {
-    if (
-      !commentData ||
-      !commentData.userID ||
-      !commentData.postID ||
-      !commentData.username ||
-      !commentData.body
-    ) {
-      res.status(400).json({ error: "improper data in body" });
+    const deleteComment = await commentsData.deleteComment(id);
+    if (!deleteComment) {
+      res.status(404).json({ error: "Comment cannot be deleted." });
+      return;
     }
-
-    if (typeof username != "string") {
-      res.status(400).json({ error: "username is not string." });
-    }
-    if (typeof body != "string") {
-      res.status(400).json({ error: "body is not string" });
-    }
-
-    const commData = await commentFunctions();
-    let comment = await commData.createComment(
-      commentData.userID,
-      commentData.postID,
-      commentData.username,
-      commentData.body
-    );
-
-    res.json(comment);
+    res.status(200).json(deleteComment);
   } catch (e) {
-    res.status(500).json({ error: "comments not found" });
+    res.status(500).json({ error: e.message });
   }
 });

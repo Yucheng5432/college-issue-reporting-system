@@ -1,16 +1,13 @@
-const userRoutes = require('./users');
-const signupRoutes = require('./signup')
-const privateRoutes = require('./private');
+const postsRoutes = require("./posts");
+const commentsRoutes = require("./comments");
 
 const constructorMethod = (app) => {
-  app.use('/', userRoutes);
-  app.use('/signup',signupRoutes)
-  app.use('/private', privateRoutes);
+  app.use("/posts", restaurantsRoutes);
+  app.use("/comments", reviewsRoutes);
 
-  app.use('*', (req, res) => {
-    res.sendStatus(404);
+  app.use("*", (req, res) => {
+    res.sendStatus(404).json({ error: "Route not found." });
   });
 };
-
 
 module.exports = constructorMethod;
