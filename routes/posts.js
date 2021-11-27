@@ -60,4 +60,53 @@ router.post("/search/:searchterm", async (req, res) => {
   }
 });
 
+// 5. add post
+router.post("/", async (req, res) => {
+  try {
+    if (!req.body) {
+      return res.status(500).json({ error: "No request body provided!" });
+    }
+    const newPost = req.body;
+    if (
+      !newPost.title ||
+      typeof newPost.title != "string" ||
+      newPost.title.trim("").length == 0
+    ) {
+      return res.status(400).json({
+        error: "Invalid post title, cannot be empty, type should be string.",
+      });
+    }
+    if (
+      !newPost.body ||
+      typeof newPost.body != "string" ||
+      newPost.body.trim("").length == 0
+    ) {
+      return res.status(400).json({
+        error: "Invalid post body, cannot be empty, type should be string.",
+      });
+    }
+    if (
+      !newPost.username ||
+      typeof newPost.username != "string" ||
+      newPost.username.trim("").length == 0
+    ) {
+      return res.status(400).json({
+        error: "Invalid username, cannot be empty, type should be string.",
+      });
+    }
+
+    // call the addPost functions from the data
+    const addPost = await postFunctions.addPost(
+      newPost.username,
+      newPost.title,
+      newPost.body,
+      newPost.tags,
+      new Date()
+    );
+    return res.status(200).json(addPost);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = router;
