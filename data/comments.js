@@ -1,16 +1,24 @@
 const mongoCollections = require("../config/mongoCollections");
 const commentsCollection = mongoCollections.comments;
+const posts = mongoCollections.posts;
 const objectId = require("mongodb").ObjectID;
 
-// 1.Create comment
+// 1.Create a comment
+
 async function createComment(userID, postID, userName, body) {
   if (arguments.length != 5) throw "Please provide all the parameters.";
   if (typeof userName != "string" || typeof body != "string")
     throw "Username or body is not string.";
   if (!objectId.isValid(postID) || !objectId.isValid(userID))
     throw "Invalid postID or userID";
+  if (typeof body != "string") {
+    throw "body is not string";
+  }
+
+  const allPosts = await posts();
 
   let commentData = {
+    _id: new ObjectID(),
     userID: userID,
     postID: postID,
     userName: userName,
@@ -19,57 +27,65 @@ async function createComment(userID, postID, userName, body) {
     answer: false,
   };
 
-  const comments = await commentsCollection();
+  //   add the comment to the post collections
+  let insertedComment = await allPosts.updateOne(
+    { _id: postID },
+    { $push: { comments: commentData } }
+  );
 
-  //   inserting the comment
-  const insertedComment = await comments.insertOne(commentData);
-
-  const newId = insertedComment._id;
-
-  if (!insertedComment || insertedComment.insertedCount === 0) {
+  if (!insertedComment || insertedComment.modifiedCount === 0) {
     //Verify if comment was added
     throw "Comment  was not added.";
   }
 
-  const comment = await this.getComment(newId);
-
-  return comment;
+  return { commentCreated: true };
 }
 
-// 2.Get all comments
-async function getAllComments() {
-  const comments = await commentsCollection();
-  const commentData = await comments.find({}).toArray();
+// 2. Get all comments by post id.
+async function getAllPostComments(postId) {
+  if (!postId) {
+    throw "Please provide the id.";
+  }
+
+  if (!Object.isValid(postId)) {
+    throw "id is not valid object id";
+  }
+  const allPosts = await posts();
+
+  const postFound = await allPosts.findOne({ _id: postId }).toArray();
+  if (postFound === null) {
+    throw "No post found with the given id.";
+  }
+  const commentData = postFound.comments.forEach((comments) => {
+    return comments;
+  });
 
   return commentData;
-}
-
-// 3.get all posts comments
-async function getAllPostComments(id) {
-  if (!id || !objectId.isValid(id)) throw "Please provide postid parameter.";
-
-  const comments = await commentsCollection();
-  const postData = await comments.find({ postID: objectId(id) }).toArray();
-
-  return postData;
 }
 
 //4. get comment by id
 async function getComment(id) {
   if (!id || !objectId.isValid(id)) throw "Invalid comment id.";
 
-  const comments = await commentsCollection();
-  const commentData = await comments.findOne({ _id: objectId(id) });
+  const allPosts = await posts();
 
-  return commentData;
+  let getPostById = await allPosts.findOne({ "comments._id": id });
+  let comment = getPostById.comments.find((comment) => comment._id.equals(id));
+
+  return comment;
 }
 
 // 5. delete a comment
 async function deleteComment(cid) {
   if (!cid || !objectId.isValid(cid)) throw "Invalid comment id.";
-  const comments = await commentsCollection();
+  const allPosts = await posts();
 
-  let removedComment = await comments.removeOne({ _id: objectId(cid) });
+  let post = await allPosts.findOne({ "comments._id": id });
+
+  let removedComment = await post.updateOne(
+    { _id: post._id },
+    { $pull: { comments: { _id: id } } }
+  );
 
   //   check if the comment was deleted.
   if (removedComment.deletedCount === 0) {
@@ -82,8 +98,8 @@ async function deleteComment(cid) {
 // 6. mark comment answer as true
 async function markAsAnswer(cid) {
   if (!cid || !objectId.isValid(cid)) throw "Invaldi comment id.";
-  const comments = await commentsCollection();
 
+  const comments = await commentsCollection();
   comments = await this.getComment(cid);
   comments["answer"] = true;
 
@@ -102,7 +118,6 @@ async function markAsAnswer(cid) {
 
 module.exports = {
   createComment,
-  getAllComments,
   getAllPostComments,
   getComment,
   deleteComment,
