@@ -5,12 +5,28 @@ const userFunctions = data.users;
 
 // 1. Getting the signup page
 router.get("/signup", async (req, res) => {
-  res.render("createAccount");
+  if (!req.session.user) {
+    res.render("signup");
+  } else {
+    res.redirect("/dashboard");
+  }
 });
 
 // 2. Getting the login page
 router.get("/", async (req, res) => {
-  res.render("login");
+  if (!req.session.user) {
+    res.render("login");
+  } else {
+    res.redirect("/dashboard");
+  }
+});
+
+router.get("/login", async (req, res) => {
+  if (!req.session.user) {
+    res.redirect("/");
+  } else {
+    res.redirect("/private");
+  }
 });
 
 // 3.Getting the dashboard after login
