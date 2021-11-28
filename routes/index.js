@@ -1,12 +1,14 @@
 const postsRoutes = require("./posts");
 const commentsRoutes = require("./comments");
+const users = require("./users");
 
 const constructorMethod = (app) => {
-  app.use("/posts", restaurantsRoutes);
-  app.use("/comments", reviewsRoutes);
+  app.use("/", users);
+  app.use("/posts", postsRoutes);
+  app.use("/comments", commentsRoutes);
 
   app.use("*", (req, res) => {
-    res.sendStatus(404).json({ error: "Route not found." });
+    res.status(404).json({ error: "Route not found." });
   });
 };
 

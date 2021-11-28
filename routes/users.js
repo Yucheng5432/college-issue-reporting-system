@@ -1,26 +1,24 @@
 const express = require("express");
 const router = express.Router();
-const userFunctions = require("../data/users");
-const mongoCollections = require("../config/mongoCollections");
-const userColl = mongoCollections.users;
-const xss = require("xss");
-const validator = require("validator");
-const e = require("express");
-const bcrypt = require("bcryptjs");
-const { ObjectId } = require("bson");
+const data = require("../data");
+const userFunctions = data.users;
 
+// 1. Getting the signup page
 router.get("/signup", async (req, res) => {
   res.render("createAccount");
 });
 
+// 2. Getting the login page
 router.get("/", async (req, res) => {
   res.render("login");
 });
 
+// 3.Getting the dashboard after login
 router.get("/dashboard", async (req, res) => {
   res.render("dashBoard");
 });
 
+// 4. POST for SignUp
 router.post("/signup", async (req, res) => {
   try {
     let username = req.body["username"].trim().toLowerCase();
@@ -43,19 +41,15 @@ router.post("/signup", async (req, res) => {
       return;
     }
     if (!username.match(/^[a-z0-9]+$/i)) {
-      res
-        .status(400)
-        .render("createAccount", {
-          error: `Only alphanumeric characters allowed!`,
-        });
+      res.status(400).render("createAccount", {
+        error: `Only alphanumeric characters allowed!`,
+      });
       return;
     }
     if (username.length < 4) {
-      res
-        .status(400)
-        .render("createAccount", {
-          error: `Length of username must be atleast 4 characters long!`,
-        });
+      res.status(400).render("createAccount", {
+        error: `Length of username must be atleast 4 characters long!`,
+      });
       return;
     }
     if (!password) {
@@ -69,11 +63,9 @@ router.post("/signup", async (req, res) => {
       return;
     }
     if (password.length < 6) {
-      res
-        .status(400)
-        .render("createAccount", {
-          error: `Password must be atleast 6 characters long!`,
-        });
+      res.status(400).render("createAccount", {
+        error: `Password must be atleast 6 characters long!`,
+      });
       return;
     }
     if (!firstName) {
@@ -150,6 +142,7 @@ router.post("/signup", async (req, res) => {
   }
 });
 
+// 5. POST for Login
 router.post("/login", async (req, res) => {
   try {
     let username = req.body["username"];
@@ -174,11 +167,9 @@ router.post("/login", async (req, res) => {
       return;
     }
     if (username.length < 4) {
-      res
-        .status(400)
-        .render("login", {
-          error: `Length of username must be atleast 4 characters long!`,
-        });
+      res.status(400).render("login", {
+        error: `Length of username must be atleast 4 characters long!`,
+      });
       return;
     }
     if (!password) {
@@ -190,11 +181,9 @@ router.post("/login", async (req, res) => {
       return;
     }
     if (password.length < 6) {
-      res
-        .status(400)
-        .render("login", {
-          error: `Password must be atleast 6 characters long!`,
-        });
+      res.status(400).render("login", {
+        error: `Password must be atleast 6 characters long!`,
+      });
       return;
     }
     const isCredentialsValid = await userFunctions.checkUser(
@@ -214,4 +203,5 @@ router.post("/login", async (req, res) => {
     res.render("login", { error: e });
   }
 });
+
 module.exports = router;
