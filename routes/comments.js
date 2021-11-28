@@ -11,7 +11,8 @@ router.get("/:id", async (req, res) => {
   try {
     const post = await postsData.getPost(id);
     if (!post) {
-      throw "Post does not exist.";
+      res.status(404).json("Post does not exist.");
+      return;
     }
 
     const comments = commentsData.getAllPostComments(id);
@@ -22,7 +23,37 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// 2. Delete comment    /comments/{commentId)
+// 2. POST /comments/{postId}
+router.post("/", async (req, res) => {
+  let commentData = req.body;
+  try {
+    if (
+      !commentData ||
+      !commentData.userID ||
+      !commentData.postID ||
+      !commentData.username ||
+      !commentData.body
+    ) {
+      res.status(400).json({ error: "improper data in body" });
+      return;
+    }
+
+    let comment = commentsData.createComment(
+      commentData.userID,
+      commentData.postID,
+      commentData.username,
+      commentData.body,
+      commentData.date
+    );
+
+    res.json(comment);
+  } catch (e) {
+    res.status(500).json({ error: "comments not found" });
+    return;
+  }
+});
+
+// 3. Delete comment    /comments/{commentId)
 
 router.delete("/:id", async (req, res) => {
   const { id } = ObjectId(req.params.id);
@@ -44,3 +75,17 @@ router.delete("/:id", async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
+
+// 4. mark comment as resolved
+router.patch("/resolve/:id", async (req, res) => {
+  try {
+    const { id } = req.params.id;
+    let status = commentsData.markAsAnswer(id);
+
+    res.status(200).json(status);
+  } catch (e) {
+    res.status(404).json({ error: "comment not found" });
+  }
+});
+
+module.exports = router;

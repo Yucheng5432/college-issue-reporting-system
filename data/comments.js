@@ -18,7 +18,7 @@ async function createComment(userID, postID, userName, body) {
   const allPosts = await posts();
 
   let commentData = {
-    _id: new ObjectID(),
+    _id: new objectId(),
     userID: userID,
     postID: postID,
     userName: userName,
