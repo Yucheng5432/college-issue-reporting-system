@@ -63,7 +63,7 @@ router.post("/search/:searchterm", async (req, res) => {
   }
 });
 
-// 5. add post
+// 5. add post --done
 router.post("/", async (req, res) => {
   try {
     if (!req.body) {
@@ -111,8 +111,9 @@ router.post("/", async (req, res) => {
   }
 });
 
-// 6. editing a post
+// 6. editing a post --done
 router.patch("/edit/:id", async (req, res) => {
+  // console.log(req.params.id);
   try {
     if (!req.params || !req.params.id) {
       throw "Post ID not provided for edit!";
@@ -130,12 +131,15 @@ router.patch("/edit/:id", async (req, res) => {
         error: "Invalid post body, cannot be empty, type should be string.",
       });
     }
-    await postFunctions.getPost(req.params.id);
+    let postFound = await postFunctions.getPost(req.params.id);
+    // console.log(req.body.title);
+    // console.log(postFound);
     const editedPost = await postFunctions.editPost(
       req.params.id,
-      req.body.postTitle,
-      req.body.postBody
+      req.body.title,
+      req.body.body
     );
+    // console.log(editedPost);
     return res.status(200).json(editedPost);
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -143,36 +147,36 @@ router.patch("/edit/:id", async (req, res) => {
 });
 
 // 7. adding a comment
-router.patch("/comments/:id", async (req, res) => {
-  try {
-    if (!req.params || !req.params.id) {
-      throw "Post ID not provided for resolve!";
-    }
-    if (!req.body) {
-      throw "No request body provided!";
-    }
-    const newComment = req.body;
-    if (!newComment.username && typeof newComment.body != "string") {
-      return res.status(400).json({
-        error: "Invalid post title, cannot be empty, type should be string.",
-      });
-    }
+// router.patch("/comments/:id", async (req, res) => {
+//   try {
+//     if (!req.params || !req.params.id) {
+//       throw "Post ID not provided for resolve!";
+//     }
+//     if (!req.body) {
+//       throw "No request body provided!";
+//     }
+//     const newComment = req.body;
+//     if (!newComment.username && typeof newComment.body != "string") {
+//       return res.status(400).json({
+//         error: "Invalid post title, cannot be empty, type should be string.",
+//       });
+//     }
 
-    const comment = await postFunctions.addComment(
-      objectId(newComment._id),
-      newComment.userID,
-      req.params.id,
-      newComment.username,
-      newComment.body
-    );
-    return res.status(200).json(comment);
-  } catch (error) {
-    if (error.message.includes("Post having ID")) {
-      return res.status(404).json({ error: error.message });
-    }
-    return res.status(500).json({ error: error.message });
-  }
-});
+//     const comment = await postFunctions.addComment(
+//       objectId(newComment._id),
+//       newComment.userID,
+//       req.params.id,
+//       newComment.username,
+//       newComment.body
+//     );
+//     return res.status(200).json(comment);
+//   } catch (error) {
+//     if (error.message.includes("Post having ID")) {
+//       return res.status(404).json({ error: error.message });
+//     }
+//     return res.status(500).json({ error: error.message });
+//   }
+// });
 
 // 8. resolving a post
 router.patch("/resolve/:id/:cid", async (req, res) => {
@@ -194,22 +198,25 @@ router.patch("/resolve/:id/:cid", async (req, res) => {
   }
 });
 
-// 9. deleting a post
+// 9. deleting a post --done
 router.delete("/delete/:id", async (req, res) => {
+  const id = req.params.id;
+  // console.log(id);
+
   try {
-    if (!req.params || !req.params.id) {
-      throw "Post ID not provided for resolve!";
-    }
+    let postFound = await postFunctions.getPost(id);
+    // console.log(postFound);
+  } catch (e) {
+    res.status(404).json({ error: "Post not found." });
+    return;
+  }
 
-    const checkIfPostExists = await postFunctions.getPost(req.params.id);
-
-    await postFunctions.deletePost(req.params.id);
-    return res.status(200).json(checkIfPostExists);
-  } catch (error) {
-    if (error.message.includes("Post having ID")) {
-      return res.status(404).json({ error: error.message });
-    }
-    return res.status(500).json({ error: error.message });
+  try {
+    const deletePost = await postFunctions.deletePost(id);
+    res.status(200).json(deletePost);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+    return;
   }
 });
 

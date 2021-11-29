@@ -7,9 +7,11 @@ async function getPost(postID) {
   if (!postID || !ObjectId.isValid(postID)) {
     throw "Post ID is invalid.";
   }
+  // console.log("inside data", postID);
   try {
     const postCollection = await posts();
     const post = await postCollection.findOne({ _id: ObjectId(postID) });
+    console.log(post);
     if (!post) {
       throw `Post having ID ${postID} does not exist.`;
     }
@@ -131,6 +133,7 @@ async function deletePost(postID) {
 
 // edit a post
 async function editPost(postID, postTitle, postBody) {
+  // console.log(postID, postTitle);
   if (!postID || !ObjectId.isValid(postID)) {
     throw "Post ID is invalid.";
   }
@@ -147,10 +150,11 @@ async function editPost(postID, postTitle, postBody) {
     const oldPost = await postCollection.findOne({ _id: ObjectId(postID) });
     // console.log(oldPost);
     let editedTitle = postTitle ? postTitle : oldPost.title; //Set existing title if not provided
-    let editedBody = postBody ? postBody : oldPost.body; //Set existing body if not provided
+    let editedBody = postBody ? postBody : oldPost.body;
+    let date = new Date(); //Set existing body if not provided
     const editedPost = await postCollection.updateOne(
       { _id: ObjectId(postID) },
-      { $set: { title: editedTitle, body: editedBody } }
+      { $set: { title: editedTitle, body: editedBody, date: date } }
     );
     if (!editedPost || editedPost.modifiedCount === 0) {
       throw new Error("Failed to edit post.");
