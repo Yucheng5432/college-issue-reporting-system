@@ -36,6 +36,7 @@ router.post('/', async (req, res) => {
     if(mistakes.length>0){
         checkCorrectness = true;
     }
+
   try {     
       if(checkCorrectness){
           res.status(400).render('pages/signup',{ title: "signup page" , checkCorrectness: true,mistakes:mistakes})
@@ -47,6 +48,7 @@ router.post('/', async (req, res) => {
           } 
       }
   }
+  
   catch(e){
       res.status(500).json({ message: e });
       }

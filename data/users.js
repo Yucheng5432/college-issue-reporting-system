@@ -4,6 +4,8 @@ const bcrypt = require('bcrypt');
 const saltRounds = 15;
 
 let exportedMethods ={
+    // add more objects 
+    // verification -> email: @ , . , -> year
     async createUser(username, password){
         if(!username) throw "You must give a username!"
         if(!password) throw "You must give a password!"
@@ -32,7 +34,10 @@ let exportedMethods ={
             password: passwordCollection,
             firstName:firstName,
             lastName: lastName,
-            email:email
+            email:email,
+            major:major,
+            year:year,
+            bio:bio
         };
 
         const newUserInfo = await userCollection.insertOne(newUser);
