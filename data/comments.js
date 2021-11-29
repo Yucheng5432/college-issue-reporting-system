@@ -1,7 +1,7 @@
 const mongoCollections = require("../config/mongoCollections");
 const commentsCollection = mongoCollections.comments;
 const posts = mongoCollections.posts;
-const objectId = require("mongodb").ObjectID;
+let { ObjectId } = require("mongodb");
 
 // 1.Create a comment
 
@@ -9,7 +9,7 @@ async function createComment(userID, postID, userName, body) {
   if (arguments.length != 5) throw "Please provide all the parameters.";
   if (typeof userName != "string" || typeof body != "string")
     throw "Username or body is not string.";
-  if (!objectId.isValid(postID) || !objectId.isValid(userID))
+  if (!ObjectId.isValid(postID) || !ObjectId.isValid(userID))
     throw "Invalid postID or userID";
   if (typeof body != "string") {
     throw "body is not string";
@@ -18,7 +18,7 @@ async function createComment(userID, postID, userName, body) {
   const allPosts = await posts();
 
   let commentData = {
-    _id: new objectId(),
+    _id: new ObjectId(),
     userID: userID,
     postID: postID,
     userName: userName,
@@ -65,7 +65,7 @@ async function getAllPostComments(postId) {
 
 //4. get comment by id
 async function getComment(id) {
-  if (!id || !objectId.isValid(id)) throw "Invalid comment id.";
+  if (!id || !ObjectId.isValid(id)) throw "Invalid comment id.";
 
   const allPosts = await posts();
 
@@ -77,7 +77,7 @@ async function getComment(id) {
 
 // 5. delete a comment
 async function deleteComment(cid) {
-  if (!cid || !objectId.isValid(cid)) throw "Invalid comment id.";
+  if (!cid || !ObjectId.isValid(cid)) throw "Invalid comment id.";
   const allPosts = await posts();
 
   let post = await allPosts.findOne({ "comments._id": id });
@@ -97,7 +97,7 @@ async function deleteComment(cid) {
 
 // 6. mark comment answer as true
 async function markAsAnswer(cid) {
-  if (!cid || !objectId.isValid(cid)) throw "Invaldi comment id.";
+  if (!cid || !ObjectId.isValid(cid)) throw "Invaldi comment id.";
 
   const comments = await commentsCollection();
   comments = await this.getComment(cid);

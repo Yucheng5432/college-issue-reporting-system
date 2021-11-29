@@ -6,7 +6,7 @@ const userFunctions = data.users;
 // 1. Getting the signup page
 router.get("/signup", async (req, res) => {
   if (!req.session.user) {
-    res.render("signup");
+    res.render("createAccount");
   } else {
     res.redirect("/dashboard");
   }

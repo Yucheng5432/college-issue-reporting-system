@@ -1,15 +1,15 @@
 const mongoCollections = require("../config/mongoCollections");
 const posts = mongoCollections.posts;
-const { objectId } = require("mongodb");
+let { ObjectId } = require("mongodb");
 
 // get post by id
 async function getPost(postID) {
-  if (!postID || !objectId.isValid(postID)) {
+  if (!postID || !ObjectId.isValid(postID)) {
     throw "Post ID is invalid.";
   }
   try {
     const postCollection = await posts();
-    const post = await postCollection.findOne({ _id: objectId(postID) });
+    const post = await postCollection.findOne({ _id: ObjectId(postID) });
     if (!post) {
       throw `Post having ID ${postID} does not exist.`;
     }
@@ -57,7 +57,7 @@ async function getUserPosts(userName) {
 }
 
 // create a post
-async function addPost(userName, postTitle, postBody, postTags, postDate) {
+async function addPost(userName, postTitle, postBody, postTags) {
   if (arguments.length != 4) {
     throw "Incorrect number of arguments.";
   }
@@ -93,7 +93,7 @@ async function addPost(userName, postTitle, postBody, postTags, postDate) {
       tags: postTags,
       username: userName,
       resolved: false,
-      date: postDate,
+      date: new Date(),
       image: {},
       comments: [],
     };
@@ -113,13 +113,13 @@ async function addPost(userName, postTitle, postBody, postTags, postDate) {
 
 //delete a post
 async function deletePost(postID) {
-  if (!postID || !objectId.isValid(postID)) {
+  if (!postID || !ObjectId.isValid(postID)) {
     throw "Post ID is invalid.";
   }
   try {
     const postCollection = await posts();
     const postToDelete = await this.getPost(postID); //Get details of post to delete
-    const post = await postCollection.removeOne({ _id: objectId(postID) });
+    const post = await postCollection.removeOne({ _id: ObjectId(postID) });
     if (!post || post.deletedCount == 0) {
       throw `Post with ID ${postID} was not deleted.`;
     }
@@ -131,7 +131,7 @@ async function deletePost(postID) {
 
 // edit a post
 async function editPost(postID, postTitle, postBody) {
-  if (!postID || !objectId.isValid(postID)) {
+  if (!postID || !ObjectId.isValid(postID)) {
     throw "Post ID is invalid.";
   }
   if (postTitle && typeof postTitle != "string") {
@@ -144,12 +144,12 @@ async function editPost(postID, postTitle, postBody) {
   try {
     const postCollection = await posts();
 
-    const oldPost = await postCollection.findOne({ _id: objectId(postID) });
+    const oldPost = await postCollection.findOne({ _id: ObjectId(postID) });
     // console.log(oldPost);
     let editedTitle = postTitle ? postTitle : oldPost.title; //Set existing title if not provided
     let editedBody = postBody ? postBody : oldPost.body; //Set existing body if not provided
     const editedPost = await postCollection.updateOne(
-      { _id: objectId(postID) },
+      { _id: ObjectId(postID) },
       { $set: { title: editedTitle, body: editedBody } }
     );
     if (!editedPost || editedPost.modifiedCount === 0) {
@@ -167,22 +167,22 @@ async function editPost(postID, postTitle, postBody) {
 async function resolvePost(postID, commentID) {
   if (
     !postID ||
-    !objectId.isValid(postID) ||
+    !ObjectId.isValid(postID) ||
     !commentID ||
-    !objectId.isValid(commentID)
+    !ObjectId.isValid(commentID)
   ) {
     throw "Post ID is invalid.";
   }
   try {
     const postCollection = await posts();
     const postToResolve = await postCollection.findOne({
-      _id: objectId(postID),
+      _id: ObjectId(postID),
     });
     let resolveComments = postToResolve.comments.map((e) =>
-      e._id.equals(objectId(commentID)) ? ((e.answer = true), e) : e
+      e._id.equals(ObjectId(commentID)) ? ((e.answer = true), e) : e
     );
     const post = await postCollection.updateOne(
-      { _id: objectId(postID) },
+      { _id: ObjectId(postID) },
       { $set: { resolved: !postToResolve.resolved, comments: resolveComments } }
     );
     if (!post || post.modifiedCount === 0) {
@@ -195,12 +195,14 @@ async function resolvePost(postID, commentID) {
 
 // find post by search term
 async function findPostsbySearchterm(searchterm) {
+  console.log("searchTerm", searchterm);
   if (!searchterm) throw "No Search Term provided";
   const postCollection = await posts();
   var phrase = '"' + searchterm + '"';
   const searchedPosts = await postCollection
     .aggregate([{ $match: { $text: { $search: phrase } } }])
     .toArray();
+  console.log(searchedPosts);
   return searchedPosts;
 }
 

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const postFunctions = require("../data/posts");
 
-//1. Get all posts routes
+//1. Get all posts routes --done
 router.get("/", async (req, res) => {
   try {
     if (!req.body) {
@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// 2. Get posts by id
+// 2. Get posts by id --done
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
   try {
@@ -32,9 +32,11 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// 3. Get posts by username
+// 3. Get posts by username --done
 router.get("/userPosts/:username", async (req, res) => {
-  const { username } = req.params.username;
+  const username = req.params.username;
+  console.log(username);
+  // console.log(req.params.username);
   if (!username) {
     return res.status(500).json({ error: "No username parameter!" });
   }
@@ -49,6 +51,7 @@ router.get("/userPosts/:username", async (req, res) => {
 // 4. find post by search term
 router.post("/search/:searchterm", async (req, res) => {
   const searchTerm = req.params.searchterm;
+  console.log(searchTerm);
   if (!req.params.searchterm) {
     return res.status(500).json({ error: "No search term provided" });
   }
@@ -100,8 +103,7 @@ router.post("/", async (req, res) => {
       newPost.username,
       newPost.title,
       newPost.body,
-      newPost.tags,
-      new Date()
+      newPost.tags
     );
     return res.status(200).json(addPost);
   } catch (error) {
