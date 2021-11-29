@@ -2,23 +2,39 @@ const express = require("express");
 const router = express.Router();
 const userFunctions = require("../data/users");
 const mongoCollections = require("../config/mongoCollections");
-const userColl = mongoCollections.users
-const xss = require("xss");
-const validator = require("validator");
-const e = require("express");
-const bcrypt = require("bcryptjs");
 const { ObjectId } = require("bson");
 
 router.get("/signup", async (req, res) => {
+  if(req.session.user){
+    res.redirect('/dashboard')
+  }else{
   res.render('createAccount')
+  }
 });
 
 router.get("/", async (req, res) => {
+  if(req.session.user){
+    res.redirect('/dashboard')
+
+  }else{
   res.render('login')
+  }
 });
 
-router.get('/dashboard',async(req, res)=>{
-    res.render('dashBoard')
+router.get('/dashboard', function (request, res, next) {
+  if(!request.session.user){
+      res.render('login')
+  }else{
+      res.render('dashBoard', {title: "dashboard", user: request.session.user})
+  }
+});
+
+router.get('/edit', function(req, res, next){
+  if(!req.session.user){
+    res.redirect('/')
+  }else{
+    res.render('editProfile')
+  }
 })
 
 
@@ -165,6 +181,7 @@ router.post("/login", async (req, res) => {
     const isCredentialsValid = await userFunctions.checkUser(username,password)
 
     if(isCredentialsValid ){
+      req.session.user = {username: username} 
       res.redirect('/dashboard')
     }else{
         res.status(400).render('login',{error: 'Username or password is invalid'})
@@ -176,4 +193,11 @@ router.post("/login", async (req, res) => {
   }
    
 });
+
+router.get('/logout', async (req, res) => {
+  req.session.destroy();
+  res.render('logout',{title:"Logout"})
+  // res.send('Logged out');
+});
+
 module.exports =  router

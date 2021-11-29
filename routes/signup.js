@@ -21,7 +21,7 @@ router.post('/', async (req, res) => {
     if(!signname){
         mistakes.push("input for signup username is empty")
     }
-    if(signname.substring(0,2)=='  '){
+    if(signname.substring(0,2)==''){
         mistakes.push("space cannot be your username input")
     }
       

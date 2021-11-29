@@ -1,6 +1,4 @@
 const express = require("express");
-const cors = require("cors");
-
 const app = express();
 const configRoutes = require("./routes");
 const exphbs = require('express-handlebars');
@@ -8,6 +6,25 @@ const Handlebars = require('handlebars');
 const session = require('express-session')
 app.use(express.json());
 
+app.use(
+  session({
+    name: 'AuthCookie',
+    secret: "This is a secret.. shhh don't tell anyone",
+    saveUninitialized: true,
+    resave: false,
+    cookie: { maxAge: 600000 }
+  })
+);
+
+app.use('/dashboard',function (req, res, next) {
+  if(!req.session.user){
+    res.redirect('/')
+ 
+  }
+  else {
+      next()
+  }
+});
 
 
 const handlebarsInstance = exphbs.create({
@@ -41,10 +58,10 @@ app.use(rewriteUnsupportedBrowserMethods);
 
 app.engine('handlebars', handlebarsInstance.engine);
 app.set('view engine', 'handlebars');
-app.use(cors());
+// app.use(cors());
 
 configRoutes(app);
-let portNum = 5000;
+let portNum = 3000;
 app.listen(portNum, () => {
   console.log("We've now got a server!");
   console.log(`Your routes will be running on http://localhost:${portNum}`);
