@@ -5,21 +5,22 @@ let { ObjectId } = require("mongodb");
 
 // 1.Create a comment
 
-async function createComment(userID, postID, userName, body) {
-  if (arguments.length != 5) throw "Please provide all the parameters.";
-  if (typeof userName != "string" || typeof body != "string")
-    throw "Username or body is not string.";
-  if (!ObjectId.isValid(postID) || !ObjectId.isValid(userID))
-    throw "Invalid postID or userID";
+async function createComment(postID, userName, body) {
+  // console.log("Inside the create comment");
+  // console.log(userName, body, postID);
+  // if (arguments.length != 5) throw "Please provide all the parameters.";
+  if (typeof userName != "string") throw "Username  is not string.";
+  if (!ObjectId.isValid(postID)) throw "Invalid postID";
   if (typeof body != "string") {
     throw "body is not string";
   }
+
+  console.log("Inside the create");
 
   const allPosts = await posts();
 
   let commentData = {
     _id: new ObjectId(),
-    userID: userID,
     postID: postID,
     userName: userName,
     body: body,
@@ -43,22 +44,22 @@ async function createComment(userID, postID, userName, body) {
 
 // 2. Get all comments by post id.
 async function getAllPostComments(postId) {
+  console.log("inside comments", postId);
   if (!postId) {
     throw "Please provide the id.";
   }
 
-  if (!Object.isValid(postId)) {
+  if (!ObjectId.isValid(postId)) {
     throw "id is not valid object id";
   }
   const allPosts = await posts();
 
   const postFound = await allPosts.findOne({ _id: postId }).toArray();
+  console.log(postFound);
   if (postFound === null) {
     throw "No post found with the given id.";
   }
-  const commentData = postFound.comments.forEach((comments) => {
-    return comments;
-  });
+  const commentData = postFound.comments;
 
   return commentData;
 }

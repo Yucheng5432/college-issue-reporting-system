@@ -11,7 +11,7 @@ async function getPost(postID) {
   try {
     const postCollection = await posts();
     const post = await postCollection.findOne({ _id: ObjectId(postID) });
-    console.log(post);
+    // console.log(post);
     if (!post) {
       throw `Post having ID ${postID} does not exist.`;
     }

@@ -48,7 +48,7 @@ router.get("/userPosts/:username", async (req, res) => {
   }
 });
 
-// 4. find post by search term
+// 4. find post by search term --pending
 router.post("/search/:searchterm", async (req, res) => {
   const searchTerm = req.params.searchterm;
   console.log(searchTerm);

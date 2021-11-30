@@ -5,9 +5,9 @@ const commentsData = data.comments;
 const postsData = data.posts;
 let { ObjectId } = require("mongodb");
 
-// 1.GET comments/{commentId}   get all posts comments by given postID
+// 1.GET comments/{postId}   get all posts comments by given postID -- done
 router.get("/:id", async (req, res) => {
-  const { id } = ObjectId(req.params.id);
+  const id = ObjectId(req.params.id);
   try {
     const post = await postsData.getPost(id);
     if (!post) {
@@ -15,38 +15,46 @@ router.get("/:id", async (req, res) => {
       return;
     }
 
-    const comments = commentsData.getAllPostComments(id);
+    let comments = post.comments;
+    // console.log(id);
+    // console.log(post);
+
+    // const comments = await commentsData.getAllPostComments(id);
+    // console.log(comments);
+    // console.log(comments);
 
     res.status(200).json(comments);
   } catch (e) {
     res.status(404).json({ error: "No comments found" });
+    return;
   }
 });
 
 // 2. POST /comments/{postId}
-router.post("/", async (req, res) => {
+router.post("/:id", async (req, res) => {
   let commentData = req.body;
+  const postId = ObjectId(req.params.id);
+
+  // console.log(commentData);
+  // console.log(postId);
   try {
-    if (
-      !commentData ||
-      !commentData.userID ||
-      !commentData.postID ||
-      !commentData.username ||
-      !commentData.body
-    ) {
+    if (!commentData || !postId || !commentData.username || !commentData.body) {
       res.status(400).json({ error: "improper data in body" });
       return;
     }
 
-    let comment = commentsData.createComment(
-      commentData.userID,
-      commentData.postID,
+    // console.log("Entering the createcomment");
+
+    let comment = await commentsData.createComment(
+      postId,
       commentData.username,
-      commentData.body,
-      commentData.date
+      commentData.body
     );
 
-    res.json(comment);
+    console.log("Exiting the create");
+    console.log(comment);
+
+    res.status(200).json(comment);
   } catch (e) {
     res.status(500).json({ error: "comments not found" });
     return;
