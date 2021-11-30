@@ -71,21 +71,25 @@ async function getComment(id) {
   const allPosts = await posts();
 
   let getPostById = await allPosts.findOne({ "comments._id": id });
+  // console.log(getPostById);
   let comment = getPostById.comments.find((comment) => comment._id.equals(id));
+  // console.log(comment);
 
   return comment;
 }
 
-// 5. delete a comment
+// 5. delete a comment --done
 async function deleteComment(cid) {
+  console.log("Entering delete comment");
+  console.log(cid);
   if (!cid || !ObjectId.isValid(cid)) throw "Invalid comment id.";
   const allPosts = await posts();
 
-  let post = await allPosts.findOne({ "comments._id": id });
+  let post = await allPosts.findOne({ "comments._id": cid });
 
-  let removedComment = await post.updateOne(
+  let removedComment = await allPosts.updateOne(
     { _id: post._id },
-    { $pull: { comments: { _id: id } } }
+    { $pull: { comments: { _id: cid } } }
   );
 
   //   check if the comment was deleted.
@@ -98,23 +102,23 @@ async function deleteComment(cid) {
 
 // 6. mark comment answer as true
 async function markAsAnswer(cid) {
-  if (!cid || !ObjectId.isValid(cid)) throw "Invaldi comment id.";
+  if (!cid || !ObjectId.isValid(cid)) throw "Invalid comment id.";
 
-  const comments = await commentsCollection();
-  comments = await this.getComment(cid);
-  comments["answer"] = true;
+  const allPosts = await posts();
 
-  let updatedComment = await comments.updateOne(
-    { _id: comments._id },
-    { $set: comments }
+  let post = await allPosts.findOne({ "comments._id": cid });
+
+  // update the comment as resolved
+  let updatedComment = await allPosts.updateOne(
+    { _id: post._id, "comments._id": cid },
+    { $set: { "comments.$.answer": true } }
   );
 
-  //   check if the comment answer was updated
   if (updatedComment.modifiedCount === 0) {
     throw "Unable to update the comment answer.";
+  } else {
+    return { resolved: true };
   }
-
-  return await this.getComment(cid);
 }
 
 module.exports = {

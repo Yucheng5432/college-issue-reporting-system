@@ -30,7 +30,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// 2. POST /comments/{postId}
+// 2. POST /comments/{postId} --done
 router.post("/:id", async (req, res) => {
   let commentData = req.body;
   const postId = ObjectId(req.params.id);
@@ -61,10 +61,11 @@ router.post("/:id", async (req, res) => {
   }
 });
 
-// 3. Delete comment    /comments/{commentId)
+// 3. Delete comment    /comments/{commentId) --done
 
 router.delete("/:id", async (req, res) => {
-  const { id } = ObjectId(req.params.id);
+  const id = ObjectId(req.params.id);
+  console.log(id);
   try {
     await commentsData.getComment(id);
   } catch (e) {
@@ -87,12 +88,14 @@ router.delete("/:id", async (req, res) => {
 // 4. mark comment as resolved
 router.patch("/resolve/:id", async (req, res) => {
   try {
-    const { id } = req.params.id;
-    let status = commentsData.markAsAnswer(id);
+    const id = ObjectId(req.params.id);
+    let status = await commentsData.markAsAnswer(id);
+    // console.log(status);
 
-    res.status(200).json(status);
+    return res.status(200).json(status);
   } catch (e) {
-    res.status(404).json({ error: "comment not found" });
+    res.status(404).json({ error: e.message });
+    return;
   }
 });
 
