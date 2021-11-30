@@ -10,6 +10,10 @@ router.get("/", async (req, res) => {
     }
     const posts = await postFunctions.getAllPosts();
     return res.status(200).json(posts);
+    // res.render("dashboard", {
+    //   title: "Dashboard",
+    //   posts: posts,
+    // });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

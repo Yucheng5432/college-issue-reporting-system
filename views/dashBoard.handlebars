@@ -1,39 +1,13 @@
-<div>
-    <div id= "header"> <img src=""/> <!-- this img will be a stevens photo -->
-        <div id="nav">
-            <ul class= "menu">
-                <li class="pageItem">
-                    <a href="index">Home</a>>
-                </li>
-                <li>
-                    <a href="#">Dashboard</a>
-                </li>
-                <li>
-                    <a href="#">My Profile</a>
-                </li>
-                <li>
-                    <a href="login">Log Out</a>
-                </li>
-            </ul>
-        </div>
+<main>
+    <h1>All Posts</h1>
+    {{#if posts.length}}
+    {{#each posts}}
+    <div class="card">
+        <h4>{{title}}</h4>
+        <h5>{{username}}</h5>
+        <p>{{body}}</p>  
     </div>
-    <div id="mypost1">
-            <h1>myPost1</h1>
-            <br>
-            <textarea name="description" id="description" placeholder="commemt1"></textarea>
-            <textarea name="description" id="description" placeholder="commemt2"></textarea>
-    </div>
+    {{/each}}
+    {{/if}}
 
-    <div id="mypost2">
-            <h1>myPost2</h1>
-            <br>
-            <textarea name="description" id="description" placeholder="commemt1"></textarea>
-            <textarea name="description" id="description" placeholder="commemt2"></textarea>
-    </div>
-    
-    <div>
-        <footer>
-            <P>College Issue Reporting System™ || For all of News In our College || Stevens Institute of Technology || Hoboken, New Jersey</p>
-        </footer>
-    </div>
-</div> 
+</main>

@@ -2,17 +2,9 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data");
 const userFunctions = data.users;
+const dashboardData = data.dashboard;
 
-// 1. Getting the signup page
-router.get("/signup", async (req, res) => {
-  if (!req.session.user) {
-    res.render("createAccount");
-  } else {
-    res.redirect("/dashboard");
-  }
-});
-
-// 2. Getting the login page
+// 1. Getting the login page
 router.get("/", async (req, res) => {
   if (!req.session.user) {
     res.render("login");
@@ -25,13 +17,45 @@ router.get("/login", async (req, res) => {
   if (!req.session.user) {
     res.redirect("/");
   } else {
-    res.redirect("/private");
+    res.redirect("/dashboard");
   }
+});
+
+// 2. Getting the signup page
+router.get("/signup", async (req, res) => {
+  if (!req.session.user) {
+    res.render("createAccount");
+  } else {
+    res.redirect("/dashboard");
+  }
+});
+
+router.get("/dashboard", async (req, res) => {
+  const username = req.session.user;
+  console.log(username);
+  res.render("dashboard");
+  // console.log(req.session.user);
+  // res.render("private", {
+  //   title: username.toLowerCase(),
+  //   username: username.toLowerCase(),
+  // });
 });
 
 // 3.Getting the dashboard after login
 router.get("/dashboard", async (req, res) => {
-  res.render("dashBoard");
+  if (!req.session.user) {
+    res.redirect("/");
+  } else {
+    res.render("dashboard");
+    // try {
+    //   const allPostDashboard = await dashboardData.getAllPosts();
+    //   res.render("dashboard", {
+    //     title: "Dashboard",
+    //     posts: allPostDashboard,
+    //   });
+    // } catch (e) {}
+    // res.status(400).render("error", { error: e });
+  }
 });
 
 // 4. POST for SignUp

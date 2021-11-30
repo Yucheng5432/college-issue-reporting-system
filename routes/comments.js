@@ -85,7 +85,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-// 4. mark comment as resolved
+// 4. mark comment as resolved use commentId--done
 router.patch("/resolve/:id", async (req, res) => {
   try {
     const id = ObjectId(req.params.id);

@@ -100,7 +100,7 @@ async function deleteComment(cid) {
   return true;
 }
 
-// 6. mark comment answer as true
+// 6. mark comment answer as true --done
 async function markAsAnswer(cid) {
   if (!cid || !ObjectId.isValid(cid)) throw "Invalid comment id.";
 

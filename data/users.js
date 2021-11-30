@@ -2,6 +2,7 @@ const mongoCollections = require("../config/mongoCollections");
 const usersCollection = mongoCollections.users;
 const validator = require("validator");
 const bcrypt = require("bcrypt");
+
 const { ObjectID, ObjectId } = require("bson");
 
 //Create a new user

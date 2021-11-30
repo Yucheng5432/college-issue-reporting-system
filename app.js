@@ -33,14 +33,14 @@ app.use(async (req, res, next) => {
   next();
 });
 
-// app.use("/private", async (req, res, next) => {
-//   // console.log(req.session);
-//   if (!req.session.user) {
-//     return res.status(403).render("notLogin", { title: "Not Authorised" });
-//   } else {
-//     next();
-//   }
-// });
+app.use("/private", async (req, res, next) => {
+  console.log(req.session);
+  if (!req.session.user) {
+    return res.redirect("/");
+  } else {
+    next();
+  }
+});
 
 configRoutes(app);
 
