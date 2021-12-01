@@ -4,8 +4,10 @@ const posts = mongoCollections.posts;
 let { ObjectId } = require("mongodb");
 
 // 1.Create a comment
-
+//postID must be for a specific post 
+//Username will be user who is logged in 
 async function createComment(postID, userName, body) {
+  
   // console.log("Inside the create comment");
   // console.log(userName, body, postID);
   // if (arguments.length != 5) throw "Please provide all the parameters.";
