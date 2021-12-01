@@ -6,6 +6,7 @@ const postsData = data.posts;
 let { ObjectId } = require("mongodb");
 
 // 1.GET comments/{postId}   get all posts comments by given postID -- done
+// http://localhost:3000/comments/postid
 router.get("/:id", async (req, res) => {
   const id = ObjectId(req.params.id);
   try {
@@ -51,8 +52,8 @@ router.post("/:id", async (req, res) => {
       commentData.body
     );
 
-    console.log("Exiting the create");
-    console.log(comment);
+    // console.log("Exiting the create");
+    // console.log(comment);
 
     res.status(200).json(comment);
   } catch (e) {

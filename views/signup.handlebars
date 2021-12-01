@@ -1,0 +1,32 @@
+<div class ="signup_div">
+  <h1>SignUp Page</h1>
+  <form id="signup-form" action="/signup" method="POST">
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username" placeholder="Enter Username" class="signup_input" required />
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" placeholder="Enter Password" class="signup_input" required/>
+    <label class="firstname" for="firstnameText">firstname:</label>
+    <input type="text" id="firstname" placeholder="firstname" name="firstname" class="signup_input" required />
+    <label class="lastname" for="lastnameText">lastname:</label>
+    <input type="text" id="lastname" placeholder="lastname" name="lastname" class="signup_input" required />
+    <label class="email" for="emailText">email:</label>
+    <input type="text" id="email" placeholder="email" name="email" class="signup_input" required />
+    <label class="major" for="majorText">major:</label>
+                    <select name="major" id="major">
+                        <option value="computerScience">Computer Science</option>
+                        <option value="business">Business</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="System-and-Analytics">System and Analytics</option>
+                        <option value="MechanicalEngineering">Mechanical Engineering</option>
+                        <option value="Chemical Engineering">Chemical Engineering</option>
+                        <option value="Materials Science">Materials Science</option>
+                    </select>
+    <label class="year" for="yearText"year:>year:</label>
+    <input type="text" id="year" placeholder="year" name="year" class="signup_input" required />                
+    <button type="submit" class="signup_button">SignUp</button>
+    <a href="http://localhost:3000">Already have an account? Click here to log-in</a>
+    {{#if hasErrors}}
+    <p class="error">{{error}}</p>
+    {{/if}}
+  </form>
+</div> 

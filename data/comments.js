@@ -15,7 +15,7 @@ async function createComment(postID, userName, body) {
     throw "body is not string";
   }
 
-  console.log("Inside the create");
+  // console.log("Inside the create");
 
   const allPosts = await posts();
 

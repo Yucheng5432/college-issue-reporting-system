@@ -1,0 +1,42 @@
+.login_button,
+.signup_button {
+  background-color: black;
+  color: white;
+  padding: 10px 10px;
+  margin: 40px 0;
+  border: none;
+  cursor: pointer;
+  width: 20%;
+}
+
+.login_div,
+.signup_div {
+  margin: auto;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  width: 40%;
+}
+
+.login_input,
+.signup_input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.login_button:hover,
+.signup_button:hover {
+  opacity: 0.7;
+}
+
+.error {
+  color: red;
+}
+
+.logout {
+  color: black;
+}

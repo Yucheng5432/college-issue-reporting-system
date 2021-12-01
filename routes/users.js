@@ -4,10 +4,9 @@ const data = require("../data");
 const userFunctions = data.users;
 const dashboardData = data.dashboard;
 
-// 1. Getting the login page
 router.get("/", async (req, res) => {
   if (!req.session.user) {
-    res.render("login");
+    res.render("login", { title: "Login Page" });
   } else {
     res.redirect("/dashboard");
   }
@@ -21,40 +20,12 @@ router.get("/login", async (req, res) => {
   }
 });
 
-// 2. Getting the signup page
+// GET SignUP
 router.get("/signup", async (req, res) => {
   if (!req.session.user) {
-    res.render("createAccount");
+    res.render("signup", { title: "Signup Page" });
   } else {
     res.redirect("/dashboard");
-  }
-});
-
-router.get("/dashboard", async (req, res) => {
-  const username = req.session.user;
-  console.log(username);
-  res.render("dashboard");
-  // console.log(req.session.user);
-  // res.render("private", {
-  //   title: username.toLowerCase(),
-  //   username: username.toLowerCase(),
-  // });
-});
-
-// 3.Getting the dashboard after login
-router.get("/dashboard", async (req, res) => {
-  if (!req.session.user) {
-    res.redirect("/");
-  } else {
-    res.render("dashboard");
-    // try {
-    //   const allPostDashboard = await dashboardData.getAllPosts();
-    //   res.render("dashboard", {
-    //     title: "Dashboard",
-    //     posts: allPostDashboard,
-    //   });
-    // } catch (e) {}
-    // res.status(400).render("error", { error: e });
   }
 });
 
@@ -71,91 +42,83 @@ router.post("/signup", async (req, res) => {
     let bio = req.body["bio"];
     year = parseInt(year);
     if (!username) {
-      res
-        .status(404)
-        .render("createAccount", { error: "Must supply username!." });
+      res.status(404).render("signup", { error: "Must supply username!." });
       return;
     }
     if (/\s/.test(username)) {
-      res.status(400).render("createAccount", { error: `Username has spaces` });
+      res.status(400).render("signup", { error: `Username has spaces` });
       return;
     }
     if (!username.match(/^[a-z0-9]+$/i)) {
-      res.status(400).render("createAccount", {
+      res.status(400).render("signup", {
         error: `Only alphanumeric characters allowed!`,
       });
       return;
     }
     if (username.length < 4) {
-      res.status(400).render("createAccount", {
+      res.status(400).render("signup", {
         error: `Length of username must be atleast 4 characters long!`,
       });
       return;
     }
     if (!password) {
-      res
-        .status(404)
-        .render("createAccount", { error: "Must supply password!" });
+      res.status(404).render("signup", { error: "Must supply password!" });
       return;
     }
     if (/\s/.test(password)) {
-      res.status(400).render("createAccount", { error: `Username has spaces` });
+      res.status(400).render("signup", { error: `Username has spaces` });
       return;
     }
     if (password.length < 6) {
-      res.status(400).render("createAccount", {
+      res.status(400).render("signup", {
         error: `Password must be atleast 6 characters long!`,
       });
       return;
     }
     if (!firstName) {
-      res
-        .status(404)
-        .render("createAccount", { error: "Must supply firstname!." });
+      res.status(404).render("signup", { error: "Must supply firstname!." });
       return;
     }
     if (/\s/.test(firstName)) {
-      res.status(400).render("createAccount", { error: `Username has spaces` });
+      res.status(400).render("signup", { error: `Username has spaces` });
       return;
     }
     if (!lastName) {
-      res
-        .status(404)
-        .render("createAccount", { error: "Must supply lastname!" });
+      res.status(404).render("signup", { error: "Must supply lastname!" });
       return;
     }
     if (/\s/.test(lastName)) {
-      res.status(400).render("createAccount", { error: `Username has spaces` });
+      res.status(400).render("signup", { error: `Username has spaces` });
       return;
     }
     if (!email) {
-      res.status(404).render("createAccount", { error: "Must supply email!" });
+      res.status(404).render("signup", { error: "Must supply email!" });
       return;
     }
     if (/\s/.test(email)) {
-      res.status(400).render("createAccount", { error: `Username has spaces` });
+      res.status(400).render("signup", { error: `Username has spaces` });
       return;
     }
     if (!major) {
-      res.status(404).render("createAccount", { error: "Must supply major!" });
+      res.status(404).render("signup", { error: "Must supply major!" });
       return;
     }
     if (/\s/.test(major)) {
-      res.status(400).render("createAccount", { error: `Username has spaces` });
+      res.status(400).render("signup", { error: `Username has spaces` });
       return;
     }
     if (!year) {
-      res.status(404).render("createAccount", { error: "Must supply year!" });
+      res.status(404).render("signup", { error: "Must supply year!" });
       return;
     }
     if (/\s/.test(year)) {
-      res.status(400).render("createAccount", { error: `Username has spaces` });
+      res.status(400).render("signup", { error: `Username has spaces` });
       return;
     }
     if (typeof year != "number") {
       res
         .status(400)
-        .render("createAccount", { error: "Year must be of type number" });
+        .render("signup", { error: "Year must be of type number" });
       return;
     }
 
@@ -169,16 +132,16 @@ router.post("/signup", async (req, res) => {
       year
     );
 
-    if (isCredentialsValid) {
+    if (isCredentialsValid != null) {
       res.redirect("/");
     } else {
       res
         .status(400)
-        .render("createAccount", { error: "Username or password is invalid" });
+        .render("signup", { error: "Username or password is invalid" });
       return;
     }
   } catch (e) {
-    res.render("createAccount", { error: e });
+    res.render("signup", { error: e });
   }
 });
 
@@ -231,16 +194,47 @@ router.post("/login", async (req, res) => {
       password
     );
 
-    if (isCredentialsValid) {
+    if (isCredentialsValid != null) {
+      // console.log(req.session.user);
+      req.session.user = username;
+      // console.log(req.session.user);
       res.redirect("/dashboard");
-    } else {
-      res
-        .status(400)
-        .render("login", { error: "Username or password is invalid" });
-      return;
     }
   } catch (e) {
-    res.render("login", { error: e });
+    let hasErrors = true;
+    res.status(400).render("login", {
+      hasErrors: hasErrors,
+      error: e,
+    });
+    return;
+  }
+});
+
+// GET Login
+router.get("/dashboard", async (req, res) => {
+  const userName = req.session.user; //this username the one who is logged in.
+  console.log(req.session.user);
+  try {
+    const allPostDashboard = await dashboardData.getAllPosts();
+    res.render("dashboard", {
+      title: userName.toLowerCase(),
+      username: userName.toLowerCase(),
+      posts: allPostDashboard,
+    });
+  } catch (e) {
+    res.status(400).json({ error: "Post not found" });
+    return;
+  }
+});
+
+// Logout
+router.get("/logout", async (req, res) => {
+  if (req.session.user) {
+    req.session.destroy();
+    res.render("logout", { title: "Logged out" });
+  } else {
+    // console.log("logout");
+    res.redirect("/");
   }
 });
 

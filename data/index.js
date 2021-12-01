@@ -1,6 +1,6 @@
+const usersData = require("./users");
 const posts = require("../data/posts");
 const comments = require("../data/comments");
-const usersData = require("../data/users");
 const dashboard = require("../data/dashboard");
 
 module.exports = {

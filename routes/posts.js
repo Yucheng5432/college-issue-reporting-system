@@ -36,6 +36,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// http://localhost:3000/users/userPosts/:username
 // 3. Get posts by username --done
 router.get("/userPosts/:username", async (req, res) => {
   const username = req.params.username;

@@ -1,35 +1,17 @@
-<div class="login-div">
-        <div id= "header" class="header">
-            <h1 class="title">College Issue Reporting System</h1>
-        </div>
-        <div class="createAccount-nav">
+<div class="login_div">
+  <h1>Login Page</h1>
+  <form id="login-form" action="/login" class="login_form" method="POST">
+    <label for="username" class="login_label">Username</label>
+    <input type="text" name="username" id="username" placeholder="Enter Username" class="login_input" required/>
+    <div id="error_username" class="form-group hidden"></div>
+    <label for="password" class="login_label">Password</label>
+    <input type="password" name="password" id="password" placeholder="Enter Password" class="login_input" required/>
+    <div id="error_password" class="form-group hidden"></div>
+    <button type="submit" class="login_button">Login</button>
+    <a href="http://localhost:3000/signup">Need to register? Click here to sign-up</a>
 
-        </div>
-
-        <div class="loginForm-div">
-            <div class="loginForm">
-                <h2>Login</h2>
-                <form method="post" id="login" action = "/login">
-                    <label for="username">username:</label>
-                    <input type="text" id="usernameField" name="username" placeholder="username" >
-                    </br>
-                    <label for="password">password:</label>
-                    <input type="password" id="passwordField" name="password" placeholder="password" >
-                    <br><br>
-                    <button class="btn btn-primary" id="loginButton" type="submit">Log In</button>
-                    <p><a href="/signup">Create Account</a></p>
-                </form>
-                    {{#if error}}
-                    <div id="login-error" class="error">
-                    <h3>{{error}}</h3>
-                    </div>
-                    {{/if}}
-            </div>
-        </div>
-    </div>
-
-    <div>
-        <footer class="footer">
-            <P>College Issue Reporting System™ || For all of News In our College || Stevens Institute of Technology || Hoboken, New Jersey</p>
-        </footer>
+    {{#if hasErrors}}
+    <p class="error">{{error}}</p>
+    {{/if}}
+  </form>
 </div>

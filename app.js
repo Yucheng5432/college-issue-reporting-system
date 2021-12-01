@@ -4,12 +4,12 @@ const static = express.static(__dirname + "/public");
 const session = require("express-session");
 
 const configRoutes = require("./routes");
-const { engine } = require("express-handlebars");
+const exphbs = require("express-handlebars");
 app.use("/public", static);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.engine("handlebars", engine({ defaultLayout: "main" }));
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 app.use(
@@ -33,10 +33,10 @@ app.use(async (req, res, next) => {
   next();
 });
 
-app.use("/private", async (req, res, next) => {
-  console.log(req.session);
+app.use("/dashboard", async (req, res, next) => {
+  // console.log(req.session);
   if (!req.session.user) {
-    return res.redirect("/");
+    return res.status(403).render("notLogin", { title: "Not Authorised" });
   } else {
     next();
   }
