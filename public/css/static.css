@@ -46,7 +46,36 @@
   margin-top: 20px;
   margin-left: 20px;
   background-color: white;
+  box-shadow: 2px 2px 2px #8f8d8d;
 }
+
+.create-post-input {
+  width: 300px;
+  height: 20px;
+  padding: 3px 5px;
+  margin: 3px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+}
+
+.create-post-body {
+  width: 300px;
+  height: 50px;
+  padding: 5px 5px;
+  margin: 3px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+}
+
+.create-post-tag {
+  width: 300px;
+  height: 15px;
+  padding: 5px 5px;
+  margin: 3px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+}
+
 .private {
   float: left;
   margin-top: 20px;
