@@ -79,31 +79,37 @@
 // //     });
 // // })(jQuery);
 
-
-(function () {
+// const data = require()
+// (function () {
  
-    const myForm = document.getElementById("login-form");
-    let usernameInput = document.getElementById("username")
-    let passswordInput = document.getElementById("password")
-    let errorDiv = document.getElementById('error_username');
-
+//     const myForm = document.getElementById("login-form");
+//     let usernameInput = document.getElementById("username")
+//     let passswordInput = document.getElementById("password")
+//     let errorDiv = document.getElementById('error_username');
+//     let passErrorDiv = document.getElementById('error_password')
     
-    // let myUl = document.getElementById('attempts');
-    // let frmLabel = document.getElementById('formLabel');
+//     // let myUl = document.getElementById('attempts');
+//     // let frmLabel = document.getElementById('formLabel');
     
-    if (myForm) {
-      // alert("ddvfdvf")
-      myForm.addEventListener("submit", (event) => {
-        // event.preventDefault();
-        if(!usernameInput.value()){
-          errorDiv.hidden = false
-          errorDiv.innerText = 'You must enter username'
-            alert('You must ')
-            myForm.reset()
-            usernameInput.focus()
-        }else{
-          event.submit()
-        }
+//     if (myForm) {
+//       myForm.addEventListener("submit", (event) => {
+//         event.preventDefault();
+//         if(!usernameInput.value){
+//           usernameInput.value = ''
+//           errorDiv.hidden = false
+//           errorDiv.innerHTML = 'User must enter username'  
+//           myForm.reset()       
+//         }
+//          else{
+//           errorDiv.hidden = true
+//           usernameInput.value = usernameInput.value
+//           // usernameInput.className = 'inputClass'
+//         }
+//         if(!passswordInput.value){
+//           usernameInput.value = ''
+//           passErrorDiv.hidden = false
+//           passErrorDiv.innerHTML = 'User must enter password'
+//         }
 
           // if(textInput.value.toLowerCase().trim()){
           //   textInput.classList.remove('inputClass');
@@ -133,6 +139,6 @@
           //   textInput.className = 'inputClass';
           // }
 
-      });
-    }
-  })();
+  //     });
+  //   }
+  // })();

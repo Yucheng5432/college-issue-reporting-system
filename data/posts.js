@@ -36,7 +36,7 @@ async function getAllPosts() {
 async function getUserPosts(userName) {
   if (!userName) {
     //validates is userName is undefined or not
-    throw "Incorrect number of arguments.";
+    throw "Username is empty";
   }
   if (
     !userName ||
