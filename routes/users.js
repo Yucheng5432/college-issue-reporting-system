@@ -42,83 +42,83 @@ router.post("/signup", async (req, res) => {
     let bio = req.body["bio"];
     year = parseInt(year);
     if (!username) {
-      res.status(404).render("signup", { error: "Must supply username!." });
+      res.status(404).render("signup", { hasErrors: true, error: "Must supply username!." });
       return;
     }
     if (/\s/.test(username)) {
-      res.status(400).render("signup", { error: `Username has spaces` });
+      res.status(400).render("signup", {  hasErrors: true,error: `Username has spaces` });
       return;
     }
     if (!username.match(/^[a-z0-9]+$/i)) {
-      res.status(400).render("signup", {
+      res.status(400).render("signup", { hasErrors: true,
         error: `Only alphanumeric characters allowed!`,
       });
       return;
     }
     if (username.length < 4) {
-      res.status(400).render("signup", {
+      res.status(400).render("signup", { hasErrors: true,
         error: `Length of username must be atleast 4 characters long!`,
       });
       return;
     }
     if (!password) {
-      res.status(404).render("signup", { error: "Must supply password!" });
+      res.status(404).render("signup", {  hasErrors: true,error: "Must supply password!" });
       return;
     }
     if (/\s/.test(password)) {
-      res.status(400).render("signup", { error: `Username has spaces` });
+      res.status(400).render("signup", { hasErrors: true, error: `Username has spaces` });
       return;
     }
     if (password.length < 6) {
-      res.status(400).render("signup", {
+      res.status(400).render("signup", { hasErrors: true,
         error: `Password must be atleast 6 characters long!`,
       });
       return;
     }
     if (!firstName) {
-      res.status(404).render("signup", { error: "Must supply firstname!." });
+      res.status(404).render("signup", { hasErrors: true, error: "Must supply firstname!." });
       return;
     }
     if (/\s/.test(firstName)) {
-      res.status(400).render("signup", { error: `Username has spaces` });
+      res.status(400).render("signup", { hasErrors: true, error: `Username has spaces` });
       return;
     }
     if (!lastName) {
-      res.status(404).render("signup", { error: "Must supply lastname!" });
+      res.status(404).render("signup", { hasErrors: true, error: "Must supply lastname!" });
       return;
     }
     if (/\s/.test(lastName)) {
-      res.status(400).render("signup", { error: `Username has spaces` });
+      res.status(400).render("signup", { hasErrors: true, error: `Username has spaces` });
       return;
     }
     if (!email) {
-      res.status(404).render("signup", { error: "Must supply email!" });
+      res.status(404).render("signup", {  hasErrors: true,error: "Must supply email!" });
       return;
     }
     if (/\s/.test(email)) {
-      res.status(400).render("signup", { error: `Username has spaces` });
+      res.status(400).render("signup", {  hasErrors: true,error: `Username has spaces` });
       return;
     }
     if (!major) {
-      res.status(404).render("signup", { error: "Must supply major!" });
+      res.status(404).render("signup", {  hasErrors: true,error: "Must supply major!" });
       return;
     }
     if (/\s/.test(major)) {
-      res.status(400).render("signup", { error: `Username has spaces` });
+      res.status(400).render("signup", { hasErrors: true, error: `Username has spaces` });
       return;
     }
     if (!year) {
-      res.status(404).render("signup", { error: "Must supply year!" });
+      res.status(404).render("signup", { hasErrors: true, error: "Must supply year!" });
       return;
     }
     if (/\s/.test(year)) {
-      res.status(400).render("signup", { error: `Username has spaces` });
+      res.status(400).render("signup", {  hasErrors: true,error: `Username has spaces` });
       return;
     }
     if (typeof year != "number") {
       res
         .status(400)
-        .render("signup", { error: "Year must be of type number" });
+        .render("signup", { hasErrors: true, error: "Year must be of type number" });
       return;
     }
 
@@ -137,11 +137,11 @@ router.post("/signup", async (req, res) => {
     } else {
        res
         .status(400)
-        .render("signup", { error: "Username or password is invalid" });
+        .render("signup", {  hasErrors: true,error: "Username or password is invalid" });
       return;
     }
   } catch (e) {
-    res.render("signup", { error: e });
+    res.render("signup", { hasErrors: true, error: e });
   }
 });
 
@@ -156,35 +156,35 @@ router.post("/login", async (req, res) => {
     password = password.trim();
 
     if (!username) {
-      res.status(400).render("login", { error: "You must enter a username!" });
+      res.status(400).render("login", { hasErrors: true, error: "You must enter a username!" });
       return;
     }
     if (/\s/.test(username)) {
-      res.status(400).render("login", { error: `Username has spaces` });
+      res.status(400).render("login", { hasErrors: true, error: `Username has spaces` });
       return;
     }
     if (!username.match(/^[a-z0-9]+$/i)) {
       res
         .status(400)
-        .render("login", { error: `Only alphanumeric characters allowed!` });
+        .render("login", {  hasErrors: true,error: `Only alphanumeric characters allowed!` });
       return;
     }
     if (username.length < 4) {
-      res.status(400).render("login", {
+      res.status(400).render("login", { hasErrors: true,
         error: `Length of username must be atleast 4 characters long!`,
       });
       return;
     }
     if (!password) {
-      res.status(400).render("login", { error: `You must enter a password!` });
+      res.status(400).render("login", {  hasErrors: true,error: `You must enter a password!` });
       return;
     }
     if (/\s/.test(password)) {
-      res.status(400).render("login", { error: `Password has spaces` });
+      res.status(400).render("login", { hasErrors: true, error: `Password has spaces` });
       return;
     }
     if (password.length < 6) {
-      res.status(400).render("login", {
+      res.status(400).render("login", { hasErrors: true,
         error: `Password must be atleast 6 characters long!`,
       });
       return;
@@ -199,7 +199,7 @@ router.post("/login", async (req, res) => {
       req.session.user = username;
       res.redirect("/dashboard");
     }else{
-      res.render('login',{error: 'Either username or password is incorrect'})
+      res.render('login',{ hasErrors: true,error: 'Either username or password is incorrect'})
     }
   } catch (e) {
     let hasErrors = true;
