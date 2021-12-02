@@ -48,6 +48,9 @@ async function createUser(
     if (/\s/.test(username)) {
       throw `Username has spaces`;
     }
+    if (!username.match(/^[a-z0-9]+$/i)) {
+      throw `Only alphanumeric values allowed for username`
+    }
     if (typeof firstName != "string") {
       throw `First name must be a string`;
     }

@@ -135,7 +135,7 @@ router.post("/signup", async (req, res) => {
     if (isCredentialsValid != null) {
       res.redirect("/");
     } else {
-      res
+       res
         .status(400)
         .render("signup", { error: "Username or password is invalid" });
       return;
@@ -197,8 +197,9 @@ router.post("/login", async (req, res) => {
     if (isCredentialsValid != null) {
       // console.log(req.session.user);
       req.session.user = username;
-      // console.log(req.session.user);
       res.redirect("/dashboard");
+    }else{
+      res.render('login',{error: 'Either username or password is incorrect'})
     }
   } catch (e) {
     let hasErrors = true;
@@ -216,7 +217,7 @@ router.get("/dashboard", async (req, res) => {
   console.log(req.session.user);
   try {
     const allPostDashboard = await dashboardData.getAllPosts();
-    res.render("dashboard", {
+    res.render("dashBoard", {
       title: userName.toLowerCase(),
       username: userName.toLowerCase(),
       posts: allPostDashboard,
