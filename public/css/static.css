@@ -16,6 +16,7 @@
   background-color: #f2f2f2;
   padding: 20px;
   width: 40%;
+  margin-top: 50px;
 }
 
 .login_input,
@@ -39,4 +40,117 @@
 
 .logout {
   color: black;
+}
+.createPost{
+  float: left;
+  margin-top: 20px;
+  margin-left: 20px;
+  background-color: white;
+}
+.private{
+  float: left;
+  margin-top: 20px;
+  background-color: white;
+  margin-left: 20px;
+  width: 400px;
+  height: auto;
+}
+.card{
+  
+  height: auto;
+  width: 350px;
+  margin-top: 10px;
+  margin-left: 22px;
+}
+
+.innercard{
+  margin-left: 10px;
+}
+.commentsCard{
+  
+  width: 200px;
+  height: auto;
+  
+}
+
+.nav{
+  float: left;
+  background-color: white;
+  margin-left: 20px;
+  margin-top: 20px;
+  height: 150px;
+  width: 350px;
+}
+
+h2{
+  text-align: center;
+}
+
+.logout-link{
+  text-align: center;
+}
+.createpostForm{
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  
+}
+
+.header{
+  margin-left: 20px;
+  font-size: 28px;
+  font-style:italic;
+  color: white;
+  text-decoration:none;
+}
+
+ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgb(167, 1, 1);
+}
+
+.header{
+  float: left;
+  
+}
+.search{
+  float: right;
+
+}
+
+.logout-li{
+  float: right;
+  border-right: 1px solid rgb(255, 255, 255);
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 25px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: rgb(206, 0, 0);
+  }
+
+li form{
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 30px;
+      text-decoration: none;
+  }
+  
+  li form:hover {
+    background-color: rgb(206, 0, 0);
+    }
+
+.navList{
+  text-align: center;
+  margin-top: 30px;
 }

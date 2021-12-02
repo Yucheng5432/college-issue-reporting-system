@@ -216,7 +216,7 @@ router.get("/dashboard", async (req, res) => {
   console.log(req.session.user);
   try {
     const allPostDashboard = await dashboardData.getAllPosts();
-    res.render("dashboard", {
+    res.render("dashBoard", {
       title: userName.toLowerCase(),
       username: userName.toLowerCase(),
       posts: allPostDashboard,
