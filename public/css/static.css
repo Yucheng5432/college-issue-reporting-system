@@ -44,23 +44,23 @@
 .createPost{
   float: left;
   margin-top: 20px;
-  margin-left: 20px;
+  margin-left: 80px;
   background-color: white;
 }
 .private{
   float: left;
   margin-top: 20px;
-  background-color: white;
-  margin-left: 20px;
+  background-color: rgb(228, 228, 228);
+  margin-left: 80px;
   width: 400px;
   height: auto;
 }
 .card{
-  
+  background-color: white;
   height: auto;
-  width: 350px;
+  width: 450px;
   margin-top: 10px;
-  margin-left: 22px;
+  margin-left: 10px;
 }
 
 .innercard{
@@ -76,7 +76,7 @@
 .nav{
   float: left;
   background-color: white;
-  margin-left: 20px;
+  margin-left: 80px;
   margin-top: 20px;
   height: 150px;
   width: 350px;
@@ -154,3 +154,4 @@ li form{
   text-align: center;
   margin-top: 30px;
 }
+
