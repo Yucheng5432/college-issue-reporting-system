@@ -1,0 +1,47 @@
+<div>
+        <div class="myprofile">
+            <h2>My profile</h2>
+            <form id="editPost" method="post" name="postForm">
+                <label class="photo" for="photo">photo:</label><br>
+                <img src="" alt="{{user.username}}"/><br>
+                <label class="username" for="usernameText">username:</label>{{user.username}}<br>
+                <label class="firstname" for="firstnameText">firstname:</label>{{user.firstname}}<br>
+                <label class="lastname" for="lastnameText">lastname:</label>{{user.lastname}}<br>
+                <label class="email" for="emialText">email:</label>{{user.email}}<br>
+                <label class="major" for="majorText">major:</label>{{user.major}}<br>
+                <label class="year" for="yearText">year:</label>{{user.year}}<br>
+                <label class="Bio" for="BioText">Bio:</label>{{user.bio}}<br>
+                <button type="submit" id="editProfilebtn" name="editProfilebtn">Edit Myprofile</button>
+            </form>
+        </div>
+</div>
+
+<div class="private-div">
+            <div class="card" >
+                    <h1>My Posts</h1>
+                {{#if myposts.length}}
+                {{#each myposts}}
+                    <div class="innercard">
+                        <label class="title">{{this.title}}</label><br>
+                        <label class="username">{{this.username}}</label><br>
+                        <textarea name="mypostsbody" id="mypostsbody" rows="10" cols="45">{{this.body}}</textarea><br>
+                        <button type="submit" id="edit-mypost">Edit</button>
+                        <button type="submit" id="delete-mypost">Delete</button>
+                        <div class="commentsCard">
+                            <label>comments</label><br>
+                            {{#if comments.length}}
+                            {{#each comments}}
+                            <label class="username">{{username}}</label><br>
+                            <textarea name="mypostsComment" id="mypostsComment" rows="5" cols="45">{{body}}</textarea><br>
+                            {{/each}}
+                            {{/if}}
+                        </div>
+                    </div>
+                {{/each}}
+                {{/if}}
+            </div>
+    </div>
+
+    <div class="logout-link">
+        <a  href="/logout">Logout</a>
+    </div>

@@ -1,20 +1,76 @@
-<div class="private">
-  <h1>Welcome, {{username}}</h1> 
-   <h2>All Posts</h2>
-    {{#if posts.length}}
-    {{#each posts}}
-    <div class="card">
-        <h4>{{title}}</h4>
-        <h5>{{username}}</h5>
-        <p>{{body}}</p> 
-        {{#if comments.length}}
-        {{#each comments}}
-        <p>{{userName}}</p>
-        <p>{{body}}</p>
-        {{/each}}
-        {{/if}}
+<div class="dashboard">
+    <div class="header-nav">
+      <ul class= "menu">
+        <li>
+          <a href="/myprofile" class="header">Welcome, {{username}}</a>
+        </li>
+        <li class="search">
+            <form id="searchForm" class="searchForm" method="get">
+                <label for="search">Search Post:</label>
+                <input type="text" id= "search">
+                <button type="submit">search</button>
+            </form>
+        </li>
+
+        <li class="logout-li">
+            <a  href="/logout">Logout</a>
+        </li>
+      </ul>
     </div>
-    {{/each}}
+
+   <div class="nav">
+     <div class="navList">
+       <p></p>
+        <p>
+            <a href="/dashboard" style="color: black;text-decoration: none;font-size: 20px;">Dashboard</a>
+        </p>
+        <p>
+            <a href="/myprofile" style="color: black;text-decoration: none; font-size: 20px;">My Profile</a>
+        </p>
+      </div>
+  </div>
+
+ <div class="createPost">
+    <h2>Create a Post</h2>
+  <div class="createpostForm">  
+      <form id="createpostForm">
+        <input type="text" id="createpostTitle" name="createpostTitle" placeholder="Title" style="width: 400px; height: 30px;"><br>
+        <textarea type="text" id="createpostBody" name="createpostBody" placeholder="Description" style="width: 400px; height: 60px;"></textarea><br>
+        <textarea type="text" id="createpostTag" name="createpostTag" placeholder="Tag" style="width: 400px; height: 60px;"></textarea><br>
+        <button type="submit">Create</button>
+      </form>
+  </div>
+    {{#if error}}
+      <div id="createPost-error" class="error">
+          <h3>{{error_message}}</h3>
+      </div>
     {{/if}}
-  <a href="/logout">Logout</a>
+  </div>
+
+  <div class="private">
+   <h2>All Posts</h2>
+          {{#if posts.length}}
+          {{#each posts}}
+              <div class="card">
+                  <div class="innercard">
+                            <h4>{{title}}</h4>
+                            <h5>{{username}}</h5>
+                            <p>{{body}}</p> 
+                      <div class="commentsCard">
+                            <p>Comments</p>
+                        {{#if comments.length}}
+                        {{#each comments}}
+                            <p>{{userName}}</p>
+                            <textarea>{{body}}</textarea>
+                        {{/each}}
+                        {{/if}}
+                      </div>
+                  </div>
+              </div>
+          {{/each}}
+          {{/if}}
+
+  </div>
+
 </div>
+
