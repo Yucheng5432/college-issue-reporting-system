@@ -96,6 +96,7 @@
 .innercard {
   margin-left: 10px;
   margin-top: 20px;
+  margin-bottom: 20px;
   background-color: white;
 }
 
@@ -173,7 +174,7 @@
 }
 
 .commentsCard {
-  width: 200px;
+  width: 400px;
   height: auto;
 }
 
@@ -280,7 +281,8 @@ li form {
   font-style: normal;
   font-weight: bold;
 }
-.postsdate-div {
+.postsdate-div,
+.commentsDate {
   font-size: 13px;
   font-style: normal;
   background-color: rgb(255, 248, 248);

@@ -15,4 +15,5 @@ async function getAllPostsByUserName(username) {
 
   return data;
 }
+
 module.exports = { getAllPosts, getAllPostsByUserName };

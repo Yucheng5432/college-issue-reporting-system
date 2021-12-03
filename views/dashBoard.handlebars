@@ -53,13 +53,12 @@
           {{#each posts}}
               <div class="card">
                   <div class="innercard">
-                      <div class="poststitle-div">
-                            <label class="postsTitle">{{title}}</label>
-                      </div>
+                            <h4 class="postsTitle">{{title}}</h4>
                       <div class="postsdate-div">
                             <label class="postsdate">by {{username}} on {{date}}</label>
                       </div>
                             <p>{{body}}</p> 
+                            {{!-- <p>post id {{_id}}</p> --}}
                             <label>Tag:</label>
                             {{#if tags.length}}
                             {{#each tags}}
@@ -72,15 +71,22 @@
                             <br>
                         {{#if comments.length}}
                         {{#each comments}}
-                            <label>{{userName}}:</label>
-                            <textarea>{{body}}</textarea>
+                            <label class="commentsDate">by {{userName}} on {{date}}:</label>
+                            <p>{{body}}</p>
+                            {{!-- <p>{{_id}}</p> --}}
                             <a href="#" class="resolve">mark as resolve</a>
+                            <form  action="/comments/{{_id}}?_method=DELETE" method="POST">
+                              <button type="submit">delete</button>
+                            </form>
+                            
                         {{/each}}
                         {{/if}}
-                        <br>
-                        <label class="reply">Reply:</label>
-                        <textarea class="createComment"></textarea>
-                        <button type="submit">Submit</button>
+                        <br>  
+                        <form id="createComment" action="/comments/{{_id}}" method="POST">
+                          {{!-- <p>{{_id}}</p> --}}
+                          <textarea type="text" id="comment" name="comment" placeholder="reply here" class="createComment"></textarea><br>
+                          <button type="submit">comment</button>
+                        </form>
                       </div>
                   </div>
               </div>
