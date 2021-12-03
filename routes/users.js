@@ -4,6 +4,7 @@ const data = require("../data");
 const userFunctions = data.users;
 const dashboardData = data.dashboard;
 const postFunctions = require("../data/posts");
+const { use } = require("./posts");
 let myid = ''
 
 router.get("/", async (req, res) => {
@@ -219,7 +220,7 @@ router.post("/login", async (req, res) => {
       myid = isCredentialsValid._id.toString()
       res.redirect("/dashboard");
     }else{
-      res.render('login',{ hasErrors: true,error: 'Either username or password is incorrect'})
+      res.render('login',{ hasErrors: true,error: 'Either username or password is incorrect',username:username,password:password})
     }
   } catch (e) {
     let hasErrors = true;
@@ -274,54 +275,10 @@ router.get("/myprofile", async (req, res) => {
   }
 });
 
-//   try {
-//     if (userName != null) {
-//       const myPosts = await dashboardData.getAllPostsByUserName(userName);
-//       const user = await userFunctions.getUserbyUsername(userName)
-//       res.status(200).render("myprofile", {
-//         title: userName.toLowerCase(),
-//         username: userName.toLowerCase(),
-//         firstname: user.firstName,
-//         lastname: user.lastName,
-//         email: user.email,
-//         major: user.major,
-//         year: user.year,
-//         myPosts: myPosts,
-//       });
-//     }
-//   } catch (e) {
-//     res.status(400).json({ error: "Users Post not able to display." });
-//     return;
-//   }
-// });
-
-
 //------------------------------------------------------------------------------------------//
 //
 router.post("/myprofile", async (req, res) => {
-  
-// });
-
-  // const userName = req.session.user;
-  // try {
-    // if (userName != null) {
-      // const myPosts = await dashboardData.getAllPostsByUserName(userName);
-      // const user = await userFunctions.getUserbyUsername(userName)
-      res.redirect("editProfile") 
-        // title: user.userName,
-        // username: userName.toLowerCase(),
-        // firstname: user.firstName,
-        // lastname: user.lastName,
-        // email: user.email,
-        // major: user.major,
-        // year: user.year,
-        // myPosts: myPosts,
-  // );
-    // }
-  //  catch (e) {
-  //   res.status(400).json({ error: "Users Post not able to display." });
-  //   return;
-  // }
+      res.redirect("editProfile")    
 });
 // Logout
 router.get("/logout", async (req, res) => {
@@ -336,16 +293,18 @@ router.get("/logout", async (req, res) => {
 //------------------------------------------------------------------------------------------//
 
 router.get('/editProfile', async (req,res)=>{
+  let username = req.session.user
   if (!req.session.user) {
     res.render("login", { title: "Login Page" });
   } else {
-    res.status(200).render("editProfile");
+    res.status(200).render("editProfile" , {username:username});
   }
 })
 //------------------------------------------------------------------------------------------//
 router.post("/editProfile", async (req, res) => {
   try {
-    let username = req.body["username"].trim().toLowerCase();
+    // let username = req.body["username"].trim().toLowerCase();
+    let username = req.session.user
     let password = req.body["password"].trim();
     let firstName = req.body["firstname"].trim();
     let lastName = req.body["lastname"].trim();

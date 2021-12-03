@@ -200,28 +200,28 @@ async function getUserbyUsername(userName) {
 //-------------------------------------------------------------------------------//
 async function updateUser( userId,username, firstName, lastName, email, password, year) {
   userId = userId.trim()
-  username = username.trim()
+  // username = username.trim()
   firstName = firstName.trim()
   lastName = lastName.trim()
   email = email.trim()
   password = password.trim()
   
-  if( typeof username != 'string' || typeof firstName != 'string'
+  if( typeof firstName != 'string'
       || typeof lastName != 'string' || typeof email != 'string' || typeof password != 'string' || typeof year !='string'
      ) {
       throw 'All fields must be string'
   }
 
-  if( !userId ||userId == '' || !username || username == "" || !firstName || firstName == "" || !lastName || lastName == "" || !email || email =="" || !password || password == ''
+  if( !userId ||userId == '' ||  !firstName || firstName == "" || !lastName || lastName == "" || !email || email =="" || !password || password == ''
     || !year || year == "" ){
          throw "Please enter all the fields"
      }
-     if(typeof username != 'string'){
-      throw `User name must be a string`
-  }
-  if(/\s/.test(username)) {
-      throw `Username has spaces`
-  }
+  //    if(typeof username != 'string'){
+  //     throw `User name must be a string`
+  // }
+  // if(/\s/.test(username)) {
+  //     throw `Username has spaces`
+  // }
   if(/\s/.test(userId)) {
     throw `userID has spaces`
 }
@@ -265,7 +265,7 @@ async function updateUser( userId,username, firstName, lastName, email, password
   let users = await usersCollection();
   let userData = await users.findOne({_id: idd });
   if (!userData) {
-    throw (`Cannot find user with given id : ${username} into database`);
+    throw (`Cannot find user with username: ${username} into database`);
   }
 
   let userarr = await users.find({}).toArray()
@@ -302,7 +302,7 @@ if(userData){
 const plainTextPassword = password;
 const hash = await bcrypt.hash(plainTextPassword, saltRounds);
   const updatedUserData = {
-      userName: username,
+      // userName: username,
       firstName: firstName,
       lastName: lastName,
       email: email,
@@ -321,5 +321,4 @@ idd = userData._id
   // console.log(updatedData)
   return updatedData
 }
-
 module.exports = { createUser, checkUser,getUserbyUsername,updateUser};
