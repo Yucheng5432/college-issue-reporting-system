@@ -1,17 +1,36 @@
-<div class="editPost-div">
-            <div class="editPost-form">
-                <form id="editPost" method="post" name="postForm">
-                    <h2>Edit Post</h2>
-                    <label for="title" id="title">Title:</label>
-                    <input type="text" id="title" placeholder="Title" name="title">
-                    <br>
-                    <label for="description" id="description">Description:</label>
-                    <textarea name="description" id="description" placeholder="description"></textarea>
-                    <br>
-                    <label for="tag" id="tag">Tag:</label>
-                    <textarea name="tag" id="tag" placeholder="tag"></textarea>
-                    <br>
-                    <button type="submit" class="btrn" id="btn">Save</button>
-                </form>
-            </div>
-</div>
+
+<div class="header-nav">
+      <ul class= "menu">
+        <li>
+          <p class="header">College  Issue  Reporting  System</p>
+        </li>
+      </ul>
+    </div>
+    
+<div class ="signup_div">
+  <h1>Edit Profile</h1>
+  <form id="edit-form" action="/editProfile" method="POST" >
+    <label for="username">Title:</label>
+    <input type="text" name="username" id="username" placeholder="Input Title" class="signup_input"  />
+    <label for="password">Body:</label>
+    <input type="password" name="password" id="password" placeholder="Input body" class="signup_input" />
+    <label class="firstname" for="firstnameText">Tags:</label>
+    <input type="text" id="firstname" placeholder="firstname" name="firstname" class="signup_input"  />
+    {{!-- <label class="major" for="majorText">major:</label>
+                    <select name="major" id="major">
+                        <option value="computerScience">Computer Science</option>
+                        <option value="business">Business</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="System-and-Analytics">System and Analytics</option>
+                        <option value="MechanicalEngineering">Mechanical Engineering</option>
+                        <option value="Chemical Engineering">Chemical Engineering</option>
+                        <option value="Materials Science">Materials Science</option>
+                    </select> --}} 
+    <div class="alert alert-danger hidden" id="form-alert"></div>              
+    <button type="submit" class="signup_button" id='submitButton'>Edit</button>
+    <a href="http://localhost:3000/myprofile">Back to my profile</a>
+    {{#if hasErrors}}
+    <p class="error">{{error}}</p>
+    {{/if}}
+  </form>
+</div> 
