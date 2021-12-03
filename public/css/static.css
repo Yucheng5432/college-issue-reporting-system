@@ -8,8 +8,15 @@
   cursor: pointer;
   width: 20%;
 }
+.search-button {
+  color: rgb(10, 7, 7);
+  border: none;
+  cursor: pointer;
+  height: 23px;
+}
 
 .body {
+  /* background-color: #f5f4f4; */
   background-color: #f5f4f4;
 }
 
@@ -50,24 +57,13 @@
   color: white;
   background-color: rgb(165, 95, 95);
 }
-.poststitle-div {
-  background-color: rgb(192, 192, 192);
-  font-size: 15px;
-  font-style: normal;
-  font-weight: normal;
-}
-.postsdate-div {
-  font-size: 17px;
-  font-style: normal;
-  background-color: rgb(228, 228, 228);
-}
 
 .comments {
   font-size: 14px;
 }
 .reply {
   font-size: 14px;
-  /* border: 1px solid #ccc; */
+  border: 1px solid #ccc;
 }
 .createPost {
   float: right;
@@ -101,6 +97,13 @@
   margin: 3px 0;
   display: inline-block;
   border: 1px solid #ccc;
+}
+.search-input {
+  width: 250px;
+  height: 20px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  margin: 3px 0;
 }
 
 .create-post-body {
@@ -189,7 +192,7 @@ ul {
   margin: 0;
   padding: 1px 5px;
   overflow: hidden;
-  background-color: rgb(201, 126, 126);
+  background-color: rgb(136, 59, 59);
 }
 
 .header {
@@ -207,7 +210,7 @@ ul {
 
 li a {
   display: block;
-  color: rgb(29, 28, 28);
+  color: rgb(255, 255, 255);
   text-align: center;
   padding: 25px;
   text-decoration: none;
@@ -215,7 +218,7 @@ li a {
 
 li form {
   display: block;
-  color: rgb(15, 14, 14);
+  color: rgb(255, 254, 254);
   text-align: center;
   padding: 30px;
   text-decoration: none;
@@ -227,20 +230,20 @@ li form {
 }
 
 .taglable {
-  border: solid rgb(180, 0, 0);
-  color: white;
-  background-color: rgb(180, 0, 0);
+  /* border: solid rgb(180, 0, 0); */
+  color: rgb(245, 237, 237);
+  background-color: rgb(128, 42, 42);
 }
 .poststitle-div {
-  background-color: rgb(192, 192, 192);
+  background-color: rgb(248, 247, 247);
   font-size: 21px;
   font-style: normal;
   font-weight: bold;
 }
 .postsdate-div {
-  font-size: 17px;
+  font-size: 13px;
   font-style: normal;
-  background-color: rgb(228, 228, 228);
+  background-color: rgb(255, 248, 248);
 }
 
 .comments {
