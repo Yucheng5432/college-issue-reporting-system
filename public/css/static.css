@@ -42,7 +42,7 @@
   color: black;
 }
 .createPost {
-  float: left;
+  float: right;
   margin-top: 20px;
   margin-left: 80px;
   background-color: white;
@@ -96,7 +96,6 @@
   margin-left: 10px;
   margin-top: 20px;
   background-color: white;
-  
 }
 .commentsCard {
   width: 200px;
@@ -114,7 +113,7 @@
   margin-left: 80px;
   margin-top: 20px;
   height: 100px;
-  width: 350px;
+  width: 150px;
   box-shadow: 2px 2px 2px #8f8d8d;
 }
 
@@ -134,11 +133,11 @@ h2 {
 .header {
   margin-left: 20px;
   font-size: 28px;
-  font-style: italic;
+  font-style: georgia;
   color: white;
   text-decoration: none;
 }
-.resolve{
+.resolve {
   color: black;
   background-color: rgb(228, 228, 228);
   text-decoration: none;
@@ -192,33 +191,31 @@ li form:hover {
   margin-top: 30px;
 }
 
-.taglable{
+.taglable {
   border: solid rgb(180, 0, 0);
   color: white;
   background-color: rgb(180, 0, 0);
-
 }
-.poststitle-div{
+.poststitle-div {
   background-color: rgb(192, 192, 192);
   font-size: 21px;
-  font-style:normal;
+  font-style: normal;
   font-weight: bold;
-  
 }
-.postsdate-div{
+.postsdate-div {
   font-size: 17px;
   font-style: normal;
   background-color: rgb(228, 228, 228);
 }
 
-.comments{
+.comments {
   font-size: 14px;
 }
-.reply{
+.reply {
   font-size: 14px;
 }
 
-.myprofile-card{
+.myprofile-card {
   height: 350px;
   width: 350px;
   float: left;
@@ -228,16 +225,16 @@ li form:hover {
   box-shadow: 2px 2px 2px #8f8d8d;
 }
 
-.myprofile-innercard{
+.myprofile-innercard {
   font-size: 18px;
   margin-left: 90px;
   margin-top: 30px;
 }
-.myprofile-title{
+.myprofile-title {
   font-size: 22px;
   text-align: center;
 }
 
-.operatePost{
+.operatePost {
   margin-top: 20px;
 }
