@@ -213,7 +213,7 @@ router.post("/login", async (req, res) => {
 // GET Login
 router.get("/dashboard", async (req, res) => {
   const userName = req.session.user; //this username the one who is logged in.
-  console.log(req.session.user);
+  // console.log(req.session.user);
   try {
     const allPostDashboard = await dashboardData.getAllPosts();
     res.render("dashBoard", {
@@ -223,6 +223,26 @@ router.get("/dashboard", async (req, res) => {
     });
   } catch (e) {
     res.status(400).json({ error: "Post not found" });
+    return;
+  }
+});
+
+// get all posts by username
+router.get("/myprofile", async (req, res) => {
+  const userName = req.session.user;
+  // console.log("Inside profilePage", userName);
+
+  try {
+    if (userName != null) {
+      const myPosts = await dashboardData.getAllPostsByUserName(userName);
+      res.status(200).render("myprofile", {
+        title: userName.toLowerCase(),
+        username: userName.toLowerCase(),
+        myPosts: myPosts,
+      });
+    }
+  } catch (e) {
+    res.status(400).json({ error: "Users Post not able to display." });
     return;
   }
 });

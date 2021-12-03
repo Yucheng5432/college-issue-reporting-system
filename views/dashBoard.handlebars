@@ -37,7 +37,7 @@
         <input type="text" id="createpostTitle" name="createpostTitle" placeholder="Title" style="width: 400px; height: 30px;"><br>
         <textarea type="text" id="createpostBody" name="createpostBody" placeholder="Description" style="width: 400px; height: 60px;"></textarea><br>
         <textarea type="text" id="createpostTag" name="createpostTag" placeholder="Tag" style="width: 400px; height: 60px;"></textarea><br>
-        <button type="submit">Create</button>
+        <button type="submit">Post</button>
       </form>
   </div>
     {{#if error}}
@@ -54,23 +54,30 @@
           {{#each posts}}
               <div class="card">
                   <div class="innercard">
-                            <h4 class="postsTitle">{{title}}</h4>
-                            <h5>by {{username}} on {{date}}</h5>
+                      <div class="poststitle-date-div">
+                            <label class="postsTitle">{{title}}</label><br>
+                            <label class="postsdate">by {{username}} on {{date}}</label>
+                      </div>
                             <p>{{body}}</p> 
                             <label>Tag:</label>
                             {{#if tags.length}}
                             {{#each tags}}
-                            <button type="button">{{this}}</button>
+                            <label class="taglable">{{this}}</label>
                             {{/each}}
                             {{/if}}
                       <div class="commentsCard">
-                            <p>Comments</p>
+                            <br>
+                            <label class="comments">Comments</label>
+                            <br>
                         {{#if comments.length}}
                         {{#each comments}}
-                            <p>{{userName}}</p>
+                            <label>{{userName}}:</label>
                             <textarea>{{body}}</textarea>
                         {{/each}}
                         {{/if}}
+                        <label class="reply">Reply:</label>
+                        <textarea class="createComment"></textarea>
+                        <button type="submit">Submit</button>
                       </div>
                   </div>
               </div>

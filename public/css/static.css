@@ -41,13 +41,13 @@
 .logout {
   color: black;
 }
-.createPost{
+.createPost {
   float: left;
   margin-top: 20px;
   margin-left: 80px;
   background-color: white;
 }
-.private{
+.private {
   float: left;
   margin-top: 20px;
   background-color: rgb(228, 228, 228);
@@ -55,73 +55,74 @@
   width: 400px;
   height: auto;
 }
-.card{
-  background-color: white;
+.card {
   height: auto;
   width: 450px;
   margin-top: 10px;
   margin-left: 10px;
 }
 
-.innercard{
+.innercard {
   margin-left: 10px;
+  margin-top: 20px;
+  background-color: white;
 }
-.commentsCard{
-  
+.commentsCard {
   width: 200px;
   height: auto;
-  
 }
 
-.nav{
+.header-nav {
+  height: 100px;
+  /* width: 200px; */
+}
+
+.nav {
   float: left;
   background-color: white;
   margin-left: 80px;
   margin-top: 20px;
-  height: 150px;
+  height: 100px;
   width: 350px;
 }
 
-h2{
+h2 {
   text-align: center;
 }
 
-.logout-link{
+.logout-link {
   text-align: center;
 }
-.createpostForm{
+.createpostForm {
   margin-left: 20px;
   margin-right: 20px;
   margin-bottom: 20px;
-  
 }
 
-.header{
+.header {
   margin-left: 20px;
   font-size: 28px;
-  font-style:italic;
+  font-style: italic;
   color: white;
-  text-decoration:none;
+  text-decoration: none;
 }
 
-ul{
+ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: rgb(167, 1, 1);
+  background-color: rgb(43, 42, 42);
 }
 
-.header{
+.header {
   float: left;
-  
 }
-.search{
+.search {
   float: right;
-
 }
 
-.logout-li{
+.logout-li {
   float: right;
   border-right: 1px solid rgb(255, 255, 255);
 }
@@ -135,23 +136,48 @@ li a {
 }
 
 li a:hover {
-  background-color: rgb(206, 0, 0);
-  }
+  background-color: rgb(92, 91, 91);
+}
 
-li form{
-      display: block;
-      color: white;
-      text-align: center;
-      padding: 30px;
-      text-decoration: none;
-  }
-  
-  li form:hover {
-    background-color: rgb(206, 0, 0);
-    }
+li form {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 30px;
+  text-decoration: none;
+}
 
-.navList{
+li form:hover {
+  background-color: rgb(92, 91, 91);
+}
+
+.navList {
   text-align: center;
   margin-top: 30px;
 }
 
+.taglable{
+  border: solid rgb(180, 0, 0);
+  color: white;
+  background-color: rgb(180, 0, 0);
+
+}
+.postsTitle{
+  background-color: rgb(192, 192, 192);
+  font-size: 20px;
+  font-style:normal;
+  font-weight: bold;
+}
+.postsdate{
+  font-size: 16px;
+  font-style: normal;
+}
+.poststitle-date-div{
+  background-color: rgb(228, 228, 228);
+}
+.comments{
+  font-size: 14px;
+}
+.reply{
+  font-size: 14px;
+}
