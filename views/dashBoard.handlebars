@@ -53,13 +53,12 @@
           {{#each posts}}
               <div class="card">
                   <div class="innercard">
-                      <div class="poststitle-div">
-                            <label class="postsTitle">{{title}}</label>
-                      </div>
+                            <h4 class="postsTitle">{{title}}</h4>
                       <div class="postsdate-div">
                             <label class="postsdate">by {{username}} on {{date}}</label>
                       </div>
                             <p>{{body}}</p> 
+                            {{!-- <p>post id {{_id}}</p> --}}
                             <label>Tag:</label>
                             {{#if tags.length}}
                             {{#each tags}}
@@ -73,14 +72,16 @@
                         {{#if comments.length}}
                         {{#each comments}}
                             <label>{{userName}}:</label>
-                            <textarea>{{body}}</textarea>
-                            <a href="#" class="resolve">mark as resolve</a>
+                            <p>{{body}}</p>
+                            <a href="#" class="resolve">mark as resolve</a><br>
                         {{/each}}
                         {{/if}}
                         <br>
-                        <label class="reply">Reply:</label>
-                        <textarea class="createComment"></textarea>
-                        <button type="submit">Submit</button>
+                        <form id="createComment" action="/comments/{{_id}}" method="POST">
+                          {{!-- <p>{{_id}}</p> --}}
+                          <textarea type="text" id="comment" name="comment" placeholder="reply here" class="createComment"></textarea>
+                          <button type="submit">comment</button>
+                        </form>
                       </div>
                   </div>
               </div>
