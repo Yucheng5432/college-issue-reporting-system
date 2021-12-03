@@ -101,9 +101,10 @@
 .search-input {
   width: 250px;
   height: 20px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  margin: 3px 0;
+  /* display: inline-block; */
+  /* margin: 3px 0; */
+  border: none;
+  background-color: rgb(245, 205, 205);
 }
 
 .create-post-body {
