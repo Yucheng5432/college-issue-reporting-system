@@ -34,10 +34,10 @@
     <h2>Create a Post</h2>
   <div class="createpostForm">  
       <form id="createpostForm">
-        <input type="text" id="createpostTitle" name="createpostTitle" placeholder="Title" style="width: 400px; height: 30px;"><br>
-        <textarea type="text" id="createpostBody" name="createpostBody" placeholder="Description" style="width: 400px; height: 60px;"></textarea><br>
-        <textarea type="text" id="createpostTag" name="createpostTag" placeholder="Tag" style="width: 400px; height: 60px;"></textarea><br>
-        <button type="submit">Post</button>
+        <input type="text" id="createpostTitle" name="createpostTitle" placeholder="Title" class ="create-post-input"><br>
+        <textarea type="text" id="createpostBody" name="createpostBody" placeholder="Description" class="create-post-body"></textarea><br>
+        <textarea type="text" id="createpostTag" name="createpostTag" placeholder="Tags" class ="create-post-tag" ></textarea><br>
+        <button type="submit" class="post-button">post</button>
       </form>
   </div>
     {{#if error}}

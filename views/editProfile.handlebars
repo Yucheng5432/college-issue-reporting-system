@@ -1,29 +1,43 @@
-<div>
-            <div class="editProfile-div">
-                <div class="editProfile-form">
-                    <form id="editProfile" method="post" name="profileForm">
-                        <h2>Edit Profile</h2>
-                        <label for="email" id="email">email:</label>
-                        <input type="text" id="email" placeholder="email" name="email" >
-                        <br>
-                        <label for="major" id="department">department:</label>
-                        <select>
-                            <option value="computerScience">Computer Science</option>
-                            <option value="business">Business</option>
-                            <option value="Engineering">Engineering</option>
-                            <option value="System-and-Analytics">System and Analytics</option>
-                            <option value="MechanicalEngineering">Mechanical Engineering</option>
-                            <option value="Chemical Engineering">Chemical Engineering</option>
-                            <option value="Materials Science">Materials Science</option>
-                        </select>
-                        <br>
-                        <label for="year" id="year">year:</label>
-                        <input type="text" id="year" placeholder="year" name="year">
-                        <br>
-                        <label for="bio" id="bio">bio:</label>
-                        <textarea class="bio" name="bio" id="bio"></textarea>
-                        <button type="submit" class="saveProfilebtn" id="saveProfilebtn">Save</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+
+
+<div class="header-nav">
+      <ul class= "menu">
+        <li>
+          <p class="header">College  Issue  Reporting  System</p>
+        </li>
+      </ul>
+    </div>
+    
+<div class ="signup_div">
+  <h1>Edit Profile</h1>
+  <form id="edit-form" action="/editProfile" method="POST" >
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username" placeholder="Enter Username" class="signup_input"  />
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" placeholder="Enter Password" class="signup_input" />
+    <label class="firstname" for="firstnameText">firstname:</label>
+    <input type="text" id="firstname" placeholder="firstname" name="firstname" class="signup_input"  />
+    <label class="lastname" for="lastnameText">lastname:</label>
+    <input type="text" id="lastname" placeholder="lastname" name="lastname" class="signup_input"  />
+    <label class="email" for="emailText">email:</label>
+    <input type="text" id="email" placeholder="email" name="email" class="signup_input"  />
+    {{!-- <label class="major" for="majorText">major:</label>
+                    <select name="major" id="major">
+                        <option value="computerScience">Computer Science</option>
+                        <option value="business">Business</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="System-and-Analytics">System and Analytics</option>
+                        <option value="MechanicalEngineering">Mechanical Engineering</option>
+                        <option value="Chemical Engineering">Chemical Engineering</option>
+                        <option value="Materials Science">Materials Science</option>
+                    </select> --}}
+    <label class="year" for="yearText"year:>year:</label>
+    <input type="text" id="year" placeholder="year" name="year" class="signup_input"  />  
+    <div class="alert alert-danger hidden" id="form-alert"></div>              
+    <button type="submit" class="signup_button" id='submitButton'>Edit</button>
+    <a href="http://localhost:3000/myprofile">Back to my profile</a>
+    {{#if hasErrors}}
+    <p class="error">{{error}}</p>
+    {{/if}}
+  </form>
+</div> 
