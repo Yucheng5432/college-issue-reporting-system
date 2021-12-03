@@ -1,6 +1,80 @@
-<div>
-        <div class="myprofile">
-            <h2>My profile</h2>
+<div class="myprofile">
+
+
+    <div class="header-nav">
+      <ul class= "menu">
+        <li>
+          <a href="/myprofile" class="header">Welcome, {{username}}</a>
+        </li>
+        <li class="search">
+            <form id="searchForm" class="searchForm" method="get">
+                <label for="search">Search Post:</label>
+                <input type="text" id= "search">
+                <button type="submit">search</button>
+            </form>
+        </li>
+
+        <li class="logout-li">
+            <a  href="/logout">Logout</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="nav">
+     <div class="navList">
+       <p></p>
+        <p>
+            <a href="/dashboard" style="color: black;text-decoration: none;font-size: 20px;">Dashboard</a>
+        </p>
+        <p>
+            <a href="/myprofile" style="color: black;text-decoration: none; font-size: 20px;">My Profile</a>
+        </p>
+      </div>
+    </div>
+
+        <div class="private">
+            <h2>My Posts</h2>
+             {{#if myPosts.length}}
+          {{#each myPosts}}
+              <div class="card">
+                  <div class="innercard">
+                      <div class="poststitle-div">
+                            <label class="postsTitle">{{title}}</label>
+                      </div>
+                      <div class="postsdate-div">
+                            <label class="postsdate">by {{username}} on {{date}}</label>
+                      </div>
+                            <p>{{body}}</p> 
+                            <label>Tag:</label>
+                            {{#if tags.length}}
+                            {{#each tags}}
+                            <label class="taglable">{{this}}</label>
+                            {{/each}}
+                            {{/if}}
+                      <div class="commentsCard">
+                            <br>
+                            <label class="comments">Comments</label>
+                            <br>
+                        {{#if comments.length}}
+                        {{#each comments}}
+                            <label>{{userName}}:</label>
+                            <textarea>{{body}}</textarea>
+                        {{/each}}
+                        {{/if}}
+                        <label class="reply">Reply:</label>
+                        <textarea class="createComment"></textarea>
+                        <button type="submit">Submit</button>
+                      </div>
+                  </div>
+              </div>
+          {{/each}}
+          {{/if}}
+
+        </div>
+
+        <div class="myprofile-card">
+          <h4 class="myprofile-title">My profile</h4>
+          <div class="myprofile-innercard">
             <form id="editPost" method="post" name="postForm">
                 <label class="photo" for="photo">photo:</label><br>
                 <img src="" alt="{{user.username}}"/><br>
@@ -10,29 +84,10 @@
                 <label class="email" for="emialText">email:</label>{{email}}<br>
                 <label class="major" for="majorText">major:</label>{{major}}<br>
                 <label class="year" for="yearText">year:</label>{{year}}<br>
-                <label class="Bio" for="BioText">Bio:</label>{{bio}}<br>
-                <button type="submit" id="editProfilebtn" name="editProfilebtn">Edit Myprofile</button>
+                <label class="Bio" for="BioText">Bio:</label>{{bio}}
+                <br>
+                <button type="submit" id="editProfilebtn" name="editProfilebtn" class="editProfilebtn">Edit </button>
             </form>
+            </div>
         </div>
-</div>
-
-<div class="private">
-  <h1>Welcome, {{username}}</h1> 
-   <h2>All Posts</h2>
-    {{#if myPosts.length}}
-    {{#each myPosts}}
-    <div class="card">
-        <h4>{{title}}</h4>
-        <h5>{{username}}</h5>
-        <p>{{body}}</p> 
-        {{#if comments.length}}
-        {{#each comments}}
-        <p>{{userName}}</p>
-        <p>{{body}}</p>
-        {{/each}}
-        {{/if}}
-    </div>
-    {{/each}}
-    {{/if}}
-  <a href="/logout">Logout</a>
 </div>
