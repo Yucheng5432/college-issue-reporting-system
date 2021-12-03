@@ -49,21 +49,39 @@
 
   <div class="private">
    <h2>All Posts</h2>
+
           {{#if posts.length}}
           {{#each posts}}
               <div class="card">
                   <div class="innercard">
-                            <h4>{{title}}</h4>
-                            <h5>{{username}}</h5>
+                      <div class="poststitle-div">
+                            <label class="postsTitle">{{title}}</label>
+                      </div>
+                      <div class="postsdate-div">
+                            <label class="postsdate">by {{username}} on {{date}}</label>
+                      </div>
                             <p>{{body}}</p> 
+                            <label>Tag:</label>
+                            {{#if tags.length}}
+                            {{#each tags}}
+                            <label class="taglable">{{this}}</label>
+                            {{/each}}
+                            {{/if}}
                       <div class="commentsCard">
-                            <p>Comments</p>
+                            <br>
+                            <label class="comments">Comments</label>
+                            <br>
                         {{#if comments.length}}
                         {{#each comments}}
-                            <p>{{userName}}</p>
+                            <label>{{userName}}:</label>
                             <textarea>{{body}}</textarea>
+                            <a href="#" class="resolve">mark as resolve</a>
                         {{/each}}
                         {{/if}}
+                        <br>
+                        <label class="reply">Reply:</label>
+                        <textarea class="createComment"></textarea>
+                        <button type="submit">Submit</button>
                       </div>
                   </div>
               </div>

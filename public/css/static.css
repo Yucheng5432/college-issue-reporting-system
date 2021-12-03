@@ -44,7 +44,7 @@
 .createPost {
   float: left;
   margin-top: 20px;
-  margin-left: 20px;
+  margin-left: 80px;
   background-color: white;
   box-shadow: 2px 2px 2px #8f8d8d;
 }
@@ -79,20 +79,24 @@
 .private {
   float: left;
   margin-top: 20px;
-  background-color: white;
-  margin-left: 20px;
+  background-color: rgb(228, 228, 228);
+  margin-left: 80px;
   width: 400px;
   height: auto;
 }
 .card {
   height: auto;
-  width: 350px;
+  width: 450px;
   margin-top: 10px;
-  margin-left: 22px;
+  margin-left: 10px;
+  box-shadow: 2px 2px 2px #8f8d8d;
 }
 
 .innercard {
   margin-left: 10px;
+  margin-top: 20px;
+  background-color: white;
+  
 }
 .commentsCard {
   width: 200px;
@@ -107,10 +111,11 @@
 .nav {
   float: left;
   background-color: white;
-  margin-left: 20px;
+  margin-left: 80px;
   margin-top: 20px;
   height: 100px;
   width: 350px;
+  box-shadow: 2px 2px 2px #8f8d8d;
 }
 
 h2 {
@@ -133,7 +138,11 @@ h2 {
   color: white;
   text-decoration: none;
 }
-
+.resolve{
+  color: black;
+  background-color: rgb(228, 228, 228);
+  text-decoration: none;
+}
 ul {
   list-style-type: none;
   margin: 0;
@@ -181,4 +190,54 @@ li form:hover {
 .navList {
   text-align: center;
   margin-top: 30px;
+}
+
+.taglable{
+  border: solid rgb(180, 0, 0);
+  color: white;
+  background-color: rgb(180, 0, 0);
+
+}
+.poststitle-div{
+  background-color: rgb(192, 192, 192);
+  font-size: 21px;
+  font-style:normal;
+  font-weight: bold;
+  
+}
+.postsdate-div{
+  font-size: 17px;
+  font-style: normal;
+  background-color: rgb(228, 228, 228);
+}
+
+.comments{
+  font-size: 14px;
+}
+.reply{
+  font-size: 14px;
+}
+
+.myprofile-card{
+  height: 350px;
+  width: 350px;
+  float: left;
+  margin-top: 20px;
+  margin-left: 200px;
+  background-color: white;
+  box-shadow: 2px 2px 2px #8f8d8d;
+}
+
+.myprofile-innercard{
+  font-size: 18px;
+  margin-left: 90px;
+  margin-top: 30px;
+}
+.myprofile-title{
+  font-size: 22px;
+  text-align: center;
+}
+
+.operatePost{
+  margin-top: 20px;
 }

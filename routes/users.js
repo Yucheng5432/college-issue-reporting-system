@@ -266,6 +266,7 @@ router.get("/myprofile", async (req, res) => {
         email: user.email,
         major: user.major,
         year: user.year,
+        bio: user.bio,
         myPosts: myPosts,
       });
     }
