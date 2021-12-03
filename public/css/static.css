@@ -9,6 +9,10 @@
   width: 20%;
 }
 
+.body {
+  background-color: #f5f4f4;
+}
+
 .login_div,
 .signup_div {
   margin: auto;
@@ -41,18 +45,59 @@
 .logout {
   color: black;
 }
+.taglable {
+  border: solid rgb(139, 84, 84);
+  color: white;
+  background-color: rgb(165, 95, 95);
+}
+.poststitle-div {
+  background-color: rgb(192, 192, 192);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: normal;
+}
+.postsdate-div {
+  font-size: 17px;
+  font-style: normal;
+  background-color: rgb(228, 228, 228);
+}
+
+.comments {
+  font-size: 14px;
+}
+.reply {
+  font-size: 14px;
+  /* border: 1px solid #ccc; */
+}
 .createPost {
   float: right;
   margin-top: 20px;
   margin-left: 80px;
+  margin-right: 20px;
   background-color: white;
-  box-shadow: 2px 2px 2px #8f8d8d;
+  box-shadow: 2px 2px 2px #cfcbcb;
+}
+
+.card {
+  height: auto;
+  width: 450px;
+  margin-top: 20px;
+  /* margin-left: 50px; */
+  margin-right: 30px;
+  box-shadow: 2px 2px 2px #cfcbcb;
+  background-color: white;
+}
+
+.innercard {
+  margin-left: 10px;
+  margin-top: 20px;
+  background-color: white;
 }
 
 .create-post-input {
   width: 300px;
   height: 20px;
-  padding: 3px 5px;
+  padding: 3px 3px;
   margin: 3px 0;
   display: inline-block;
   border: 1px solid #ccc;
@@ -79,32 +124,29 @@
 .private {
   float: left;
   margin-top: 20px;
-  background-color: rgb(228, 228, 228);
+  /* background-color: #ffffff; */
   margin-left: 80px;
-  width: 400px;
+  width: 300px;
   height: auto;
-}
-.card {
-  height: auto;
-  width: 450px;
-  margin-top: 10px;
-  margin-left: 10px;
-  box-shadow: 2px 2px 2px #8f8d8d;
 }
 
-.innercard {
-  margin-left: 10px;
-  margin-top: 20px;
-  background-color: white;
+.allposts {
+  font-weight: normal;
 }
+
 .commentsCard {
   width: 200px;
   height: auto;
 }
 
 .header-nav {
-  height: 100px;
+  height: 75px;
+  color: black;
   /* width: 200px; */
+}
+
+.header {
+  color: black;
 }
 
 .nav {
@@ -114,7 +156,7 @@
   margin-top: 20px;
   height: 100px;
   width: 150px;
-  box-shadow: 2px 2px 2px #8f8d8d;
+  box-shadow: 2px 2px 2px #cfcbcb;
 }
 
 h2 {
@@ -145,16 +187,17 @@ h2 {
 ul {
   list-style-type: none;
   margin: 0;
-  padding: 0;
+  padding: 1px 5px;
   overflow: hidden;
-  background-color: rgb(43, 42, 42);
+  background-color: rgb(201, 126, 126);
 }
 
 .header {
   float: left;
 }
+
 .search {
-  float: right;
+  float: left;
 }
 
 .logout-li {
@@ -164,26 +207,18 @@ ul {
 
 li a {
   display: block;
-  color: white;
+  color: rgb(29, 28, 28);
   text-align: center;
   padding: 25px;
   text-decoration: none;
 }
 
-li a:hover {
-  background-color: rgb(92, 91, 91);
-}
-
 li form {
   display: block;
-  color: white;
+  color: rgb(15, 14, 14);
   text-align: center;
   padding: 30px;
   text-decoration: none;
-}
-
-li form:hover {
-  background-color: rgb(92, 91, 91);
 }
 
 .navList {
@@ -222,7 +257,7 @@ li form:hover {
   margin-top: 20px;
   margin-left: 200px;
   background-color: white;
-  box-shadow: 2px 2px 2px #8f8d8d;
+  box-shadow: 2px 2px 2px #cfcbcb;
 }
 
 .myprofile-innercard {

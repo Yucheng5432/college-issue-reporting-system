@@ -1,7 +1,7 @@
 <div class="dashboard">
     <div class="header-nav">
       <ul class= "menu">
-        <li>
+        <li class="header">
           <a href="/myprofile" class="header">Welcome {{username}}</a>
         </li>
         <li class="search">
@@ -11,7 +11,6 @@
                 <button type="submit">search</button>
             </form>
         </li>
-
         <li class="logout-li">
             <a  href="/logout">Logout</a>
         </li>
@@ -20,13 +19,13 @@
 
    <div class="nav">
      <div class="navList">
-       <p></p>
+       {{!-- <p></p> --}}
         <p>
             <a href="/dashBoard" style="color: black;text-decoration: none;font-size: 20px;">Dashboard</a>
         </p>
         <p>
             <a href="/myprofile" style="color: black;text-decoration: none; font-size: 20px;">My Profile</a>
-        </p>
+        {{!-- </p> --}}
       </div>
   </div>
 
@@ -48,7 +47,7 @@
   </div>
 
   <div class="private">
-   <h2>All Posts</h2>
+   {{!-- <h2 class="allposts">All Posts</h2> --}}
 
           {{#if posts.length}}
           {{#each posts}}
