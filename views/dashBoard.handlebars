@@ -71,15 +71,20 @@
                             <br>
                         {{#if comments.length}}
                         {{#each comments}}
-                            <label>{{userName}}:</label>
+                            <label class="commentsDate">by {{userName}} on {{date}}:</label>
                             <p>{{body}}</p>
-                            <a href="#" class="resolve">mark as resolve</a><br>
+                            {{!-- <p>{{_id}}</p> --}}
+                            <a href="#" class="resolve">mark as resolve</a>
+                            <form  action="/comments/{{_id}}?_method=DELETE" method="POST">
+                              <button type="submit">delete</button>
+                            </form>
+                            
                         {{/each}}
                         {{/if}}
-                        <br>
+                        <br>  
                         <form id="createComment" action="/comments/{{_id}}" method="POST">
                           {{!-- <p>{{_id}}</p> --}}
-                          <textarea type="text" id="comment" name="comment" placeholder="reply here" class="createComment"></textarea>
+                          <textarea type="text" id="comment" name="comment" placeholder="reply here" class="createComment"></textarea><br>
                           <button type="submit">comment</button>
                         </form>
                       </div>

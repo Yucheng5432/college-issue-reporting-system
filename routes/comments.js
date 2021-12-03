@@ -64,7 +64,7 @@ router.post("/:id", async (req, res) => {
       commentData
     );
 
-    if (comment === { commentCreated: true }) {
+    if (comment != null) {
       res.redirect("/");
     } else {
       res.status(400).json({ error: "Comment not created" });
@@ -81,6 +81,11 @@ router.post("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   const id = ObjectId(req.params.id);
   console.log(id);
+  if (!id) {
+    res.status(400).json({ error: "comment id is undefined" });
+    return;
+  }
+
   try {
     await commentsData.getComment(id);
   } catch (e) {
@@ -93,10 +98,13 @@ router.delete("/:id", async (req, res) => {
     if (!deleteComment) {
       res.status(404).json({ error: "Comment cannot be deleted." });
       return;
+    } else {
+      res.redirect("/");
     }
-    res.status(200).json(deleteComment);
+    // res.status(200).json(deleteComment);
   } catch (e) {
     res.status(500).json({ error: e.message });
+    return;
   }
 });
 
