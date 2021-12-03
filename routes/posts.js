@@ -70,6 +70,7 @@ router.post("/search/:searchterm", async (req, res) => {
 
 // 5. add post --done
 router.post("/", async (req, res) => {
+  const username = req.session.user;
   try {
     if (!req.body) {
       return res.status(500).json({ error: "No request body provided!" });
@@ -94,23 +95,28 @@ router.post("/", async (req, res) => {
       });
     }
     if (
-      !newPost.username ||
-      typeof newPost.username != "string" ||
-      newPost.username.trim("").length == 0
+      !username ||
+      typeof username != "string" ||
+      username.trim("").length == 0
     ) {
       return res.status(400).json({
         error: "Invalid username, cannot be empty, type should be string.",
       });
     }
 
+    let tags = newPost.tags.replace(/\s/g, "").split(",");
+
     // call the addPost functions from the data
     const addPost = await postFunctions.addPost(
-      newPost.username,
+      username,
       newPost.title,
       newPost.body,
-      newPost.tags
+      tags
     );
-    return res.status(200).json(addPost);
+
+    if (addPost != null) {
+      res.redirect("/");
+    }
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

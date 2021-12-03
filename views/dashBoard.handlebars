@@ -33,10 +33,10 @@
  <div class="createPost">
     <h2>Create a Post</h2>
   <div class="createpostForm">  
-      <form id="createpostForm">
-        <input type="text" id="createpostTitle" name="createpostTitle" placeholder="Title" class ="create-post-input"><br>
-        <textarea type="text" id="createpostBody" name="createpostBody" placeholder="Description" class="create-post-body"></textarea><br>
-        <textarea type="text" id="createpostTag" name="createpostTag" placeholder="Tags" class ="create-post-tag" ></textarea><br>
+      <form id="createpostForm" action="/posts" method="POST">
+        <input type="text" id="title" name="title" placeholder="Title" class ="create-post-input"><br>
+        <textarea type="text" id="body" name="body" placeholder="Description" class="create-post-body"></textarea><br>
+        <textarea type="text" id="tags" name="tags" placeholder="Tags" class ="create-post-tag" ></textarea><br>
         <button type="submit" class="post-button">post</button>
       </form>
   </div>
