@@ -1,36 +1,45 @@
+<div class="myprofile">
 
-<div class="header-nav">
+
+    <div class="header-nav">
       <ul class= "menu">
         <li>
-          <p class="header">College  Issue  Reporting  System</p>
+          <a href="/myprofile" class="header">Welcome, {{username}}</a>
+        </li>
+        <li class="search">
+            <form id="searchForm" class="searchForm" method="get">
+                <label for="search">Search Post:</label>
+                <input type="text" id= "search">
+                <button type="submit">search</button>
+            </form>
+        </li>
+
+        <li class="logout-li">
+            <a  href="/logout">Logout</a>
         </li>
       </ul>
     </div>
-    
-<div class ="signup_div">
-  <h1>Edit Profile</h1>
-  <form id="edit-form" action="/editProfile" method="POST" >
-    <label for="username">Title:</label>
-    <input type="text" name="username" id="username" placeholder="Input Title" class="signup_input"  />
-    <label for="password">Body:</label>
-    <input type="password" name="password" id="password" placeholder="Input body" class="signup_input" />
-    <label class="firstname" for="firstnameText">Tags:</label>
-    <input type="text" id="firstname" placeholder="firstname" name="firstname" class="signup_input"  />
-    {{!-- <label class="major" for="majorText">major:</label>
-                    <select name="major" id="major">
-                        <option value="computerScience">Computer Science</option>
-                        <option value="business">Business</option>
-                        <option value="Engineering">Engineering</option>
-                        <option value="System-and-Analytics">System and Analytics</option>
-                        <option value="MechanicalEngineering">Mechanical Engineering</option>
-                        <option value="Chemical Engineering">Chemical Engineering</option>
-                        <option value="Materials Science">Materials Science</option>
-                    </select> --}} 
-    <div class="alert alert-danger hidden" id="form-alert"></div>              
-    <button type="submit" class="signup_button" id='submitButton'>Edit</button>
-    <a href="http://localhost:3000/myprofile">Back to my profile</a>
-    {{#if hasErrors}}
-    <p class="error">{{error}}</p>
-    {{/if}}
-  </form>
-</div> 
+
+    <div class="nav">
+     <div class="navList">
+       <p></p>
+        <p>
+            <a href="/dashboard" style="color: black;text-decoration: none;font-size: 20px;">Dashboard</a>
+        </p>
+        <p>
+            <a href="/myprofile" style="color: black;text-decoration: none; font-size: 20px;">My Profile</a>
+        </p>
+      </div>
+    </div>
+
+         <div class="editPost">
+        <h2>Edit Your Post</h2>
+        <div class="editpostForm">  
+        <form id="editpostForm" action="/editpost" method="POST">
+        <input type="text" id="title" name="title" placeholder="Title" class ="edit-post-input"><br>
+        <textarea type="text" id="body" name="body" placeholder="Description" class="edit-post-body"></textarea><br>
+        <textarea type="text" id="tags" name="tags" placeholder="Tags" class ="edit-post-tag" ></textarea><br>
+        <button type="submit" class="Editpost-button">post</button>
+        </form>
+        
+        </div>

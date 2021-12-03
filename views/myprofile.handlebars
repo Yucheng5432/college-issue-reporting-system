@@ -53,7 +53,12 @@
                             {{/if}}
                             <br>
                             <div class="operatePost"> 
-                            <button type="submit" id="editPostbtn">Edit</button>
+                            <button type="submit" onclick="myFunction()" id="editPostbtn">Edit</button>
+                            <script>
+                            function myFunction() {
+                             window.location.href="http://localhost:3000/editpost";  
+                            }
+                            </script>
                             <button type="submit" id="deletePostbtn">Delete</button>
                             </div>
                       <div class="commentsCard">

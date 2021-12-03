@@ -74,6 +74,15 @@
   box-shadow: 2px 2px 2px #cfcbcb;
 }
 
+.editPost {
+  float: center;
+  margin-top: 20px;
+  margin-left: 35%;
+  margin-right: 35%;
+  background-color: white;
+  box-shadow: 2px 2px 2px #cfcbcb;
+}
+
 .card {
   height: auto;
   width: 450px;
@@ -98,6 +107,14 @@
   display: inline-block;
   border: 1px solid #ccc;
 }
+.edit-post-input {
+  width: 300px;
+  height: 20px;
+  padding: 3px 3px;
+  margin: 3px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+}
 .search-input {
   width: 250px;
   height: 20px;
@@ -115,8 +132,25 @@
   display: inline-block;
   border: 1px solid #ccc;
 }
+.edit-post-body {
+  width: 300px;
+  height: 50px;
+  padding: 5px 5px;
+  margin: 3px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+}
 
 .create-post-tag {
+  width: 300px;
+  height: 15px;
+  padding: 5px 5px;
+  margin: 3px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+}
+
+.edit-post-tag {
   width: 300px;
   height: 15px;
   padding: 5px 5px;
@@ -171,6 +205,11 @@ h2 {
   text-align: center;
 }
 .createpostForm {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+.editpostForm {
   margin-left: 20px;
   margin-right: 20px;
   margin-bottom: 20px;

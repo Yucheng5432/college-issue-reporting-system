@@ -82,6 +82,18 @@
           valid = true
           passErrorDiv.hidden = true
         }
+
+        // if(!passswordInput.value.length < 6){
+        //   event.preventDefault();
+        //   valid = false
+        //   passswordInput.value = ''
+        //   passErrorDiv.hidden = false
+        //   passErrorDiv.innerHTML = 'Password length is lesser than 6'
+        //   return
+        // }else{
+        //   valid = true
+        //   passErrorDiv.hidden = true
+        // }
       });
     }
   })();

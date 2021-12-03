@@ -424,4 +424,28 @@ router.post("/editProfile", async (req, res) => {
 });
 
 
+//------------------------------------------------------------------------------------------//
+
+router.get('/editpost', async (req,res)=>{
+  let username = req.session.user
+  if (req.session.user) {
+    res.render("editPost", { title: "Edit Post" });
+  } else {
+    res.status(200).render("login" , {username:username});
+  }
+})
+//------------------------------------------------------------------------------------------//
+router.post('/editpost', async (req,res)=>{
+try{
+  let username = req.session.user
+  let password = req.body["title"].trim();
+  let firstName = req.body["body"].trim();
+  let lastName = req.body["tags"].trim();
+
+  res.redirect('/myprofile')
+}catch(e){
+  res.render('editPost')
+}
+})
+
 module.exports = router;
