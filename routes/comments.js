@@ -80,7 +80,7 @@ router.post("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   const id = ObjectId(req.params.id);
-  console.log(id);
+  console.log("Inside delete", id);
   if (!id) {
     res.status(400).json({ error: "comment id is undefined" });
     return;
@@ -110,7 +110,7 @@ router.delete("/:id", async (req, res) => {
 
 // 4. mark comment as resolved use commentId--done
 router.patch("/resolve/:id", async (req, res) => {
-  console.log("Inside resolve", req.params.id);
+  // console.log("Inside resolve", req.params.id);
   try {
     const id = ObjectId(req.params.id);
     let status = await commentsData.markAsAnswer(id);

@@ -212,7 +212,7 @@ router.patch("/resolve/:id/:cid", async (req, res) => {
 // 9. deleting a post --done
 router.delete("/delete/:id", async (req, res) => {
   const id = req.params.id;
-  // console.log(id);
+  console.log(id);
 
   try {
     let postFound = await postFunctions.getPost(id);
@@ -224,13 +224,15 @@ router.delete("/delete/:id", async (req, res) => {
 
   try {
     const deletePost = await postFunctions.deletePost(id);
-    res.status(200).json(deletePost);
+    if (deletePost != null) {
+      res.redirect("/myprofile");
+    }
+
+    // res.status(200).json(deletePost);
   } catch (e) {
     res.status(400).json({ error: e.message });
     return;
   }
 });
-
-
 
 module.exports = router;

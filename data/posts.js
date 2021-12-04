@@ -125,7 +125,7 @@ async function deletePost(postID) {
     if (!post || post.deletedCount == 0) {
       throw `Post with ID ${postID} was not deleted.`;
     }
-    return postToDelete;
+    return { deleted: true };
   } catch (error) {
     throw error.message;
   }
