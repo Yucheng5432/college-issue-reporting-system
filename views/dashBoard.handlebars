@@ -72,9 +72,14 @@
                         {{#if comments.length}}
                         {{#each comments}}
                             <label class="commentsDate">by {{userName}} on {{date}}:</label>
-                            <p>{{body}}</p>
-                            {{!-- <p>{{_id}}</p> --}}
-                            <a href="#" class="resolve">mark as resolve</a>
+                            <p>{{answer}}</p>
+                            {{#if answer}}
+                              <p class="commentresolve">{{body}}</p>
+                              {{else}}
+                              <p >{{body}}</p>
+                            {{/if}}
+                            
+                          
                             <form  action="/comments/{{_id}}?_method=DELETE" method="POST">
                               <button type="submit">delete</button>
                             </form>

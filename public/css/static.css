@@ -61,6 +61,10 @@
 .comments {
   font-size: 14px;
 }
+
+.commentresolve {
+  color: green;
+}
 .reply {
   font-size: 14px;
   border: 1px solid #ccc;

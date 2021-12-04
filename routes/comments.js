@@ -110,12 +110,15 @@ router.delete("/:id", async (req, res) => {
 
 // 4. mark comment as resolved use commentId--done
 router.patch("/resolve/:id", async (req, res) => {
+  console.log("Inside resolve", req.params.id);
   try {
     const id = ObjectId(req.params.id);
     let status = await commentsData.markAsAnswer(id);
-    // console.log(status);
+    console.log(status);
 
-    return res.status(200).json(status);
+    if (status != null) {
+      res.redirect("/myprofile");
+    }
   } catch (e) {
     res.status(404).json({ error: e.message });
     return;

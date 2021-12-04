@@ -56,6 +56,7 @@
                             <div class="operatePost"> 
                             <form method="get" action="http://localhost:3000/editPost">
                             <button type="submit" name="editPostbtn" id="editPostbtn" value={{this._id}}>Edit</button>
+
                             </form>
                             <button type="submit" id="deletePostbtn">Delete</button>
                             </div>
@@ -65,10 +66,19 @@
                             <br>
                         {{#if comments.length}}
                         {{#each comments}}
-                            <label>{{userName}}:</label>
-                            <textarea>{{body}}</textarea>
+                            <label>{{userName}}</label>
+                            {{#if answer}}
+                              <p class="commentresolve">{{body}}</p>
+                              {{else}}
+                              <p >{{body}}</p>
+                            {{/if}}
+
+                            <form  action="/comments/resolve/{{_id}}?_method=PATCH" method="POST">
+                              <button type="submit">mark as resolve</button>
+                            </form>
                         {{/each}}
                         {{/if}}
+                        
                         <label class="reply">Reply:</label>
                         <textarea class="createComment"></textarea>
                         <button type="submit">Submit</button>
