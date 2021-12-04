@@ -13,6 +13,7 @@
   border: none;
   cursor: pointer;
   height: 23px;
+  border-radius: 10px;
 }
 
 .body {
@@ -48,14 +49,20 @@
 .error {
   color: red;
 }
-
+.tags {
+  position: relative;
+  top: -5px;
+}
 .logout {
   color: black;
 }
 .taglable {
+  font-size: small;
   border: solid rgb(139, 84, 84);
   color: white;
   background-color: rgb(165, 95, 95);
+  position: relative;
+  top: -5px;
 }
 
 .comments {
@@ -76,6 +83,10 @@
   margin-right: 20px;
   background-color: white;
   box-shadow: 2px 2px 2px #cfcbcb;
+}
+.post-title {
+  font-size: 40px;
+  font-weight: normal;
 }
 
 .editPost {
@@ -123,8 +134,7 @@
 .search-input {
   width: 250px;
   height: 20px;
-  /* display: inline-block; */
-  /* margin: 3px 0; */
+  border-radius: 10px;
   border: none;
   background-color: rgb(245, 205, 205);
 }
@@ -145,6 +155,9 @@
   display: inline-block;
   border: 1px solid #ccc;
 }
+.createComment {
+  border-radius: 10px;
+}
 
 .create-post-tag {
   width: 300px;
@@ -163,11 +176,12 @@
   display: inline-block;
   border: 1px solid #ccc;
 }
-
+.commentbtn {
+  margin-bottom: 10px;
+}
 .private {
   float: left;
   margin-top: 20px;
-  /* background-color: #ffffff; */
   margin-left: 80px;
   width: 300px;
   height: auto;
@@ -180,6 +194,9 @@
 .commentsCard {
   width: 400px;
   height: auto;
+  background-color: rgb(243, 243, 243);
+  position: relative;
+  top: -3px;
 }
 
 .header-nav {
@@ -275,7 +292,6 @@ li form {
 }
 
 .taglable {
-  /* border: solid rgb(180, 0, 0); */
   color: rgb(245, 237, 237);
   background-color: rgb(128, 42, 42);
 }
@@ -285,7 +301,19 @@ li form {
   font-style: normal;
   font-weight: bold;
 }
-.postsdate-div,
+
+.post-body {
+  background-color: rgb(253, 253, 253);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.postsdate-div {
+  position: relative;
+  top: -30px;
+  font-size: 13px;
+  font-style: normal;
+  background-color: rgb(255, 248, 248);
+}
 .commentsDate {
   font-size: 13px;
   font-style: normal;

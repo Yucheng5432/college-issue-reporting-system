@@ -47,39 +47,31 @@
   </div>
 
   <div class="private">
-   {{!-- <h2 class="allposts">All Posts</h2> --}}
-
           {{#if posts.length}}
           {{#each posts}}
               <div class="card">
                   <div class="innercard">
-                            <h4 class="postsTitle">{{title}}</h4>
-                      <div class="postsdate-div">
-                            <label class="postsdate">by {{username}} on {{date}}</label>
-                      </div>
-                            <p>{{body}}</p> 
-                            {{!-- <p id='postId'>post id {{this._id}}</p> --}}
-                            <label>Tag:</label>
+                      <h4 class="poststitle-div">{{title}}</h4>
+                      <p class="postsdate-div">by {{username}} on {{date}}</p>
+                            <p class="post-body">{{body}}</p> 
+                            <label class="tags">tags:</label>
                             {{#if tags.length}}
                             {{#each tags}}
                             <label class="taglable">{{this}}</label>
                             {{/each}}
                             {{/if}}
+                            
                       <div class="commentsCard">
-                            <br>
-                            <label class="comments">comments:</label>
-                            <br>
+                      <label class="comments">comments:</label>
+                      <br>
                         {{#if comments.length}}
                         {{#each comments}}
                             <label class="commentsDate">by {{userName}} on {{date}}:</label>
-                            <p>{{answer}}</p>
                             {{#if answer}}
                               <p class="commentresolve">{{body}}</p>
                               {{else}}
                               <p >{{body}}</p>
                             {{/if}}
-                            
-                          
                             <form  action="/comments/{{_id}}?_method=DELETE" method="POST">
                               <button type="submit">delete</button>
                             </form>
@@ -90,7 +82,7 @@
                         <form id="createComment" action="/comments/{{_id}}" method="POST">
                           {{!-- <p>{{_id}}</p> --}}
                           <textarea type="text" id="comment" name="comment" placeholder="reply here" class="createComment"></textarea><br>
-                          <button type="submit">comment</button>
+                          <button type="submit" class="commentbtn">comment</button>
                         </form>
                       </div>
                   </div>
