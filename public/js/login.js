@@ -6,7 +6,8 @@
     let passswordInput = document.getElementById("password")
     let errorDiv = document.getElementById('error_username');
     let passErrorDiv = document.getElementById('error_password')
-    
+     let some = document.getElementById('editPostbtn')
+     console.log(some)
     // let myUl = document.getElementById('attempts');
     // let frmLabel = document.getElementById('formLabel');
     

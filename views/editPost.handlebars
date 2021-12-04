@@ -35,8 +35,15 @@
          <div class="editPost">
         <h2>Edit Your Post</h2>
         <div class="editpostForm">  
-        <form id="editpostForm" action="/editpost" method="POST">
-        <input type="text" id="title" name="title" placeholder="Title" class ="edit-post-input"><br>
+          {{!-- {{#if myPosts.length}}
+          {{#each myPosts}} --}}
+          {{!-- <label class="taglable">{{this._id}}</label> --}}
+          {{!-- {{/each}}
+          {{/if}} --}}
+        <form id="editpostForm" action="/editpost/{{newUrl}}" method="POST">
+        {{!-- {{/each}}
+        {{/if}} --}}
+        <input type="text" id="title" name="title" placeholder="Title" class ="edit-post-input" ><br>
         <textarea type="text" id="body" name="body" placeholder="Description" class="edit-post-body"></textarea><br>
         <textarea type="text" id="tags" name="tags" placeholder="Tags" class ="edit-post-tag" ></textarea><br>
         <button type="submit" class="Editpost-button">post</button>

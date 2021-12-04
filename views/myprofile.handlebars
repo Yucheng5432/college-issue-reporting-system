@@ -51,14 +51,12 @@
                             <label class="taglable">{{this}}</label>
                             {{/each}}
                             {{/if}}
+                            {{!-- <p id='postId'>post id {{this._id}}</p> --}}
                             <br>
                             <div class="operatePost"> 
-                            <button type="submit" onclick="myFunction()" id="editPostbtn">Edit</button>
-                            <script>
-                            function myFunction() {
-                             window.location.href="http://localhost:3000/editpost";  
-                            }
-                            </script>
+                            <form method="get" action="http://localhost:3000/editPost">
+                            <button type="submit" name="editPostbtn" id="editPostbtn" value={{this._id}}>Edit</button>
+                            </form>
                             <button type="submit" id="deletePostbtn">Delete</button>
                             </div>
                       <div class="commentsCard">
@@ -85,7 +83,7 @@
         <div class="myprofile-card">
           <h4 class="myprofile-title">My profile</h4>
           <div class="myprofile-innercard">
-            <form id="editPost" method="post" name="postForm">
+            <form id="editPost" method="post" name="postForm" action="/editProfile">
                 <label class="photo" for="photo">photo:</label><br>
                 <img src="" alt="{{user.username}}"/><br>
                 <label class="username" for="usernameText">username:</label>{{username}}<br>

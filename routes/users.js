@@ -6,6 +6,8 @@ const dashboardData = data.dashboard;
 const postFunctions = require("../data/posts");
 const { use } = require("./posts");
 let myid = ''
+let url = ''
+let { ObjectId } = require("mongodb");
 
 router.get("/", async (req, res) => {
   if (!req.session.user) {
@@ -279,8 +281,11 @@ router.get("/myprofile", async (req, res) => {
 //------------------------------------------------------------------------------------------//
 //
 router.post("/myprofile", async (req, res) => {
-      res.redirect("editProfile")    
+      res.redirect("/editProfile")    
 });
+// router.post('/myprofile',async (req, res) =>{
+//     res.redirect('editpost')
+// })
 // Logout
 router.get("/logout", async (req, res) => {
   if (req.session.user) {
@@ -426,26 +431,106 @@ router.post("/editProfile", async (req, res) => {
 
 //------------------------------------------------------------------------------------------//
 
-router.get('/editpost', async (req,res)=>{
-  let username = req.session.user
+router.get('/editPost', async (req,res)=>{
+  let userName = req.session.user
+  const user = await userFunctions.getUserbyUsername(userName)
+  const myPosts = await dashboardData.getAllPostsByUserName(userName);
+  // let urL = document.getElementById('editPostbtn').value()
+  let urL = req.originalUrl
+  console.log(urL)
+  const slug = urL.substring(urL.indexOf('=') + 1); // 01-2020
+  let newUrl = ObjectId(slug)
+  console.log(typeof newUrl)
+
+// get everything after last dash 
+// const slug = str.split('-').pop(); // 2020
+ 
   if (req.session.user) {
-    res.render("editPost", { title: "Edit Post" });
+    res.render("editPost", { title: userName.toLowerCase(),
+      username: userName.toLowerCase(),
+      firstname: user.firstName,
+      lastname: user.lastName,
+      email: user.email,
+      major: user.major,
+      year: user.year,
+      bio: user.bio,
+      myPosts: myPosts,
+      newUrl:newUrl
+      });
   } else {
-    res.status(200).render("login" , {username:username});
+    res.status(200).render("login");
   }
 })
 //------------------------------------------------------------------------------------------//
-router.post('/editpost', async (req,res)=>{
-try{
-  let username = req.session.user
-  let password = req.body["title"].trim();
-  let firstName = req.body["body"].trim();
-  let lastName = req.body["tags"].trim();
+// router.post('/editpost', async (req,res)=>{
+// try{
+//   let username = req.session.user
+//   let password = req.body["title"].trim();
+//   let firstName = req.body["body"].trim();
+//   let lastName = req.body["tags"].trim();
 
-  res.redirect('/myprofile')
-}catch(e){
-  res.render('editPost')
-}
-})
+//   res.redirect('/myprofile')
+// }catch(e){
+//   res.render('editPost')
+// }
+// })
+// router.post('/editPost', async (req, res) => {
+//   try {
+//       // if (!req.session)
+//       //     throw "you don't have the cookie"
+//       // if (!req.session.userId)
+//       //     throw "login first,then edit content"
+//       // if (!req.body)
+//       //     throw "need new content and postId";
+//       // if (!req.body.postId)
+//       //     throw "need postId";
+//       // if (!req.body.newContent)
+//       //     throw "new Content";
+//       let postToEdit = await postFunctions.getPost(req.body['editPostbtn']);
+//       console.log(postToEdit)
+//       // if (postToEdit.userId !== req.session.userId)//这里判断想要修改post content的人是不是真正的写这个post的人
+//       //     throw "Your id is not the same as the userId of the post!!"
+//       let updatedPost = await postFunctions.editPost(req.body['editPostbtn'], req.body['title'], req.body['body']);
+//       res.redirect("http://localhost:3000/myprofile");
+//   } catch (error) {
+//       res.redirect("http://localhost:3000/myprofile");
+//   }
+// });
+
+router.post("/editPost/:id", async (req, res) => {
+  // console.log(req.params.id);
+  try {
+  //   if (!req.params || !req.params.id) {
+  //     throw "Post ID not provided for edit!";
+  //   }
+  //   if (!req.body) {
+  //     throw "No request body provided!";
+  //   }
+  //   if (req.body.postTitle && typeof req.body.postTitle != "string") {
+  //     return res.status(400).json({
+  //       error: "Invalid post title, cannot be empty, type should be string.",
+  //     });
+  //   }
+  //   if (req.body.postBody && typeof req.body.postBody != "string") {
+  //     return res.status(400).json({
+  //       error: "Invalid post body, cannot be empty, type should be string.",
+  //     });
+  //   }
+    let postFound = await postFunctions.getPost(req.params.id);
+    // console.log(req.body.title);
+    // console.log(postFound);
+    const editedPost = await postFunctions.editPost(
+      req.params.id,
+      req.body.title,
+      req.body.body
+    );
+    // console.log(editedPost);
+    // return res.status(200).json(editedPost);
+    res.redirect('/myprofile')
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
 
 module.exports = router;
