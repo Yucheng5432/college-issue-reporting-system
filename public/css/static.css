@@ -67,10 +67,26 @@
 
 .comments {
   font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.deleteComment {
+  position: relative;
+  top: -15px;
+  font-size: 10px;
+  size: 10px;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .commentresolve {
   color: green;
+}
+.commentNotresolve {
+  font-size: 13px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  position: relative;
+  top: -10px;
 }
 .reply {
   font-size: 14px;
@@ -192,9 +208,9 @@
 }
 
 .commentsCard {
-  width: 400px;
+  width: 435px;
   height: auto;
-  background-color: rgb(243, 243, 243);
+  background-color: rgb(255, 251, 251);
   position: relative;
   top: -3px;
 }

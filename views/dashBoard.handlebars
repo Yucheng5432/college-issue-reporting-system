@@ -62,28 +62,29 @@
                             {{/if}}
                             
                       <div class="commentsCard">
-                      <label class="comments">comments:</label>
-                      <br>
+                      <p class="comments">Comments:</p>
+                      
+                        
                         {{#if comments.length}}
                         {{#each comments}}
                             <label class="commentsDate">by {{userName}} on {{date}}:</label>
                             {{#if answer}}
                               <p class="commentresolve">{{body}}</p>
                               {{else}}
-                              <p >{{body}}</p>
+                              <p class="commentNotresolve">{{body}}</p>
                             {{/if}}
                             <form  action="/comments/{{_id}}?_method=DELETE" method="POST">
-                              <button type="submit">delete</button>
+                              <button type="submit" class="deleteComment">delete</button>
                             </form>
                             
                         {{/each}}
                         {{/if}}
                         <br>  
                         <form id="createComment" action="/comments/{{_id}}" method="POST">
-                          {{!-- <p>{{_id}}</p> --}}
                           <textarea type="text" id="comment" name="comment" placeholder="reply here" class="createComment"></textarea><br>
                           <button type="submit" class="commentbtn">comment</button>
                         </form>
+                        
                       </div>
                   </div>
               </div>
