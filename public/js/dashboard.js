@@ -81,4 +81,42 @@
 
 });
 
+
+let title = document.getElementById("title")
+let body = document.getElementById("body")
+let span = document.getElementById("errorCreatePost")
+let span_body = document.getElementById("error_body")
+let form = document.getElementById("createpostForm")
+let createPostBtn = document.getElementById("createPostBtn")
+
+
+$("#createPostBtn").on("click", function (event) { 
+
+  let valid = false
+  event.preventDefault();
+   if(!title.value.trim()){
+     span.hidden = false
+     span.innerHTML = "Title cannot be empty"
+     title.focus()
+     return
+   }else{
+     span.hidden = true
+     valid = true
+   }
+
+   if(!body.value.trim()){
+    span_body.hidden = false
+    span_body.innerHTML = "Body cannot be empty"
+    body.focus()
+    return
+  }else{
+    span_body.hidden = true
+    valid = true
+  }
+
+  if(valid == true){
+    $('#createPostBtn').unbind().submit();
+  }
+});
+
 })(window.jQuery);
