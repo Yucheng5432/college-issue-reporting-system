@@ -1,5 +1,5 @@
 (function ($) {
-
+   let searchTitle = $("#searchTitle");//search Title
    let searchPostForm = $("#searchForm");//search input posts
    let searchTerm = $("#searchTerm");// input 
    let searchPostList = $("#searchPostsList"); // searched postsList
@@ -23,11 +23,15 @@
       errorInput.attr("style","display:block");
       searchTerm.focus();
     }
+    if(searchTerm.val().trim()==""){
+      errorInput.attr("style","display:block");
+      searchTerm.focus();
+    }
     if(typeof(query)!= 'string'){
       errorInput.attr("style","display:block");
       searchTerm.focus();
     }
-    if(query.split(" ").join("").length == 0){
+    if(query.split(" ").join("").length === 0){
       errorInput.attr("style","display:block");
       searchTerm.focus();
     }
@@ -36,7 +40,9 @@
       searchTerm.focus();
     }
     else{
+      searchTitle.attr("style","display:block");
       errorInput.attr("style", "display:none;background-color: white;");
+      noResult.attr("style", "display:none;background-color: white;");
       searchPostList.empty();
 
   $.ajax({
@@ -73,7 +79,7 @@
         for(let k=0;k<post.comments.length;k++){
           searchPostList.append("<label class=\"searchedcommentsDate\">"+"by "+ post.comments[k].userName +" on "+ post.comments[k].date +"</label>");
           searchPostList.append("<p class=\"searcommentresolve\">"+ post.comments[k].body +"</p>");
-        }
+          }
         }
       }
     });

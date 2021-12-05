@@ -378,8 +378,9 @@ li form {
 }
 .search-result{
   margin-top: 45px;
-  margin-left: 50%;
+  margin-left: 60%;
   background-color: white;
   width: 300px;
   height: auto;
+  box-shadow: 2px 2px 2px #cfcbcb;
 }
