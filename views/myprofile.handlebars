@@ -38,26 +38,24 @@
           {{#each myPosts}}
               <div class="card">
                   <div class="innercard">
-                      <div class="poststitle-div">
-                            <label class="postsTitle">{{title}}</label>
-                      </div>
-                      <div class="postsdate-div">
-                            <label class="postsdate">by {{username}} on {{date}}</label>
-                      </div>
+                      <h4 class="poststitle-div">{{title}}</h4>
+                      <label class="postsdate-div">by {{username}} on {{date}}</label>
                             <p>{{body}}</p> 
-                            <label>Tag:</label>
+                            <p>tags:</p>
                             {{#if tags.length}}
                             {{#each tags}}
                             <label class="taglable">{{this}}</label>
                             {{/each}}
                             {{/if}}
-                            {{!-- <p id='postId'>post id {{this._id}}</p> --}}
                             <br>
                             <div class="operatePost"> 
                             <form method="get" action="http://localhost:3000/editPost">
                             <button type="submit" name="editPostbtn" id="editPostbtn" value={{this._id}}>Edit</button>
+
                             </form>
-                            <button type="submit" id="deletePostbtn">Delete</button>
+                            <form  action="/posts/delete/{{_id}}?_method=DELETE" method="POST">
+                              <button type="submit" id="deletePostbtn">delete post</button>
+                            </form>  
                             </div>
                       <div class="commentsCard">
                             <br>
@@ -65,13 +63,24 @@
                             <br>
                         {{#if comments.length}}
                         {{#each comments}}
-                            <label>{{userName}}:</label>
-                            <textarea>{{body}}</textarea>
+                            <label>{{userName}}</label>
+                            {{#if answer}}
+                              <p class="commentresolve">{{body}}</p>
+                              {{else}}
+                              <p >{{body}}</p>
+                            {{/if}}
+
+                            <form  action="/comments/resolve/{{_id}}?_method=PATCH" method="POST">
+                              <button type="submit">mark as resolve</button>
+                            </form>
                         {{/each}}
                         {{/if}}
-                        <label class="reply">Reply:</label>
-                        <textarea class="createComment"></textarea>
-                        <button type="submit">Submit</button>
+                        <br>  
+                        <form id="createComment" action="/comments/{{_id}}" method="POST">
+                          {{!-- <p>{{_id}}</p> --}}
+                          <textarea type="text" id="comment" name="comment" placeholder="reply here" class="createComment"></textarea><br>
+                          <button type="submit" class="commentbtn">comment</button>
+                        </form>
                       </div>
                   </div>
               </div>
