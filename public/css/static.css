@@ -220,11 +220,7 @@
 .commentsCard {
   width: 435px;
   height: auto;
-<<<<<<< Updated upstream
-  background-color: rgb(255, 251, 251);
-=======
   background-color: rgb(243, 243, 243);
->>>>>>> Stashed changes
   position: relative;
   top: -3px;
 }
