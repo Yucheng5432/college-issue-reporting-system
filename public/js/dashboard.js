@@ -19,14 +19,23 @@
   searchPostForm.submit(function(event){
     event.preventDefault();
     let query = searchTerm.val();
-    if(!query){
-      errorInput.attr("style","display:block;background-color: white;");
+    if(typeof(query)=='undefined'){
+      errorInput.attr("style","display:block");
       searchTerm.focus();
     }
-    if(query.trim()===" "){
-      errorInput.attr("style","display:block;background-color: white;");
+    if(typeof(query)!= 'string'){
+      errorInput.attr("style","display:block");
       searchTerm.focus();
-    }else{
+    }
+    if(query.split(" ").join("").length == 0){
+      errorInput.attr("style","display:block");
+      searchTerm.focus();
+    }
+    if(query ===" "){
+      errorInput.attr("style","display:block");
+      searchTerm.focus();
+    }
+    else{
       errorInput.attr("style", "display:none;background-color: white;");
       searchPostList.empty();
 
@@ -44,26 +53,28 @@
         errorInput.attr("style","display:none;background-color: white;");
         noResult.attr("style","display:none;background-color: white;");
       }
-      if(posts.lenght === 0){
-        noResult.attr("style", "display:block;");
+
+      if(posts.length === 0){
+        noResult.attr("style", "display:block");
       }
 
+      
       for(let i=0;i<posts.length;i++){
         let post = posts[i];
-        searchPostList.append("<h4>"+ post.title +"</h4>");
-        searchPostList.append("<label>"+" by"+ post.username +"on"+ post.date +"</label><br>");
-        searchPostList.append("<p>"+ post.body +"</p>");
-        searchPostList.append("<label>Tag: </label>");
+        searchPostList.append("<h4 >"+ post.title +"</h4>");
+        searchPostList.append("<p class=\"searchedPostsdate-div\">"+" by"+ post.username +"on"+ post.date +"</label><p>");
+        searchPostList.append("<p class=\"searchedPost-body\">"+ post.body +"</p>");
+        searchPostList.append("<label class=\"searchedtags\">Tag: </label>");
         for(let j=0;j<post.tags.length;j++){
-          searchPostList.append("<label>"+ post.tags[j] +" "+"</label>");
+          searchPostList.append("<label class=\"searchedtaglable\">"+ post.tags[j] +" "+"</label>");
         }
         searchPostList.append("<br>");
-        searchPostList.append("<label>Comments</label><br>");
+        searchPostList.append("<label class=\"searchedcomments\">Comments</label><br>");
         for(let k=0;k<post.comments.length;k++){
-          searchPostList.append("<label>"+"by "+ post.comments[k].userName +" on "+ post.comments[k].date +"</label>");
-          searchPostList.append("<p>"+ post.comments[k].body +"</p>");
+          searchPostList.append("<label class=\"searchedcommentsDate\">"+"by "+ post.comments[k].userName +" on "+ post.comments[k].date +"</label>");
+          searchPostList.append("<p class=\"searcommentresolve\">"+ post.comments[k].body +"</p>");
         }
-       }
+        }
       }
     });
   }

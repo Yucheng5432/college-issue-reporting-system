@@ -49,7 +49,7 @@
 .error {
   color: red;
 }
-.tags {
+.tags,.searchedtags {
   position: relative;
   top: -5px;
 }
@@ -65,11 +65,21 @@
   top: -5px;
 }
 
+.searchedtaglable{
+  margin-left: 5px;
+  font-size: small;
+  border: solid rgb(139, 84, 84);
+  color: white;
+  background-color: rgb(165, 95, 95);
+  position: relative;
+  top: -5px;
+}
+
 .comments {
   font-size: 14px;
 }
 
-.commentresolve {
+.commentresolve,searchedcommentresolve {
   color: green;
 }
 .reply {
@@ -98,7 +108,7 @@
   box-shadow: 2px 2px 2px #cfcbcb;
 }
 
-.card {
+.card{
   height: auto;
   width: 450px;
   margin-top: 20px;
@@ -302,7 +312,7 @@ li form {
   font-weight: bold;
 }
 
-.post-body {
+.post-body,.searchedPost-body {
   background-color: rgb(253, 253, 253);
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -314,13 +324,13 @@ li form {
   font-style: normal;
   background-color: rgb(255, 248, 248);
 }
-.commentsDate {
+.commentsDate.searchedcommentsDate {
   font-size: 13px;
   font-style: normal;
   background-color: rgb(255, 248, 248);
 }
 
-.comments {
+.comments,.searchedcomments {
   font-size: 14px;
 }
 .reply {
