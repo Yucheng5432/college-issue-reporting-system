@@ -5,9 +5,9 @@
           <a href="/myprofile" class="header">Welcome {{username}}</a>
         </li>
         <li class="search">
-            <form id="searchForm" class="searchForm" method="get">
+            <form id="searchForm" class="searchForm">
                 {{!-- <label for="search">Search Post:</label> --}}
-                <input type="text" id= "search" placeholder="search posts" class ="search-input">
+                <input type="text" id= "searchTerm" placeholder="search posts" class ="search-input">
                 <button type="submit" class="search-button">search</button>
             </form>
         </li>
@@ -96,6 +96,16 @@
           {{/each}}
           {{/if}}
 
+  </div>
+
+  <div class="search-result">
+      <h2>Search Result</h2>
+      <div id="errorInput" hidden><p>Please input a valid word.</p></div>
+      <div id="noResult" hidden><p>Sorry, no results were found.</p></div>
+
+      <ul id="searchPostsList" hidden>
+
+      </ul>
   </div>
 
 </div>

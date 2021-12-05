@@ -202,11 +202,11 @@ async function findPostsbySearchterm(searchterm) {
   console.log("searchTerm", searchterm);
   if (!searchterm) throw "No Search Term provided";
   const postCollection = await posts();
-  var phrase = '"' + searchterm + '"';
-  const searchedPosts = await postCollection
-    .aggregate([{ $match: { $text: { $search: phrase } } }])
-    .toArray();
-  console.log(searchedPosts);
+  //let phrase = '"' + searchterm + '"';
+  const searchedPosts = await postCollection.find({tags:{$elemMatch:{$eq: searchterm }}}).toArray();
+  //  .aggregate([{ $match: { $text: { $search: phrase } } }]).toArray();
+  //console.log(searchedPosts+"is from data");
+  //console.log(searchedPosts);
   return searchedPosts;
 }
 
