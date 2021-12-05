@@ -40,7 +40,7 @@ router.get("/:id", async (req, res) => {
 // 3. Get posts by username --done
 router.get("/userPosts/:username", async (req, res) => {
   const username = req.params.username;
-  console.log(username);
+  //console.log(username);
   // console.log(req.params.username);
   if (!username) {
     return res.status(500).json({ error: "No username parameter!" });
@@ -55,9 +55,9 @@ router.get("/userPosts/:username", async (req, res) => {
 
 // 4. find post by search term --pending
 router.post("/search/:searchterm", async (req, res) => {
-  const searchTerm = req.params.searchterm;
+  const searchTerm = req.body.searchterm;
   console.log(searchTerm);
-  if (!req.params.searchterm) {
+  if (!req.body.searchterm) {
     return res.status(500).json({ error: "No search term provided" });
   }
   try {

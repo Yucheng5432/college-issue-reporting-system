@@ -318,3 +318,10 @@ li form {
 .operatePost {
   margin-top: 20px;
 }
+.search-result{
+  margin-top: 45px;
+  margin-left: 50%;
+  background-color: white;
+  width: 300px;
+  height: auto;
+}
