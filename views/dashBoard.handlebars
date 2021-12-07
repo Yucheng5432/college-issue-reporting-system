@@ -41,7 +41,10 @@
         <br>
         <textarea type="text" id="body" name="body" placeholder="Description" class="create-post-body"></textarea><br>
         <span hidden id="error_body"></span>
-        <br>      
+        <br>
+        <textarea type="text" id="priority" name="priority" placeholder="Priority" class="create-post-priority"></textarea><br>
+        <span hidden id="error_priority"></span>
+        <br>        
         <textarea type="text" id="tags" name="tags" placeholder="Tags" class ="create-post-tag" ></textarea><br>
         <input type="file" name="image">
         <button type="submit">post</button>
@@ -63,6 +66,7 @@
                       <h4 class="poststitle-div">{{title}}</h4>
                       <p class="postsdate-div">by {{username}} on {{date}}</p>
                             <p class="post-body">{{body}}</p> 
+                            <p class="post-priority">Priority: {{priority}}</p> 
                             <label class="tags">tags:</label>
                             {{#if image}}
                             <img src={{image}} width="400" height="400">

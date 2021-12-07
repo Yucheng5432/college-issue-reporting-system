@@ -125,6 +125,7 @@ router.post("/", async (req, res) => {
       username,
       newPost.title,
       newPost.body,
+      newPost.priority,
       tags,
       imagePath
     );
