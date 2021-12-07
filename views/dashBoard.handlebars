@@ -11,6 +11,9 @@
                 <button type="submit" class="search-button">search</button>
             </form>
         </li>
+        <li>
+        <div id="errorInput" class="errorInput" hidden><p>Please input a valid word.</p></div>
+        </li>
         <li class="logout-li">
             <a  href="/logout">Logout</a>
         </li>
@@ -51,11 +54,11 @@
     {{/if}}
   </div>
 
-  <div class="private">
+  <div class="private" id="private">
           {{#if posts.length}}
           {{#each posts}}
-              <div class="card">
-                  <div class="innercard">
+              <div class="card" id="card">
+                  <div class="innercard" id="innercard">
                       <h4 class="poststitle-div">{{title}}</h4>
                       <p class="postsdate-div">by {{username}} on {{date}}</p>
                             <p class="post-body">{{body}}</p> 
@@ -104,12 +107,9 @@
     <div id="searchTitle" hidden>
       <h2 >Search Result</h2>
     </div>
-      <div id="errorInput" hidden><p>Please input a valid word.</p></div>
-      <div id="noResult" hidden><p>Sorry, no results were found.</p></div>
-
       <div id="searchPostsList" class="searchCard" hidden>
-
       </div>
+      <div id="noResult"  class="noResult" hidden><p>Sorry, no results were found.</p></div>
   </div>
 
 </div>

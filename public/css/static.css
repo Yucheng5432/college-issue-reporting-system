@@ -213,6 +213,7 @@ searchedcommentresolve {
   margin-left: 80px;
   width: 300px;
   height: auto;
+  display: block;
 }
 
 .allposts {
@@ -363,9 +364,10 @@ li form {
 .myprofile-card {
   height: 350px;
   width: 350px;
-  float: left;
+  float: right;
   margin-top: 20px;
-  margin-left: 200px;
+  margin-left: 50px;
+  margin-right: 20px;
   background-color: white;
   box-shadow: 2px 2px 2px #cfcbcb;
 }
@@ -384,10 +386,21 @@ li form {
   margin-top: 20px;
 }
 .search-result {
-  margin-top: 45px;
-  margin-left: 60%;
+  margin-top: 20px;
+  margin-left: 25%;
   background-color: white;
   width: 300px;
   height: auto;
   box-shadow: 2px 2px 2px #cfcbcb;
+}
+
+.errorInput{
+    float: left;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.noResult{
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
 }

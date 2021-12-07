@@ -8,12 +8,14 @@
         </li>
         <li class="search">
             <form id="searchForm" class="searchForm" method="get">
-                <label for="search">Search Post:</label>
-                <input type="text" id= "search">
-                <button type="submit">search</button>
+                {{!-- <label for="search">Search Post:</label> --}}
+                 <input type="text" id= "searchTerm" placeholder="search posts" class ="search-input">
+                <button type="submit" class="search-button">search</button>
             </form>
         </li>
-
+        <li>
+        <div id="errorInput" class="errorInput" hidden><p>Please input a valid word.</p></div>
+        </li>
         <li class="logout-li">
             <a  href="/logout">Logout</a>
         </li>
@@ -32,12 +34,12 @@
       </div>
     </div>
 
-        <div class="private">
+        <div class="private" id="private">
             {{!-- <h2>My Posts</h2> --}}
              {{#if myPosts.length}}
           {{#each myPosts}}
-              <div class="card">
-                  <div class="innercard">
+              <div class="card" id="card">
+                  <div class="innercard" id="innercard">
                       <h4 class="poststitle-div">{{title}}</h4>
                       <label class="postsdate-div">by {{username}} on {{date}}</label>
                             <p>{{body}}</p> 
@@ -88,6 +90,15 @@
           {{/if}}
 
         </div>
+
+       <div class="search-result">
+          <div id="searchTitle" hidden>
+            <h2 >Search Result</h2>
+          </div>
+              <div id="searchPostsList" class="searchCard" hidden>
+              </div>
+              <div id="noResult"  class="noResult" hidden><p>Sorry, no results were found.</p></div>
+      </div>
 
         <div class="myprofile-card">
           <h4 class="myprofile-title">My profile</h4>

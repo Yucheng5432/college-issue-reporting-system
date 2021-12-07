@@ -5,7 +5,7 @@
    let searchPostList = $("#searchPostsList"); // searched postsList
    let errorInput = $("#errorInput"); //input invalid words
    let noResult = $("#noResult"); //no result by searching
-
+   let private = $("#private"); //get private div
    
   $("#delete").on("click", function (event) {
     event.preventDefault();
@@ -19,11 +19,13 @@
   searchPostForm.submit(function(event){
     event.preventDefault();
     let query = searchTerm.val();
-    if(typeof(query)=='undefined'){
+    console.log(query);
+    console.log(typeof(query));
+    if(typeof(query)==='undefined'){
       errorInput.attr("style","display:block");
       searchTerm.focus();
     }
-    if(searchTerm.val().trim()==""){
+    if(searchTerm.val().trim()===""){
       errorInput.attr("style","display:block");
       searchTerm.focus();
     }
@@ -40,6 +42,7 @@
       searchTerm.focus();
     }
     else{
+      private.attr("style","display:none");
       searchTitle.attr("style","display:block");
       errorInput.attr("style", "display:none;background-color: white;");
       noResult.attr("style", "display:none;background-color: white;");
@@ -54,17 +57,15 @@
 
     success: function(data){
       let posts = $(data);
-      if(posts){
+      if(posts.length === 0){
+        noResult.attr("style", "display:block");
+        searchTerm.focus();
+      }
+      if(posts && posts.length !== 0){
         searchPostList.attr("style","display:block;background-color: white;");
         errorInput.attr("style","display:none;background-color: white;");
         noResult.attr("style","display:none;background-color: white;");
       }
-
-      if(posts.length === 0){
-        noResult.attr("style", "display:block");
-      }
-
-      
       for(let i=0;i<posts.length;i++){
         let post = posts[i];
         searchPostList.append("<h4 >"+ post.title +"</h4>");
