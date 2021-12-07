@@ -361,6 +361,7 @@ router.post("/editProfile", async (req, res) => {
     // let major = req.body["major"].trim();
     let year = req.body["year"].trim();
     // let bio = req.body["bio"];
+    let bio = req.body["bio"];
     year = parseInt(year);
     if (!username) {
       res.status(404).render("editProfile", {
@@ -490,6 +491,7 @@ router.post("/editProfile", async (req, res) => {
       });
       return;
     }
+
     year = year.toString();
     const isCredentialsValid = await userFunctions.updateUser(
       myid,
@@ -498,7 +500,8 @@ router.post("/editProfile", async (req, res) => {
       lastName,
       email,
       password,
-      year
+      year,
+      bio
     );
 
     if (isCredentialsValid != null) {
