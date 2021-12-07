@@ -71,7 +71,19 @@ router.post("/search/:searchterm", async (req, res) => {
 // 5. add post --done
 router.post("/", async (req, res) => {
   const username = req.session.user;
+  let file = req.file;
+  let filePath = file.path.replace(/\\/g, "/");
+  let imagePath;
+  // console.log(file);
   try {
+    if (file) {
+      if (checkFileType(file)) {
+        imagePath = filePath;
+      } else {
+        return res.status(500).json({ error: "Images only!" });
+      }
+    }
+
     if (!req.body) {
       return res.status(500).json({ error: "No request body provided!" });
     }
@@ -111,7 +123,8 @@ router.post("/", async (req, res) => {
       username,
       newPost.title,
       newPost.body,
-      tags
+      tags,
+      imagePath
     );
 
     if (addPost != null) {

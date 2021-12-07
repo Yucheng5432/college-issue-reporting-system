@@ -3,6 +3,27 @@ const app = express();
 const static = express.static(__dirname + "/public");
 const session = require("express-session");
 var methodOverride = require("method-override");
+const multer = require("multer");
+const path = require("path");
+
+const storage = multer.diskStorage({
+  destination: (req, res, cb) => {
+    cb(null, "./public/images/");
+  },
+  filename: (req, file, cb) => {
+    // console.log(file);
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+
+const upload = multer({
+  storage: storage,
+}).single("image");
+
+app.use(upload);
 
 const configRoutes = require("./routes");
 const exphbs = require("express-handlebars");
