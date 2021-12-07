@@ -26,7 +26,42 @@ async function getAllPosts() {
   try {
     const postCollection = await posts();
     const allPosts = await postCollection.find({}).sort({ date: -1 }).toArray();
+    let count = 0
+    let mt = []
+    let mt2 = []
+    for(i = 0; i < allPosts.length; i++){
+      // console.log(allPosts[i].priority)
+      if(allPosts[i].priority === 'yes'){
+        mt.push(allPosts[i])
+        count++
+        // console.log(mt)
+        if(count === allPosts.length){
+          allPosts.sort(function(a,b){
+            return new Date(a.date) - new Date(b.date)
+          })
+          return allPosts
+        }
+      }
+    }
+    
+    for(j = 0; j < allPosts.length; j++){
+      if(allPosts[j].priority === 'no'){
+        mt2.push(allPosts[j])
+        // console.log(mt)
+      }
+    }
+
+    mt.sort(function(a,b){
+      return new Date(a.date) - new Date(b.date)
+    })
+    mt2.sort(function(a,b){
+      return new Date(a.date) - new Date(b.date)
+    })
+    let arr3 = mt.concat(mt2)
+    // console.log(arr3)
+    return arr3
     return allPosts;
+  
   } catch (error) {
     throw error.message;
   }
@@ -59,7 +94,8 @@ async function getUserPosts(userName) {
 }
 
 // create a post
-async function addPost(userName, postTitle, postBody, postTags, image) {
+async function addPost(userName, postTitle, postBody, priority, postTags, image) {
+  priority = priority.trim().toLowerCase()
   // if (arguments.length != 4) {
   //   throw "Incorrect number of arguments.";
   // }
@@ -84,7 +120,17 @@ async function addPost(userName, postTitle, postBody, postTags, image) {
   ) {
     throw "Username is invalid or empty.";
   }
+  if (
+    !priority ||
+    typeof priority != "string" ||
+    priority.trim("").length == 0
+  ) {
+    throw "Priority is invalid or empty.";
+  }
 
+  if(!priority.match("yes") && !priority.match("no")){
+    throw "Priority can only have yes or no."
+  }
   console.log(image);
 
   if (image === undefined || !image) {
@@ -100,6 +146,7 @@ async function addPost(userName, postTitle, postBody, postTags, image) {
       body: postBody,
       tags: postTags,
       username: userName,
+      priority: priority,
       resolved: false,
       date: new Date(),
       image: image,
@@ -118,6 +165,7 @@ async function addPost(userName, postTitle, postBody, postTags, image) {
     throw error.message;
   }
 }
+// addPost("aaaa","night","night","yes","#sh")
 
 //delete a post
 async function deletePost(postID) {
