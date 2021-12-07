@@ -41,10 +41,17 @@
         <textarea type="text" id="body" name="body" placeholder="Description" class="create-post-body"></textarea><br>
         <span hidden id="error_body"></span>
         <br>
-        <textarea type="text" id="priority" name="priority" placeholder="Priority" class="create-post-priority"></textarea><br>
+        {{!-- <textarea type="text" id="priority" name="priority" placeholder="Priority" class="create-post-priority"></textarea><br>
         <span hidden id="error_priority"></span>
-        <br>        
+        <br>         --}}
         <textarea type="text" id="tags" name="tags" placeholder="Tags" class ="create-post-tag" ></textarea><br>
+
+          <label class="priority" for="priority">Priority:</label>
+                    <select name="priority" id="priority">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                        </select><br>
+                        <br>
         <input type="file" name="image">
         <button type="submit">post</button>
         {{!-- <button type="submit" class="post-button" id="createPostBtn">post</button> --}}

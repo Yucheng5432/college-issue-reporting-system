@@ -547,35 +547,40 @@ router.get("/editPost", async (req, res) => {
 });
 
 router.post("/editPost/:id", async (req, res) => {
+  let mt = []
   // console.log(req.params.id);
   try {
-    //   if (!req.params || !req.params.id) {
-    //     throw "Post ID not provided for edit!";
-    //   }
-    //   if (!req.body) {
-    //     throw "No request body provided!";
-    //   }
-    //   if (req.body.postTitle && typeof req.body.postTitle != "string") {
-    //     return res.status(400).json({
-    //       error: "Invalid post title, cannot be empty, type should be string.",
-    //     });
-    //   }
-    //   if (req.body.postBody && typeof req.body.postBody != "string") {
-    //     return res.status(400).json({
-    //       error: "Invalid post body, cannot be empty, type should be string.",
-    //     });
-    //   }
+      // if (!req.params || !req.params.id) {
+      //   throw "Post ID not provided for edit!";
+      // }
+      // if (!req.body) {
+      //   throw "No request body provided!";
+      // }
+      // if (req.body.postTitle && typeof req.body.postTitle != "string") {
+      //   return res.status(400).json({
+      //     error: "Invalid post title, cannot be empty, type should be string.",
+      //   });
+      // }
+      // if (req.body.postBody && typeof req.body.postBody != "string") {
+      //   return res.status(400).json({
+      //     error: "Invalid post body, cannot be empty, type should be string.",
+      //   });
+      // }
     let postFound = await postFunctions.getPost(req.params.id);
+    mt.push(req.body.tags)
+
     // console.log(req.body.title);
     // console.log(postFound);
     const editedPost = await postFunctions.editPost(
       req.params.id,
       req.body.title,
-      req.body.body
+      req.body.body,
+      mt
     );
     // console.log(editedPost);
-    // return res.status(200).json(editedPost);
     res.redirect("/myprofile");
+    // res.status(200).json(editedPost);
+
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

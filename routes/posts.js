@@ -139,6 +139,7 @@ router.post("/", async (req, res) => {
 
 // 6. editing a post --done
 router.patch("/edit/:id", async (req, res) => {
+  let mt = []
   // console.log(req.params.id);
   try {
     if (!req.params || !req.params.id) {
@@ -157,13 +158,15 @@ router.patch("/edit/:id", async (req, res) => {
         error: "Invalid post body, cannot be empty, type should be string.",
       });
     }
+    mt.push(req.body.tags)
     let postFound = await postFunctions.getPost(req.params.id);
     // console.log(req.body.title);
     // console.log(postFound);
     const editedPost = await postFunctions.editPost(
       req.params.id,
       req.body.title,
-      req.body.body
+      req.body.body,
+      mt
     );
     // console.log(editedPost);
     return res.status(200).json(editedPost);
