@@ -56,7 +56,7 @@ router.post("/signup", async (req, res) => {
     let email = req.body["email"].trim();
     let major = req.body["major"].trim();
     let year = req.body["year"].trim();
-    let bio = req.body["bio"];
+    let bio = "Introduce yourself"
     year = parseInt(year);
     if (!username) {
       res.status(404).render("signup", { hasErrors: true, error: "Must supply username!." });
@@ -150,7 +150,8 @@ router.post("/signup", async (req, res) => {
       email,
       password,
       major,
-      year
+      year,
+      bio
     );
 
     if (isCredentialsValid != null) {

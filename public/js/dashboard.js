@@ -68,7 +68,7 @@
       }
       for(let i=0;i<posts.length;i++){
         let post = posts[i];
-        searchPostList.append("<h4 >"+ post.title +"</h4>");
+        searchPostList.append("<h4 class=\"searchedPoststitle-div\">"+ post.title +"</h4>");
         searchPostList.append("<p class=\"searchedPostsdate-div\">"+" by"+ post.username +"on"+ post.date +"</label><p>");
         searchPostList.append("<p class=\"searchedPost-body\">"+ post.body +"</p>");
         searchPostList.append("<label class=\"searchedtags\">Tag: </label>");
