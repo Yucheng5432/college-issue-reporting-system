@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const postFunctions = require("../data/posts");
+const path = require("path");
+const e = require("express");
 
 //1. Get all posts routes --done
 router.get("/", async (req, res) => {
@@ -79,7 +81,8 @@ router.post("/", async (req, res) => {
       if (checkFileType(file)) {
         imagePath = file.path.replace(/\\/g, "/");
       } else {
-        return res.status(500).json({ error: "Images only!" });
+        res.redirect("/");
+        return;
       }
     }
 
@@ -130,7 +133,7 @@ router.post("/", async (req, res) => {
       res.redirect("/");
     }
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    res.render("dashBoard", { error: error.message });
   }
 });
 
@@ -168,38 +171,6 @@ router.patch("/edit/:id", async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 });
-
-// 7. adding a comment
-// router.patch("/comments/:id", async (req, res) => {
-//   try {
-//     if (!req.params || !req.params.id) {
-//       throw "Post ID not provided for resolve!";
-//     }
-//     if (!req.body) {
-//       throw "No request body provided!";
-//     }
-//     const newComment = req.body;
-//     if (!newComment.username && typeof newComment.body != "string") {
-//       return res.status(400).json({
-//         error: "Invalid post title, cannot be empty, type should be string.",
-//       });
-//     }
-
-//     const comment = await postFunctions.addComment(
-//       objectId(newComment._id),
-//       newComment.userID,
-//       req.params.id,
-//       newComment.username,
-//       newComment.body
-//     );
-//     return res.status(200).json(comment);
-//   } catch (error) {
-//     if (error.message.includes("Post having ID")) {
-//       return res.status(404).json({ error: error.message });
-//     }
-//     return res.status(500).json({ error: error.message });
-//   }
-// });
 
 // 8. resolving a post
 router.patch("/resolve/:id/:cid", async (req, res) => {
@@ -246,5 +217,20 @@ router.delete("/delete/:id", async (req, res) => {
     return;
   }
 });
+
+//checking the filetypes
+function checkFileType(file) {
+  const filetypes = /jpeg|jpg|png|gif/;
+
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+
+  const mimetype = filetypes.test(file.mimetype);
+
+  if (mimetype && extname) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 module.exports = router;

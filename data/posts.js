@@ -85,7 +85,9 @@ async function addPost(userName, postTitle, postBody, postTags, image) {
     throw "Username is invalid or empty.";
   }
 
-  if (image === undefined) {
+  console.log(image);
+
+  if (image === undefined || !image) {
     let image = false;
   }
 

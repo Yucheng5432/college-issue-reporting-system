@@ -41,12 +41,13 @@
         <br>      
         <textarea type="text" id="tags" name="tags" placeholder="Tags" class ="create-post-tag" ></textarea><br>
         <input type="file" name="image">
-        <button type="submit" class="post-button" id="createPostBtn">post</button>
+        <button type="submit">post</button>
+        {{!-- <button type="submit" class="post-button" id="createPostBtn">post</button> --}}
       </form>
   </div>
     {{#if error}}
       <div id="createPost-error" class="error">
-          <h3>{{error_message}}</h3>
+          <h3>{{error}}</h3>
       </div>
     {{/if}}
   </div>
