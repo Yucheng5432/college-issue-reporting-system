@@ -93,7 +93,8 @@
                         <br>  
                         <form id="createComment" action="/comments/{{_id}}" method="POST">
                           <textarea type="text" id="comment" name="comment" placeholder="reply here" class="createComment"></textarea><br>
-                          <button type="submit" class="commentbtn">comment</button>
+                           <span hidden id="errorcommentPost"></span>
+                          <button type="submit" class="commentbtn"id ="commentPostBtn">comment</button>
                         </form>
                         
                       </div>
