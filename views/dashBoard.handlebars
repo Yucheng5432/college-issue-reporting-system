@@ -2,11 +2,10 @@
     <div class="header-nav">
       <ul class= "menu">
         <li class="header">
-          <a href="/myprofile" class="header">Welcome {{username}}</a>
+          <a href="/" class="header">College Issue Reporting system</a>
         </li>
         <li class="search">
             <form id="searchForm" class="searchForm">
-                {{!-- <label for="search">Search Post:</label> --}}
                 <input type="text" id= "searchTerm" placeholder="search posts" class ="search-input">
                 <button type="submit" class="search-button">search</button>
             </form>
@@ -66,12 +65,12 @@
                       <h4 class="poststitle-div">{{title}}</h4>
                       <p class="postsdate-div">by {{username}} on {{date}}</p>
                             <p class="post-body">{{body}}</p> 
-                            <p class="post-priority">Priority: {{priority}}</p> 
-                            <label class="tags">tags:</label>
+                            <p class="post-priority">Priority: {{priority}}</p>
                             {{#if image}}
-                            <img src={{image}}  width="400" height="400" >
+                            <img src={{image}} class="post-image" width="430" height="400" >
                             {{/if}}
                             <br>
+                            <label class="tags">tags:</label>
                             {{#if tags.length}}
                             {{#each tags}}
                             <label class="taglable">{{this}}</label>
