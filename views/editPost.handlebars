@@ -44,9 +44,19 @@
         {{!-- {{/each}}
         {{/if}} --}}
         <input type="text" id="title" name="title" placeholder="Title" class ="edit-post-input" ><br>
+        <span hidden id="errorEditPost"></span>
+
         <textarea type="text" id="body" name="body" placeholder="Description" class="edit-post-body"></textarea><br>
+        <span hidden id="error_editbody"></span>
+
         <textarea type="text" id="tags" name="tags" placeholder="Tags" class ="edit-post-tag" ></textarea><br>
-        <button type="submit" class="Editpost-button">post</button>
+        <button type="submit" class="Editpost-button" id="Editpost-button">post</button>
         </form>
+          </div>
+    {{#if error}}
+      <div id="errorEditPost" class="error">
+          <h3>{{error_message}}</h3>
+      </div>
+    {{/if}}
         
         </div>

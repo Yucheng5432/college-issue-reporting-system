@@ -125,5 +125,80 @@ $("#createPostBtn").on("click", function (event) {
     $('#createPostBtn').unbind().submit();
   }
 });
+//edit post
+// let edittitle = document.getElementById("title")
+// let editbody = document.getElementById("body")
+// let editspan = document.getElementById("error_editbody")
+// let editspan_body = document.getElementById("error_body")
+// let editform = document.getElementById("editpostForm")
+// let editPostBtn = document.getElementById("Editpost-button")
 
+// $("#Editpost-button").on("click", function (event) { 
+
+//   let valid = false
+//   event.preventDefault();
+//    if(!edittitle.value.trim()){
+//       editspan.hidden = false
+//       editspan.innerHTML = "Title cannot be empty"
+//       edittitle.focus()
+//       return
+//    }else{
+//      span.hidden = true
+//      valid = true
+//    }
+
+//    if(!editbody .value.trim()){
+//     editspan_body.hidden = false
+//     editspan_body.innerHTML = "Body cannot be empty"
+//     editbody.focus()
+//     return
+//   }else{
+//     editspan_body.hidden = true
+//     valid = true
+//   }
+
+//   if(valid == true){
+//     $('#Editpost-button').unbind().submit();
+//   }
+
+// });
+// //comment
+
+// let commenttitle = document.getElementById("comment")
+// let commentbody = document.getElementById("body")
+// let commentspan = document.getElementById("errorcommentPost")
+// let commentspan_body = document.getElementById("error_commentbody")
+// let commentform = document.getElementById("commentpostForm")
+// let commentPostBtn = document.getElementById("commentPostBtn")
+
+
+// $("#commentPostBtn").on("click", function (event) { 
+
+//   let valid = false
+//   event.preventDefault();
+//    if(!commenttitle.value.trim()){
+//     commentspan.hidden = false
+//     commentspan.innerHTML = "cannot be empty"
+//     commenttitle.focus()
+//      return
+//    }else{
+//     commentspan.hidden = true
+//      valid = true
+//    }
+
+//    if(!commentbody.value.trim()){
+//     commentspan_body.hidden = false
+//     commentspan_body.innerHTML = "cannot be empty"
+//     commentbody.focus()
+//     return
+//   }else{
+//     commentspan_body.hidden = true
+//     valid = true
+//   }
+
+//   if(valid == true){
+//     $('#commentPostBtn').unbind().submit();
+//   }
+
+// });
 })(window.jQuery);

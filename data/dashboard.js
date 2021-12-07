@@ -16,4 +16,16 @@ async function getAllPostsByUserName(username) {
   return data;
 }
 
-module.exports = { getAllPosts, getAllPostsByUserName };
+async function getProfilePhotoByUserName(username) {
+  const { data } = await axios.get(
+    `http://localhost:3000/photo/upload/${username}`
+  );
+
+  return data;
+}
+
+module.exports = {
+  getAllPosts,
+  getAllPostsByUserName,
+  getProfilePhotoByUserName,
+};
