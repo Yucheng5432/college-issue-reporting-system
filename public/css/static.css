@@ -266,6 +266,21 @@ h2 {
   margin-bottom: 20px;
 }
 
+.img-upload {
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.myprofile {
+  font-size: small;
+  text-align: left;
+}
+
+.myprofile1 {
+  font-size: small;
+  margin-right: auto;
+}
+
 .header {
   margin-left: 20px;
   font-size: 28px;
@@ -365,7 +380,7 @@ li form {
 }
 
 .myprofile-card {
-  height: 350px;
+  height: 450px;
   width: 350px;
   float: right;
   margin-top: 20px;
@@ -375,10 +390,28 @@ li form {
   box-shadow: 2px 2px 2px #cfcbcb;
 }
 
+.profile-button {
+  color: rgb(10, 7, 7);
+  border: none;
+  cursor: pointer;
+  height: 23px;
+  border-radius: 10px;
+}
+
+.profile-input {
+  color: rgb(10, 7, 7);
+  border: none;
+  cursor: pointer;
+  height: 23px;
+  border-radius: 10px;
+}
+
 .myprofile-innercard {
   font-size: 18px;
   margin-left: 90px;
   margin-top: 30px;
+  width: 250px;
+  height: 250px;
 }
 .myprofile-title {
   font-size: 22px;
@@ -397,13 +430,13 @@ li form {
   box-shadow: 2px 2px 2px #cfcbcb;
 }
 
-.errorInput{
-    float: left;
-    color: white;
-    font-family: Arial, Helvetica, sans-serif;
+.errorInput {
+  float: left;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.noResult{
+.noResult {
   font-family: Arial, Helvetica, sans-serif;
   color: black;
 }

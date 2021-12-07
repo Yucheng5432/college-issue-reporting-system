@@ -4,9 +4,9 @@ const data = require("../data");
 const userFunctions = data.users;
 const dashboardData = data.dashboard;
 const postFunctions = require("../data/posts");
-const { use } = require("./posts");
-let myid = ''
-let url = ''
+
+let myid = "";
+let url = "";
 let { ObjectId } = require("mongodb");
 
 router.get("/", async (req, res) => {
@@ -34,18 +34,6 @@ router.get("/signup", async (req, res) => {
   }
 });
 
-// router.get("/myprofile", async (req, res) => {
-//   try {
-//     if (!req.body) {
-//       return res.status(500).json({ error: "No request body provided!" });
-//     }
-//     const posts = await postFunctions.getUserPosts();
-//     return res.status(200).json(posts);
-//   } catch (error) {
-//     return res.status(500).json({ error: error.message });
-//   }
-// });
-
 // 4. POST for SignUp
 router.post("/signup", async (req, res) => {
   try {
@@ -59,87 +47,126 @@ router.post("/signup", async (req, res) => {
     let bio = req.body["bio"];
     year = parseInt(year);
     if (!username) {
-      res.status(404).render("signup", { hasErrors: true, error: "Must supply username!." });
+      res
+        .status(404)
+        .render("signup", { hasErrors: true, error: "Must supply username!." });
       return;
     }
     if (/\s/.test(username)) {
-      res.status(400).render("signup", {  hasErrors: true,error: `Username has spaces` });
+      res
+        .status(400)
+        .render("signup", { hasErrors: true, error: `Username has spaces` });
       return;
     }
     if (!username.match(/^[a-z0-9]+$/i)) {
-      res.status(400).render("signup", { hasErrors: true,
+      res.status(400).render("signup", {
+        hasErrors: true,
         error: `Only alphanumeric characters allowed!`,
       });
       return;
     }
     if (username.length < 4) {
-      res.status(400).render("signup", { hasErrors: true,
+      res.status(400).render("signup", {
+        hasErrors: true,
         error: `Length of username must be atleast 4 characters long!`,
       });
       return;
     }
     if (!password) {
-      res.status(404).render("signup", {  hasErrors: true,error: "Must supply password!" });
+      res
+        .status(404)
+        .render("signup", { hasErrors: true, error: "Must supply password!" });
       return;
     }
     if (/\s/.test(password)) {
-      res.status(400).render("signup", { hasErrors: true, error: `Username has spaces` });
+      res
+        .status(400)
+        .render("signup", { hasErrors: true, error: `Username has spaces` });
       return;
     }
     if (password.length < 6) {
-      res.status(400).render("signup", { hasErrors: true,
+      res.status(400).render("signup", {
+        hasErrors: true,
         error: `Password must be atleast 6 characters long!`,
       });
       return;
     }
     if (!firstName) {
-      res.status(404).render("signup", { hasErrors: true, error: "Must supply firstname!." });
+      res.status(404).render("signup", {
+        hasErrors: true,
+        error: "Must supply firstname!.",
+      });
       return;
     }
     if (/\s/.test(firstName)) {
-      res.status(400).render("signup", { hasErrors: true, error: `Username has spaces` });
+      res
+        .status(400)
+        .render("signup", { hasErrors: true, error: `Username has spaces` });
       return;
     }
     if (!lastName) {
-      res.status(404).render("signup", { hasErrors: true, error: "Must supply lastname!" });
+      res
+        .status(404)
+        .render("signup", { hasErrors: true, error: "Must supply lastname!" });
       return;
     }
     if (/\s/.test(lastName)) {
-      res.status(400).render("signup", { hasErrors: true, error: `Username has spaces` });
+      res
+        .status(400)
+        .render("signup", { hasErrors: true, error: `Username has spaces` });
       return;
     }
     if (!email) {
-      res.status(404).render("signup", {  hasErrors: true,error: "Must supply email!" });
+      res
+        .status(404)
+        .render("signup", { hasErrors: true, error: "Must supply email!" });
       return;
     }
     if (/\s/.test(email)) {
-      res.status(400).render("signup", {  hasErrors: true,error: `Email has spaces` });
+      res
+        .status(400)
+        .render("signup", { hasErrors: true, error: `Email has spaces` });
       return;
     }
-    if(!email.match( /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)){
-      res.status(400).render("signup", {  hasErrors: true,error: `Enter valid email-id` });
+    if (
+      !email.match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      )
+    ) {
+      res
+        .status(400)
+        .render("signup", { hasErrors: true, error: `Enter valid email-id` });
       return;
     }
     if (!major) {
-      res.status(404).render("signup", {  hasErrors: true,error: "Must supply major!" });
+      res
+        .status(404)
+        .render("signup", { hasErrors: true, error: "Must supply major!" });
       return;
     }
     if (/\s/.test(major)) {
-      res.status(400).render("signup", { hasErrors: true, error: `Major has spaces` });
+      res
+        .status(400)
+        .render("signup", { hasErrors: true, error: `Major has spaces` });
       return;
     }
     if (!year) {
-      res.status(404).render("signup", { hasErrors: true, error: "Must supply year!" });
+      res
+        .status(404)
+        .render("signup", { hasErrors: true, error: "Must supply year!" });
       return;
     }
     if (/\s/.test(year)) {
-      res.status(400).render("signup", {  hasErrors: true,error: `Year has spaces` });
+      res
+        .status(400)
+        .render("signup", { hasErrors: true, error: `Year has spaces` });
       return;
     }
     if (typeof year != "number") {
-      res
-        .status(400)
-        .render("signup", { hasErrors: true, error: "Year must be of type number" });
+      res.status(400).render("signup", {
+        hasErrors: true,
+        error: "Year must be of type number",
+      });
       return;
     }
 
@@ -156,9 +183,10 @@ router.post("/signup", async (req, res) => {
     if (isCredentialsValid != null) {
       res.redirect("/");
     } else {
-       res
-        .status(400)
-        .render("signup", {  hasErrors: true,error: "Username or password is invalid" });
+      res.status(400).render("signup", {
+        hasErrors: true,
+        error: "Username or password is invalid",
+      });
       return;
     }
   } catch (e) {
@@ -177,35 +205,48 @@ router.post("/login", async (req, res) => {
     password = password.trim();
 
     if (!username) {
-      res.status(400).render("login", { hasErrors: true, error: "You must enter a username!" });
+      res.status(400).render("login", {
+        hasErrors: true,
+        error: "You must enter a username!",
+      });
       return;
     }
     if (/\s/.test(username)) {
-      res.status(400).render("login", { hasErrors: true, error: `Username has spaces` });
+      res
+        .status(400)
+        .render("login", { hasErrors: true, error: `Username has spaces` });
       return;
     }
     if (!username.match(/^[a-z0-9]+$/i)) {
-      res
-        .status(400)
-        .render("login", {  hasErrors: true,error: `Only alphanumeric characters allowed!` });
+      res.status(400).render("login", {
+        hasErrors: true,
+        error: `Only alphanumeric characters allowed!`,
+      });
       return;
     }
     if (username.length < 4) {
-      res.status(400).render("login", { hasErrors: true,
+      res.status(400).render("login", {
+        hasErrors: true,
         error: `Length of username must be atleast 4 characters long!`,
       });
       return;
     }
     if (!password) {
-      res.status(400).render("login", {  hasErrors: true,error: `You must enter a password!` });
+      res.status(400).render("login", {
+        hasErrors: true,
+        error: `You must enter a password!`,
+      });
       return;
     }
     if (/\s/.test(password)) {
-      res.status(400).render("login", { hasErrors: true, error: `Password has spaces` });
+      res
+        .status(400)
+        .render("login", { hasErrors: true, error: `Password has spaces` });
       return;
     }
     if (password.length < 6) {
-      res.status(400).render("login", { hasErrors: true,
+      res.status(400).render("login", {
+        hasErrors: true,
         error: `Password must be atleast 6 characters long!`,
       });
       return;
@@ -218,11 +259,16 @@ router.post("/login", async (req, res) => {
     if (isCredentialsValid != null) {
       // console.log(req.session.user);
       req.session.user = username;
-      req.session.id = isCredentialsValid._id
-      myid = isCredentialsValid._id.toString()
+      req.session.id = isCredentialsValid._id;
+      myid = isCredentialsValid._id.toString();
       res.redirect("/dashboard");
-    }else{
-      res.render('login',{ hasErrors: true,error: 'Either username or password is incorrect',username:username,password:password})
+    } else {
+      res.render("login", {
+        hasErrors: true,
+        error: "Either username or password is incorrect",
+        username: username,
+        password: password,
+      });
     }
   } catch (e) {
     let hasErrors = true;
@@ -259,7 +305,8 @@ router.get("/myprofile", async (req, res) => {
   try {
     if (userName != null) {
       const myPosts = await dashboardData.getAllPostsByUserName(userName);
-      const user = await userFunctions.getUserbyUsername(userName)
+      const user = await userFunctions.getUserbyUsername(userName);
+      const photo = await dashboardData.getProfilePhotoByUserName(userName);
       res.status(200).render("myprofile", {
         title: userName.toLowerCase(),
         username: userName.toLowerCase(),
@@ -269,6 +316,7 @@ router.get("/myprofile", async (req, res) => {
         major: user.major,
         year: user.year,
         bio: user.bio,
+        photo: photo,
         myPosts: myPosts,
       });
     }
@@ -278,15 +326,10 @@ router.get("/myprofile", async (req, res) => {
   }
 });
 
-//------------------------------------------------------------------------------------------//
-//
 router.post("/myprofile", async (req, res) => {
-      res.redirect("/editProfile")    
+  res.redirect("/editProfile");
 });
-// router.post('/myprofile',async (req, res) =>{
-//     res.redirect('editpost')
-// })
-// Logout
+
 router.get("/logout", async (req, res) => {
   if (req.session.user) {
     req.session.destroy();
@@ -296,21 +339,20 @@ router.get("/logout", async (req, res) => {
     res.redirect("/");
   }
 });
-//------------------------------------------------------------------------------------------//
 
-router.get('/editProfile', async (req,res)=>{
-  let username = req.session.user
+router.get("/editProfile", async (req, res) => {
+  let username = req.session.user;
   if (!req.session.user) {
     res.render("login", { title: "Login Page" });
   } else {
-    res.status(200).render("editProfile" , {username:username});
+    res.status(200).render("editProfile", { username: username });
   }
-})
-//------------------------------------------------------------------------------------------//
+});
+
 router.post("/editProfile", async (req, res) => {
   try {
     // let username = req.body["username"].trim().toLowerCase();
-    let username = req.session.user
+    let username = req.session.user;
     let password = req.body["password"].trim();
     let firstName = req.body["firstname"].trim();
     let lastName = req.body["lastname"].trim();
@@ -320,65 +362,104 @@ router.post("/editProfile", async (req, res) => {
     // let bio = req.body["bio"];
     year = parseInt(year);
     if (!username) {
-      res.status(404).render("editProfile", { hasErrors: true, error: "Must supply username!." });
+      res.status(404).render("editProfile", {
+        hasErrors: true,
+        error: "Must supply username!.",
+      });
       return;
     }
     if (/\s/.test(username)) {
-      res.status(400).render("editProfile", {  hasErrors: true,error: `Username has spaces` });
+      res.status(400).render("editProfile", {
+        hasErrors: true,
+        error: `Username has spaces`,
+      });
       return;
     }
     if (!username.match(/^[a-z0-9]+$/i)) {
-      res.status(400).render("editProfile", { hasErrors: true,
+      res.status(400).render("editProfile", {
+        hasErrors: true,
         error: `Only alphanumeric characters allowed!`,
       });
       return;
     }
     if (username.length < 4) {
-      res.status(400).render("editProfile", { hasErrors: true,
+      res.status(400).render("editProfile", {
+        hasErrors: true,
         error: `Length of username must be atleast 4 characters long!`,
       });
       return;
     }
     if (!password) {
-      res.status(404).render("editProfile", {  hasErrors: true,error: "Must supply password!" });
+      res.status(404).render("editProfile", {
+        hasErrors: true,
+        error: "Must supply password!",
+      });
       return;
     }
     if (/\s/.test(password)) {
-      res.status(400).render("editProfile", { hasErrors: true, error: `Username has spaces` });
+      res.status(400).render("editProfile", {
+        hasErrors: true,
+        error: `Username has spaces`,
+      });
       return;
     }
     if (password.length < 6) {
-      res.status(400).render("editProfile", { hasErrors: true,
+      res.status(400).render("editProfile", {
+        hasErrors: true,
         error: `Password must be atleast 6 characters long!`,
       });
       return;
     }
     if (!firstName) {
-      res.status(404).render("editProfile", { hasErrors: true, error: "Must supply firstname!." });
+      res.status(404).render("editProfile", {
+        hasErrors: true,
+        error: "Must supply firstname!.",
+      });
       return;
     }
     if (/\s/.test(firstName)) {
-      res.status(400).render("editProfile", { hasErrors: true, error: `Username has spaces` });
+      res.status(400).render("editProfile", {
+        hasErrors: true,
+        error: `Username has spaces`,
+      });
       return;
     }
     if (!lastName) {
-      res.status(404).render("editProfile", { hasErrors: true, error: "Must supply lastname!" });
+      res.status(404).render("editProfile", {
+        hasErrors: true,
+        error: "Must supply lastname!",
+      });
       return;
     }
     if (/\s/.test(lastName)) {
-      res.status(400).render("editProfile", { hasErrors: true, error: `Username has spaces` });
+      res.status(400).render("editProfile", {
+        hasErrors: true,
+        error: `Username has spaces`,
+      });
       return;
     }
     if (!email) {
-      res.status(404).render("editProfile", {  hasErrors: true,error: "Must supply email!" });
+      res.status(404).render("editProfile", {
+        hasErrors: true,
+        error: "Must supply email!",
+      });
       return;
     }
     if (/\s/.test(email)) {
-      res.status(400).render("editProfile", {  hasErrors: true,error: `Email has spaces` });
+      res
+        .status(400)
+        .render("editProfile", { hasErrors: true, error: `Email has spaces` });
       return;
     }
-    if(!email.match( /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)){
-      res.status(400).render("editProfile", {  hasErrors: true,error: `Enter valid email-id` });
+    if (
+      !email.match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      )
+    ) {
+      res.status(400).render("editProfile", {
+        hasErrors: true,
+        error: `Enter valid email-id`,
+      });
       return;
     }
     // if (!major) {
@@ -390,20 +471,25 @@ router.post("/editProfile", async (req, res) => {
     //   return;
     // }
     if (!year) {
-      res.status(404).render("editProfile", { hasErrors: true, error: "Must supply year!" });
+      res
+        .status(404)
+        .render("editProfile", { hasErrors: true, error: "Must supply year!" });
       return;
     }
     if (/\s/.test(year)) {
-      res.status(400).render("editProfile", {  hasErrors: true,error: `Year has spaces` });
+      res
+        .status(400)
+        .render("editProfile", { hasErrors: true, error: `Year has spaces` });
       return;
     }
     if (typeof year != "number") {
-      res
-        .status(400)
-        .render("editProfile", { hasErrors: true, error: "Year must be of type number" });
+      res.status(400).render("editProfile", {
+        hasErrors: true,
+        error: "Year must be of type number",
+      });
       return;
     }
-    year = year.toString()
+    year = year.toString();
     const isCredentialsValid = await userFunctions.updateUser(
       myid,
       username,
@@ -415,12 +501,12 @@ router.post("/editProfile", async (req, res) => {
     );
 
     if (isCredentialsValid != null) {
-      req.session.user = username
+      req.session.user = username;
       res.redirect("/myprofile");
     } else {
-       res
+      res
         .status(400)
-        .render("editProfile", {  hasErrors: true,error: "error" });
+        .render("editProfile", { hasErrors: true, error: "error" });
       return;
     }
   } catch (e) {
@@ -428,25 +514,23 @@ router.post("/editProfile", async (req, res) => {
   }
 });
 
-
-//------------------------------------------------------------------------------------------//
-
-router.get('/editPost', async (req,res)=>{
-  let userName = req.session.user
-  const user = await userFunctions.getUserbyUsername(userName)
+router.get("/editPost", async (req, res) => {
+  let userName = req.session.user;
+  const user = await userFunctions.getUserbyUsername(userName);
   const myPosts = await dashboardData.getAllPostsByUserName(userName);
   // let urL = document.getElementById('editPostbtn').value()
-  let urL = req.originalUrl
-  console.log(urL)
-  const slug = urL.substring(urL.indexOf('=') + 1); // 01-2020
-  let newUrl = ObjectId(slug)
-  console.log(typeof newUrl)
+  let urL = req.originalUrl;
+  console.log(urL);
+  const slug = urL.substring(urL.indexOf("=") + 1); // 01-2020
+  let newUrl = ObjectId(slug);
+  console.log(typeof newUrl);
 
-// get everything after last dash 
-// const slug = str.split('-').pop(); // 2020
- 
+  // get everything after last dash
+  // const slug = str.split('-').pop(); // 2020
+
   if (req.session.user) {
-    res.render("editPost", { title: userName.toLowerCase(),
+    res.render("editPost", {
+      title: userName.toLowerCase(),
       username: userName.toLowerCase(),
       firstname: user.firstName,
       lastname: user.lastName,
@@ -455,67 +539,32 @@ router.get('/editPost', async (req,res)=>{
       year: user.year,
       bio: user.bio,
       myPosts: myPosts,
-      newUrl:newUrl
-      });
+      newUrl: newUrl,
+    });
   } else {
     res.status(200).render("login");
   }
-})
-//------------------------------------------------------------------------------------------//
-// router.post('/editpost', async (req,res)=>{
-// try{
-//   let username = req.session.user
-//   let password = req.body["title"].trim();
-//   let firstName = req.body["body"].trim();
-//   let lastName = req.body["tags"].trim();
-
-//   res.redirect('/myprofile')
-// }catch(e){
-//   res.render('editPost')
-// }
-// })
-// router.post('/editPost', async (req, res) => {
-//   try {
-//       // if (!req.session)
-//       //     throw "you don't have the cookie"
-//       // if (!req.session.userId)
-//       //     throw "login first,then edit content"
-//       // if (!req.body)
-//       //     throw "need new content and postId";
-//       // if (!req.body.postId)
-//       //     throw "need postId";
-//       // if (!req.body.newContent)
-//       //     throw "new Content";
-//       let postToEdit = await postFunctions.getPost(req.body['editPostbtn']);
-//       console.log(postToEdit)
-//       // if (postToEdit.userId !== req.session.userId)//这里判断想要修改post content的人是不是真正的写这个post的人
-//       //     throw "Your id is not the same as the userId of the post!!"
-//       let updatedPost = await postFunctions.editPost(req.body['editPostbtn'], req.body['title'], req.body['body']);
-//       res.redirect("http://localhost:3000/myprofile");
-//   } catch (error) {
-//       res.redirect("http://localhost:3000/myprofile");
-//   }
-// });
+});
 
 router.post("/editPost/:id", async (req, res) => {
   // console.log(req.params.id);
   try {
-  //   if (!req.params || !req.params.id) {
-  //     throw "Post ID not provided for edit!";
-  //   }
-  //   if (!req.body) {
-  //     throw "No request body provided!";
-  //   }
-  //   if (req.body.postTitle && typeof req.body.postTitle != "string") {
-  //     return res.status(400).json({
-  //       error: "Invalid post title, cannot be empty, type should be string.",
-  //     });
-  //   }
-  //   if (req.body.postBody && typeof req.body.postBody != "string") {
-  //     return res.status(400).json({
-  //       error: "Invalid post body, cannot be empty, type should be string.",
-  //     });
-  //   }
+    //   if (!req.params || !req.params.id) {
+    //     throw "Post ID not provided for edit!";
+    //   }
+    //   if (!req.body) {
+    //     throw "No request body provided!";
+    //   }
+    //   if (req.body.postTitle && typeof req.body.postTitle != "string") {
+    //     return res.status(400).json({
+    //       error: "Invalid post title, cannot be empty, type should be string.",
+    //     });
+    //   }
+    //   if (req.body.postBody && typeof req.body.postBody != "string") {
+    //     return res.status(400).json({
+    //       error: "Invalid post body, cannot be empty, type should be string.",
+    //     });
+    //   }
     let postFound = await postFunctions.getPost(req.params.id);
     // console.log(req.body.title);
     // console.log(postFound);
@@ -526,11 +575,10 @@ router.post("/editPost/:id", async (req, res) => {
     );
     // console.log(editedPost);
     // return res.status(200).json(editedPost);
-    res.redirect('/myprofile')
+    res.redirect("/myprofile");
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
 });
-
 
 module.exports = router;

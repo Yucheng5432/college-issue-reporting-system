@@ -18,4 +18,5 @@ module.exports = {
   departments: getCollectionFn("departments"),
   posts: getCollectionFn("posts"),
   comments: getCollectionFn("comments"),
+  images: getCollectionFn("images"),
 };

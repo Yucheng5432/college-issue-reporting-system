@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const postFunctions = require("../data/posts");
 const path = require("path");
-const e = require("express");
 
 //1. Get all posts routes --done
 router.get("/", async (req, res) => {
