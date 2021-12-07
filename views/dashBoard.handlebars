@@ -1,12 +1,11 @@
 <div class="dashboard">
     <div class="header-nav">
       <ul class= "menu">
-        <li class="header">
-          <a href="/myprofile" class="header">Welcome {{username}}</a>
+        <li class="title">
+          <a href="/" class="header">College Issue Reporting system</a>
         </li>
         <li class="search">
-            <form id="searchForm" class="searchForm">
-                {{!-- <label for="search">Search Post:</label> --}}
+            <form id="searchForm" >
                 <input type="text" id= "searchTerm" placeholder="search posts" class ="search-input">
                 <button type="submit" class="search-button">search</button>
             </form>
@@ -14,9 +13,11 @@
         <li>
         <div id="errorInput" class="errorInput" hidden><p>Please input a valid word.</p></div>
         </li>
-        <li class="logout-li">
-            <a  href="/logout">Logout</a>
-        </li>
+        <li class="username">
+          Welcome {{username}}
+        </li >  
+        <li class="logout-li"><a href="/logout">Logout</a>
+        </li> 
       </ul>
     </div>
 
@@ -42,10 +43,17 @@
         <textarea type="text" id="body" name="body" placeholder="Description" class="create-post-body"></textarea><br>
         <span hidden id="error_body"></span>
         <br>
-        <textarea type="text" id="priority" name="priority" placeholder="Priority" class="create-post-priority"></textarea><br>
+        {{!-- <textarea type="text" id="priority" name="priority" placeholder="Priority" class="create-post-priority"></textarea><br>
         <span hidden id="error_priority"></span>
-        <br>        
+        <br>         --}}
         <textarea type="text" id="tags" name="tags" placeholder="Tags" class ="create-post-tag" ></textarea><br>
+
+          <label class="priority" for="priority">Priority:</label>
+                    <select name="priority" id="priority">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                        </select><br>
+                        <br>
         <input type="file" name="image">
         <button type="submit">post</button>
         {{!-- <button type="submit" class="post-button" id="createPostBtn">post</button> --}}
@@ -66,11 +74,12 @@
                       <h4 class="poststitle-div">{{title}}</h4>
                       <p class="postsdate-div">by {{username}} on {{date}}</p>
                             <p class="post-body">{{body}}</p> 
-                            <p class="post-priority">Priority: {{priority}}</p> 
-                            <label class="tags">tags:</label>
+                            <p class="post-priority">Priority: {{priority}}</p>
                             {{#if image}}
-                            <img src={{image}} class="img-upload" width="400" height="400" >
+                            <img src={{image}} class="post-image" width="430" height="400" >
                             {{/if}}
+                            <br>
+                            <label class="tags">tags:</label>
                             {{#if tags.length}}
                             {{#each tags}}
                             <label class="taglable">{{this}}</label>

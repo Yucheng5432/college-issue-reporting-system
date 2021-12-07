@@ -26,42 +26,41 @@ async function getAllPosts() {
   try {
     const postCollection = await posts();
     const allPosts = await postCollection.find({}).sort({ date: -1 }).toArray();
-    let count = 0
-    let mt = []
-    let mt2 = []
-    for(i = 0; i < allPosts.length; i++){
+    let count = 0;
+    let mt = [];
+    let mt2 = [];
+    for (i = 0; i < allPosts.length; i++) {
       // console.log(allPosts[i].priority)
-      if(allPosts[i].priority === 'yes'){
-        mt.push(allPosts[i])
-        count++
+      if (allPosts[i].priority === "yes") {
+        mt.push(allPosts[i]);
+        count++;
         // console.log(mt)
-        if(count === allPosts.length){
-          allPosts.sort(function(a,b){
-            return new Date(a.date) - new Date(b.date)
-          })
-          return allPosts
+        if (count === allPosts.length) {
+          allPosts.sort(function (a, b) {
+            return new Date(a.date) - new Date(b.date);
+          });
+          return allPosts;
         }
       }
     }
-    
-    for(j = 0; j < allPosts.length; j++){
-      if(allPosts[j].priority === 'no'){
-        mt2.push(allPosts[j])
+
+    for (j = 0; j < allPosts.length; j++) {
+      if (allPosts[j].priority === "no") {
+        mt2.push(allPosts[j]);
         // console.log(mt)
       }
     }
 
-    mt.sort(function(a,b){
-      return new Date(a.date) - new Date(b.date)
-    })
-    mt2.sort(function(a,b){
-      return new Date(a.date) - new Date(b.date)
-    })
-    let arr3 = mt.concat(mt2)
+    mt.sort(function (a, b) {
+      return new Date(a.date) - new Date(b.date);
+    });
+    mt2.sort(function (a, b) {
+      return new Date(a.date) - new Date(b.date);
+    });
+    let arr3 = mt.concat(mt2);
     // console.log(arr3)
-    return arr3
+    return arr3;
     return allPosts;
-  
   } catch (error) {
     throw error.message;
   }
@@ -94,8 +93,15 @@ async function getUserPosts(userName) {
 }
 
 // create a post
-async function addPost(userName, postTitle, postBody, priority, postTags, image) {
-  priority = priority.trim().toLowerCase()
+async function addPost(
+  userName,
+  postTitle,
+  postBody,
+  priority,
+  postTags,
+  image
+) {
+  priority = priority.trim().toLowerCase();
   // if (arguments.length != 4) {
   //   throw "Incorrect number of arguments.";
   // }
@@ -128,8 +134,8 @@ async function addPost(userName, postTitle, postBody, priority, postTags, image)
     throw "Priority is invalid or empty.";
   }
 
-  if(!priority.match("yes") && !priority.match("no")){
-    throw "Priority can only have yes or no."
+  if (!priority.match("yes") && !priority.match("no")) {
+    throw "Priority can only have yes or no.";
   }
   console.log(image);
 
@@ -148,7 +154,7 @@ async function addPost(userName, postTitle, postBody, priority, postTags, image)
       username: userName,
       priority: priority,
       resolved: false,
-      date: new Date(),
+      date: new Date().toString(),
       image: image,
       comments: [],
     };
@@ -186,7 +192,7 @@ async function deletePost(postID) {
 }
 
 // edit a post
-async function editPost(postID, postTitle, postBody) {
+async function editPost(postID, postTitle, postBody, postTags) {
   // console.log(postID, postTitle);
   if (!postID || !ObjectId.isValid(postID)) {
     throw "Post ID is invalid.";
@@ -205,10 +211,11 @@ async function editPost(postID, postTitle, postBody) {
     // console.log(oldPost);
     let editedTitle = postTitle ? postTitle : oldPost.title; //Set existing title if not provided
     let editedBody = postBody ? postBody : oldPost.body;
+    let editedTag = postTags ? postTags : oldPost.tags
     let date = new Date(); //Set existing body if not provided
     const editedPost = await postCollection.updateOne(
       { _id: ObjectId(postID) },
-      { $set: { title: editedTitle, body: editedBody, date: date } }
+      { $set: { title: editedTitle, body: editedBody, tags: editedTag, date: date } }
     );
     if (!editedPost || editedPost.modifiedCount === 0) {
       throw new Error("Failed to edit post.");
@@ -220,6 +227,7 @@ async function editPost(postID, postTitle, postBody) {
     throw error.message;
   }
 }
+// editPost("61afac2eaeabdef0c163c0d5","2nd edit","Check for tags update","#check")
 
 // mark post as resolve
 async function resolvePost(postID, commentID) {

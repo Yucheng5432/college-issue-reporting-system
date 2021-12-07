@@ -13,7 +13,9 @@ async function uploadProfilePhoto(username, image) {
   try {
     const user = await imagesCollection();
 
-    if (getProfilePhoto(username)) {
+    // console.log(await getProfilePhoto(username));
+
+    if ((await getProfilePhoto(username)) != false) {
       let updateImage = {
         image: image,
       };
@@ -57,10 +59,11 @@ async function getProfilePhoto(username) {
     const photoCollection = await imagesCollection();
     const photo = await photoCollection.findOne({ username: username });
 
-    if (!photo) {
-      return "/public/images/no_image";
+    if (photo != null) {
+      return photo.image;
+    } else {
+      return false;
     }
-    return photo.image;
   } catch (e) {
     return e.message;
   }
