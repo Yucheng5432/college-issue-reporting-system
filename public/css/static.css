@@ -90,7 +90,7 @@
 }
 
 .commentresolve,
-searchedcommentresolve {
+.searchedcommentresolve {
   color: green;
 }
 .commentNotresolve {
@@ -327,7 +327,8 @@ li form {
   color: rgb(245, 237, 237);
   background-color: rgb(128, 42, 42);
 }
-.poststitle-div {
+.poststitle-div,
+.searchedPoststitle-div {
   background-color: rgb(248, 247, 247);
   font-size: 21px;
   font-style: normal;
@@ -340,14 +341,16 @@ li form {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.postsdate-div {
+.postsdate-div,
+.searchedPostsdate-div {
   position: relative;
   top: -30px;
   font-size: 13px;
   font-style: normal;
   background-color: rgb(255, 248, 248);
 }
-.commentsDate.searchedcommentsDate {
+.commentsDate,
+.searchedcommentsDate {
   font-size: 13px;
   font-style: normal;
   background-color: rgb(255, 248, 248);

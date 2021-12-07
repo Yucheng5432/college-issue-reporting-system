@@ -59,8 +59,6 @@
         }
 
 
-        
-
         if(!usernameInput.value.trim().match(/^[a-z0-9]+$/i)){
           event.preventDefault();
           valid = false
