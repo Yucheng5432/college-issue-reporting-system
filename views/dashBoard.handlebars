@@ -60,6 +60,9 @@
                       <p class="postsdate-div">by {{username}} on {{date}}</p>
                             <p class="post-body">{{body}}</p> 
                             <label class="tags">tags:</label>
+                            {{#if image}}
+                            <img src={{image}} width="400" height="400">
+                            {{/if}}
                             {{#if tags.length}}
                             {{#each tags}}
                             <label class="taglable">{{this}}</label>

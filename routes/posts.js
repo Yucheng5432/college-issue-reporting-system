@@ -72,13 +72,12 @@ router.post("/search/:searchterm", async (req, res) => {
 router.post("/", async (req, res) => {
   const username = req.session.user;
   let file = req.file;
-  let filePath = file.path.replace(/\\/g, "/");
   let imagePath;
   // console.log(file);
   try {
     if (file) {
       if (checkFileType(file)) {
-        imagePath = filePath;
+        imagePath = file.path.replace(/\\/g, "/");
       } else {
         return res.status(500).json({ error: "Images only!" });
       }

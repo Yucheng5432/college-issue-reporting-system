@@ -59,10 +59,10 @@ async function getUserPosts(userName) {
 }
 
 // create a post
-async function addPost(userName, postTitle, postBody, postTags) {
-  if (arguments.length != 4) {
-    throw "Incorrect number of arguments.";
-  }
+async function addPost(userName, postTitle, postBody, postTags, image) {
+  // if (arguments.length != 4) {
+  //   throw "Incorrect number of arguments.";
+  // }
   if (
     !postTitle ||
     typeof postTitle != "string" ||
@@ -85,6 +85,10 @@ async function addPost(userName, postTitle, postBody, postTags) {
     throw "Username is invalid or empty.";
   }
 
+  if (image === undefined) {
+    let image = false;
+  }
+
   try {
     const postCollection = await posts();
 
@@ -96,7 +100,7 @@ async function addPost(userName, postTitle, postBody, postTags) {
       username: userName,
       resolved: false,
       date: new Date(),
-      image: {},
+      image: image,
       comments: [],
     };
 
@@ -203,7 +207,9 @@ async function findPostsbySearchterm(searchterm) {
   if (!searchterm) throw "No Search Term provided";
   const postCollection = await posts();
   //let phrase = '"' + searchterm + '"';
-  const searchedPosts = await postCollection.find({tags:{$elemMatch:{$eq: searchterm }}}).toArray();
+  const searchedPosts = await postCollection
+    .find({ tags: { $elemMatch: { $eq: searchterm } } })
+    .toArray();
   //  .aggregate([{ $match: { $text: { $search: phrase } } }]).toArray();
   //console.log(searchedPosts+"is from data");
   //console.log(searchedPosts);
