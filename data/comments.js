@@ -25,7 +25,7 @@ async function createComment(postID, userName, body) {
     postID: postID,
     userName: userName,
     body: body,
-    date: new Date(),
+    date: new Date().toString(),
     answer: false,
   };
 

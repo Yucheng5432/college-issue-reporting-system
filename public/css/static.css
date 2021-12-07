@@ -243,9 +243,11 @@
   /* width: 200px; */
 }
 
-.header {
+/* .header {
   color: black;
-}
+  position: relative;
+  font-size: small;
+} */
 
 .nav {
   float: left;
@@ -264,6 +266,7 @@ h2 {
 .logout-link {
   text-align: center;
 }
+
 .createpostForm {
   margin-left: 20px;
   margin-right: 20px;
@@ -319,11 +322,28 @@ ul {
 
 .search {
   float: left;
+  position: relative;
+  top: 15px;
+  right: -150px;
+}
+
+.title {
+  float: left;
+  position: relative;
+  top: 15px;
+  right: 40px;
 }
 
 .logout-li {
   float: right;
-  border-right: 1px solid rgb(255, 255, 255);
+  /* border-right: 1px solid rgb(255, 255, 255); */
+}
+
+.username {
+  color: white;
+  position: relative;
+  top: 45px;
+  right: -150px;
 }
 
 li a {
