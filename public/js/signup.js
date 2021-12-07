@@ -1,6 +1,10 @@
 (function ($) {
     let usernameSignup = $('#username');
     let passwordSignup = $('#password');
+    let firstname = $('#firstname')
+    let lastname = $('#lastname')
+    let year = $('#year')
+    let email =$('#email')
     let signupForm = $('#signup-form')
     let submitButton = $('#signup_button');
 
@@ -11,177 +15,182 @@
     let emailAlert = $('#error_email')
     let yearAlert = $('#error_year')
 
-    signupForm.submit((event) => {
-        valid =true
-        
-        userAlert.addClass('hidden')
-        userAlert.text('')
-        passAlert.addClass('hidden')
-        passAlert.text('')
-        firstAlert.addClass('hidden')
-        firstAlert.text('')
-        lastAlert.addClass('hidden')
-        lastAlert.text('')
-        emailAlert.addClass('hidden')
-        emailAlert.text('')
-        yearAlert.addClass('hidden')
-        yearAlert.text('')
+    let valid =true
+    
+    /**userAlert.addClass('hidden')
+    userAlert.text('')
+    passAlert.addClass('hidden')
+    passAlert.text('')
+    firstAlert.addClass('hidden')
+    firstAlert.text('')
+    lastAlert.addClass('hidden')
+    lastAlert.text('')
+    emailAlert.addClass('hidden')
+    emailAlert.text('')
+    yearAlert.addClass('hidden')
+    yearAlert.text('')**/
 
-        var userNameStr = usernameSignup.val()
-        var passwordStr = passwordSignup.val()
-        var firstnameStr = firstAlert.val()
-        var lastnameStr = lastAlert.val()
-        var emailStr = emailAlert.val().toLowerCase()
-        var yearStr = yearAlert.val()
+    
         // username
+    usernameSignup.blur(function(event){
+        var userNameStr = usernameSignup.val()
         if(!userNameStr){
             valid = false
-            event.preventDefault();
-            userAlert.text('You must enter username')
-            userAlert.removeClass('hidden')
-            usernameSignup.focus()
+            userAlert.show() 
+            userAlert.html('You need to enter username')
             return
         }
         else{
-            valid = true
+            userAlert.hide()
         }
+       
         if (/\s/.test(userNameStr)) {
             valid = false
-            event.preventDefault();
-            userAlert.text('Username has spaces')
-            userAlert.removeClass('hidden')
-            usernameSignup.focus()
+            
+            userAlert.show() 
+            userAlert.html('user name has space')
             return
         }
         else{
-            valid = true
+            userAlert.hide()
         }
         if (!userNameStr.match(/^[a-z0-9]+$/i)) {
             valid = false
-            event.preventDefault();
-            userAlert.text('Only alphanueric values allowed for username')
-            userAlert.removeClass('hidden')
-            usernameSignup.focus()
+           
+
+            userAlert.show() 
+            userAlert.html('Only alphanueric values allowed for username')
             return
         }
         else{
             valid = true
         }
+    })
         //password
-        if(!passwordStr){
-            valid = false
-            event.preventDefault();
-            passAlert.text('Please enter password')
-            passAlert.removeClass('hidden')
-            passwordSignup.focus()
-            return
+        passwordSignup.blur(function(event){
+            var passwordStr = passwordSignup.val()
+            if(!passwordStr){
+                valid = false
+                passAlert.show() 
+                passAlert.html('You need to enter your password')
+          
+                return
+            }
+            else{
+                passAlert.hide()
         }
-        else{
-            valid = true
-        }
+    })
         //firstname
-        if(!firstnameStr){
-            valid = false
-            event.preventDefault();
-            firstAlert.text('You must enter firstname')
-            firstAlert.removeClass('hidden')
-            firstnameSignup.focus()
-            return
-        }
+        firstname.blur(function(event){
+            var firstnameStr = firstname.val()
+            if(!firstnameStr){
+                valid = false
+                firstAlert.show() 
+                firstAlert.html('You need to enter your firstname')
+                return
+            }
         else{
-            valid = true
+            firstAlert.hide()
         }
         if (/\s/.test(firstnameStr)) {
             valid = false
-            event.preventDefault();
-            firstAlert.text('firstname has spaces')
-            firstAlert.removeClass('hidden')
-            firstnameStr.focus()
+            firstAlert.show() 
+            firstAlert.html('firstname has spaces')
+       
             return
         }
         else{
-            valid = true
+            firstAlert.hide()
         }
+   
         if (!firstnameStr.match(/^[a-z]+$/i)) {
             valid = false
-            event.preventDefault();
-            firstAlert.text('only alpabets allowed for firstname')
-            firstAlert.removeClass('hidden')
-            firstnameStr.focus()
+            firstAlert.show() 
+            firstAlert.html('only alpabets allowed for firstname')
+           
             return
         }
         else{
-            valid = true
+            firstAlert.hide()
         }
+    })
+
         //lastname
-        if(!lastnameStr){
+        lastname.blur(function(event){
+            var lastnameStr = lastname.val()
+            if(!lastnameStr){
+                valid = false
+                lastAlert.show() 
+                lastAlert.html('You need to enter your lastname')
+          
+                return
+            }
+            else{
+                lastAlert.hide()
+            }
+        if (/\s/.test(lastnameStr)) {
             valid = false
-            event.preventDefault();
-            lastAlert.text('You must enter lastname')
-            lastAlert.removeClass('hidden')
-            lastnameStr.focus()
+
+            lastAlert.show() 
+            lastAlert.html('lastname cannot have spaces')
+
             return
         }
         else{
-            valid = true
-        }
-        if (/\s/.test(firstnameStr)) {
-            valid = false
-            event.preventDefault();
-            lastAlert.text('lastname has spaces')
-            lastAlert.removeClass('hidden')
-            lastnameStr.focus()
-            return
-        }
-        else{
-            valid = true
+            lastAlert.hide()
         }
         if (!lastnameStr.match(/^[a-z]+$/i)) {
             valid = false
-            event.preventDefault();
-            lastAlert.text('only alpabets allowed for lastname')
-            lastAlert.removeClass('hidden')
-            lastnameStr.focus()
-            return
-        }
-        else{
-            valid = true
-        }
-        //email
-        if(!emailStr){
-            valid = false
-            event.preventDefault();
-            emailAlert.text('Please enter your email address')
-            emailAlert.removeClass('hidden')
-            emailStr.focus()
-            return
-        }
-        else{
-            valid = true
-        }
 
-        if (!emailStr.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)){
-            valid = false
-            event.preventDefault();
-            emailAlert.text('entered email address format not valid')
-            emailAlert.removeClass('hidden')
-            emailStr.focus()
-            return 
+  
+            lastAlert.show() 
+            lastAlert.html('only alpabets allowed for lastname')
+ 
+            return
         }
         else{
-            valid = true
+            lastAlert.hide()
         }
-        //year     
+    })
+        //email
+        email.blur(function(event){
+            var emailStr = email.val()
+            if(!emailStr){
+                valid = false
+                emailAlert.show() 
+                emailAlert.html('You need to enter your email address')
+
+                return
+            }
+            else{
+                emailAlert.hide()
+            }
+
+            if (!emailStr.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)){
+                valid = false
+
+                emailAlert.show() 
+                emailAlert.html('entered email address format not valid')
+
+                return 
+            }
+            else{
+                emailAlert.hide()
+            }
+        })
+        //year
+        year.blur(function(event){
+            var yearStr = year.val()     
         if(!yearStr){
             valid = false
-            event.preventDefault();
-            yearAlert.text('Please enter your the year you are expected to graduate')
-            yearAlert.removeClass('hidden')
-            yearStr.focus()
+
+            yearAlert.show() 
+            yearAlert.html('You need to enter the expected graduation year')
+
             return
         }
         else{
-            valid = true
+            yearAlert.hide()
         }
 
         if(parseInt(yearStr)<2021){
@@ -189,17 +198,22 @@
             event.preventDefault();
             yearAlert.text('please enter valid graduation year')
             yearAlert.removeClass('hidden')
-            yearStr.focus()
+  
             return
         } 
         else{
-            valid = true
-        }  
-        if (valid==true){
-            signupForm.unbind().submit()
-        }else{
-            return
-        }
+            yearAlert.hide()
+        } 
     });
+        signupForm.submit(function (event) {
+            if(valid===false)
+            {
+              event.preventDefault();
+            }
+            else{
+              signupForm.unbind().submit();
+            }
+          })
+   
   
 })(window.jQuery);
