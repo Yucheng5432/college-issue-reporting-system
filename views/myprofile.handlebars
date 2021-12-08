@@ -5,7 +5,7 @@
           <a href="/" class="header">College Issue Reporting system</a>
         </li>
         <li class="search">
-            <form id="searchForm" class="searchForm" method="get">
+            <form id="searchForm">
                  <input type="text" id= "searchTerm" placeholder="search posts" class ="search-input">
                 <button type="submit" class="search-button">search</button>
             </form>
@@ -127,4 +127,18 @@
             </form>
             </div>
         </div>
+
+     <div class="search-result">
+    <div id="searchTitle" hidden>
+      <h2 >Search Result</h2>
+    </div>
+    <div>
+      <div id="searchPostsList" class="searchCard" hidden>
+      </div>
+      </div>
+      <div id="noResult"  class="noResult" hidden><p>Sorry, no results were found.</p></div>
+  </div>
+   <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
 </div>
+<script src="/public/js/myProfile.js"></script>
