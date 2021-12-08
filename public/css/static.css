@@ -242,7 +242,12 @@
   color: black;
   /* width: 200px; */
 }
-
+/*.header-nav,
+.content {
+	position: absolute;
+	left: 0;
+	right: 0;
+}*/
 /* .header {
   color: black;
   position: relative;
