@@ -9,6 +9,7 @@
 <div class ="signup_div">
   <h1>SignUp Page</h1>
   <form id="signup-form" action="/signup" method="POST" >
+
     <label for="username">Username</label>
     <input type="text" name="username" id="username" placeholder="Enter Username" class="signup_input"  />
     <div id="error_username" class="form-group hidden"></div>
@@ -30,6 +31,7 @@
     <div id="error_email" class="form-group hidden"></div>
 
     <label class="major" for="majorText">major:</label>
+    <br>
                     <select name="major" id="major">
                         <option value="Select">Select</option>
                         <option value="computerScience">Computer Science</option>
@@ -40,15 +42,18 @@
                         <option value="Chemical Engineering">Chemical Engineering</option>
                         <option value="Materials Science">Materials Science</option>
                     </select>
-    <label class="year" for="yearText"year:>year:</label>
+    <br>      
+    <label class="year" for="yearText">year:</label>
     <input type="text" id="year" placeholder="year" name="year" class="signup_input"  />  
     <div id="error_year" class="form-group hidden"></div>
+
     <div class="alert alert-danger hidden" id="form-alert"></div>              
     <button type="submit" class="signup_button" id='submitButton'>SignUp</button>
     <a href="http://localhost:3000">Already have an account? Click here to log-in</a>
+    {{!-- 
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
         crossorigin="anonymous"></script>
-    <script src="/public/js/signup.js"></script>
+    <script src="/public/js/signup.js"></script>--}}
     
     {{#if hasErrors}}
     <p class="error">{{error}}</p>

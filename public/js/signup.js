@@ -6,7 +6,7 @@
     let year = $('#year')
     let email =$('#email')
     let signupForm = $('#signup-form')
-    let submitButton = $('#signup_button');
+    //let submitButton = $('#signup_button');
 
     let userAlert = $('#error_username')
     let passAlert = $('#error_password')  

@@ -4,46 +4,65 @@ const data = require("../data");
 const userFunctions = data.users;
 const dashboardData = data.dashboard;
 const postFunctions = require("../data/posts");
+const xss = require("xss"); 
 
 let myid = "";
 let url = "";
 let { ObjectId } = require("mongodb");
 
 router.get("/", async (req, res) => {
-  if (!req.session.user) {
+  if(xss(req.session.user)){
+    res.redirect("/dashboard");
+  }else{
+    res.render("login", { title: "Login Page" });
+  }
+  /*if (!req.session.user) {
     res.render("login", { title: "Login Page" });
   } else {
     res.redirect("/dashboard");
   }
+  */
 });
 
 router.get("/login", async (req, res) => {
-  if (!req.session.user) {
+  if(xss(req.session.user)){
+    res.redirect("/dashboard");
+  }else{
+    res.redirect("/");
+  }
+  /*if (!req.session.user) {
     res.redirect("/");
   } else {
     res.redirect("/dashboard");
-  }
+  }*/
 });
 
 // GET SignUP
 router.get("/signup", async (req, res) => {
+  if(xss(req.session.user)){
+    res.redirect("/dashboard");
+  }else{
+    res.render("signup", { title: "Signup Page" });
+  }
+  /*
   if (!req.session.user) {
     res.render("signup", { title: "Signup Page" });
   } else {
     res.redirect("/dashboard");
-  }
+  }*/
 });
 
 // 4. POST for SignUp
 router.post("/signup", async (req, res) => {
   try {
-    let username = req.body["username"].trim().toLowerCase();
-    let password = req.body["password"].trim();
-    let firstName = req.body["firstname"].trim();
-    let lastName = req.body["lastname"].trim();
-    let email = req.body["email"].trim();
-    let major = req.body["major"].trim();
-    let year = req.body["year"].trim();
+    let reqBody = req.body;
+    let username = xss(reqBody.username.trim().toLowerCase());
+    let password = xss(reqBody.password.trim());
+    let firstName = xss(reqBody.firstname.trim());
+    let lastName = xss(reqBody.lastname.trim());
+    let email = xss(reqBody.email.trim());
+    let major = xss(reqBody.major.trim());
+    let year = xss(reqBody.year.trim());
     let bio = "Introduce yourself"
     year = parseInt(year);
     if (!username) {
@@ -198,12 +217,15 @@ router.post("/signup", async (req, res) => {
 // 5. POST for Login
 router.post("/login", async (req, res) => {
   try {
+    let reqBody = req.body;
+    let username = xss(reqBody.username.trim().toLowerCase());
+    let password = xss(reqBody.password.trim());
+    /*
     let username = req.body["username"];
     let password = req.body["password"];
-
     username = username.trim();
     username = username.toLowerCase();
-    password = password.trim();
+    password = password.trim();*/
 
     if (!username) {
       res.status(400).render("login", {
@@ -283,7 +305,7 @@ router.post("/login", async (req, res) => {
 
 // GET Login
 router.get("/dashboard", async (req, res) => {
-  const userName = req.session.user; //this username the one who is logged in.
+  const userName = xss(req.session.user); //this username the one who is logged in.
   // console.log(req.session.user);
   try {
     const allPostDashboard = await dashboardData.getAllPosts();
@@ -300,7 +322,7 @@ router.get("/dashboard", async (req, res) => {
 
 // get all posts by username
 router.get("/myprofile", async (req, res) => {
-  const userName = req.session.user;
+  const userName = xss(req.session.user);
 
   // console.log("Inside profilePage", userName);
   try {
@@ -332,7 +354,7 @@ router.post("/myprofile", async (req, res) => {
 });
 
 router.get("/logout", async (req, res) => {
-  if (req.session.user) {
+  if (xss(req.session.user)) {
     req.session.destroy();
     res.render("logout", { title: "Logged out" });
   } else {
@@ -342,26 +364,37 @@ router.get("/logout", async (req, res) => {
 });
 
 router.get("/editProfile", async (req, res) => {
-  let username = req.session.user;
-  if (!req.session.user) {
+  let username = xss(req.session.user);
+  if(xss(req.session.user)){
+    res.status(200).render("editProfile", { username: username });
+  }else{
+    res.render("login", { title: "Login Page" });
+  }
+  /*if (!req.session.user) {
     res.render("login", { title: "Login Page" });
   } else {
     res.status(200).render("editProfile", { username: username });
-  }
+  }*/
 });
 
 router.post("/editProfile", async (req, res) => {
   try {
+    let reqBody = req.body;
     // let username = req.body["username"].trim().toLowerCase();
-    let username = req.session.user;
-    let password = req.body["password"].trim();
-    let firstName = req.body["firstname"].trim();
-    let lastName = req.body["lastname"].trim();
-    let email = req.body["email"].trim();
+    let username = xss(req.session.user);
+    let password = xss(reqBody.password.trim());
+    //let password = req.body["password"].trim();
+    let firstName = xss(reqBody.firstname.trim());
+    //let firstName = req.body["firstname"].trim();
+    let lastName = xss(reqBody.lastname.trim());
+    //let lastName = req.body["lastname"].trim();
+    let email = xss(reqBody.email.trim());
+   // let email = req.body["email"].trim();
     // let major = req.body["major"].trim();
-    let year = req.body["year"].trim();
+    let year = xss(reqBody.year.trim());
+    //let year = req.body["year"].trim();
     // let bio = req.body["bio"];
-    let bio = req.body["bio"];
+    let bio = xss(reqBody.bio);
     year = parseInt(year);
     if (!username) {
       res.status(404).render("editProfile", {
@@ -494,7 +527,7 @@ router.post("/editProfile", async (req, res) => {
 
     year = year.toString();
     const isCredentialsValid = await userFunctions.updateUser(
-      myid,
+      myid, 
       username,
       firstName,
       lastName,
@@ -519,7 +552,7 @@ router.post("/editProfile", async (req, res) => {
 });
 
 router.get("/editPost", async (req, res) => {
-  let userName = req.session.user;
+  let userName = xss(req.session.user);
   const user = await userFunctions.getUserbyUsername(userName);
   const myPosts = await dashboardData.getAllPostsByUserName(userName);
   // let urL = document.getElementById('editPostbtn').value()
@@ -532,7 +565,7 @@ router.get("/editPost", async (req, res) => {
   // get everything after last dash
   // const slug = str.split('-').pop(); // 2020
 
-  if (req.session.user) {
+  if (xss(req.session.user)) {
     res.render("editPost", {
       title: userName.toLowerCase(),
       username: userName.toLowerCase(),
@@ -571,14 +604,14 @@ router.post("/editPost/:id", async (req, res) => {
       //   });
       // }
     let postFound = await postFunctions.getPost(req.params.id);
-    mt.push(req.body.tags)
+    mt.push(xss(req.body.tags))
 
     // console.log(req.body.editPost_priority);
     // console.log(postFound);
     const editedPost = await postFunctions.editPost(
-      req.params.id,
-      req.body.title,
-      req.body.body,
+      xss(req.params.id),
+      xss(req.body.title),
+        xss(req.body.body),
       mt,
       req.body.editPost_priority
     );
