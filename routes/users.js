@@ -569,13 +569,14 @@ router.post("/editPost/:id", async (req, res) => {
     let postFound = await postFunctions.getPost(req.params.id);
     mt.push(req.body.tags)
 
-    // console.log(req.body.title);
+    // console.log(req.body.editPost_priority);
     // console.log(postFound);
     const editedPost = await postFunctions.editPost(
       req.params.id,
       req.body.title,
       req.body.body,
-      mt
+      mt,
+      req.body.editPost_priority
     );
     // console.log(editedPost);
     res.redirect("/myprofile");
