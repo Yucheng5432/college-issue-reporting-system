@@ -71,6 +71,13 @@
         searchPostList.append("<h4 class=\"searchedPoststitle-div\">"+ post.title +"</h4>");
         searchPostList.append("<p class=\"searchedPostsdate-div\">"+" by"+ post.username +"on"+ post.date +"</label><p>");
         searchPostList.append("<p class=\"searchedPost-body\">"+ post.body +"</p>");
+        searchPostList.append("<p class=\"searchedPost-priority\"> Priority:"+ post.priority +"</p>");
+        if(post.image){
+          searchPostList.append("<img src="+post.image+"class= \"searchedPost-image width\" width=\"430\" height=\"400\" ");
+          searchPostList.append("<br>");
+        }else{
+          searchPostList.append("<br>");
+        }
         searchPostList.append("<label class=\"searchedtags\">Tag: </label>");
         for(let j=0;j<post.tags.length;j++){
           searchPostList.append("<label class=\"searchedtaglable\">"+ post.tags[j] +" "+"</label>");
