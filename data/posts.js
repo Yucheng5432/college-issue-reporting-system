@@ -192,7 +192,7 @@ async function deletePost(postID) {
 }
 
 // edit a post
-async function editPost(postID, postTitle, postBody, postTags) {
+async function editPost(postID, postTitle, postBody, postTags, postPriority) {
   // console.log(postID, postTitle);
   if (!postID || !ObjectId.isValid(postID)) {
     throw "Post ID is invalid.";
@@ -211,11 +211,12 @@ async function editPost(postID, postTitle, postBody, postTags) {
     // console.log(oldPost);
     let editedTitle = postTitle ? postTitle : oldPost.title; //Set existing title if not provided
     let editedBody = postBody ? postBody : oldPost.body;
-    let editedTag = postTags ? postTags : oldPost.tags
+    let editedTag = postTags ? postTags : oldPost.tags;
+    let editedPriority = postPriority ? postPriority : oldPost.priority;
     let date = new Date(); //Set existing body if not provided
     const editedPost = await postCollection.updateOne(
       { _id: ObjectId(postID) },
-      { $set: { title: editedTitle, body: editedBody, tags: editedTag, date: date } }
+      { $set: { title: editedTitle, body: editedBody, tags: editedTag, priority: editedPriority, date: date } }
     );
     if (!editedPost || editedPost.modifiedCount === 0) {
       throw new Error("Failed to edit post.");
@@ -227,7 +228,7 @@ async function editPost(postID, postTitle, postBody, postTags) {
     throw error.message;
   }
 }
-// editPost("61afac2eaeabdef0c163c0d5","2nd edit","Check for tags update","#check")
+// editPost("61afd6973e6e42f8774ca938","2nd edit","Check for tags update","#check","yes")
 
 // mark post as resolve
 async function resolvePost(postID, commentID) {

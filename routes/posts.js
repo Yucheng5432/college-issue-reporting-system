@@ -118,6 +118,7 @@ router.post("/", async (req, res) => {
     }
 
     let tags = newPost.tags.replace(/\s/g, "").split(",");
+    // console.log(newPost.priority)
 
     // call the addPost functions from the data
     const addPost = await postFunctions.addPost(
@@ -160,13 +161,14 @@ router.patch("/edit/:id", async (req, res) => {
     }
     mt.push(req.body.tags)
     let postFound = await postFunctions.getPost(req.params.id);
-    // console.log(req.body.title);
+    // console.log(req.body.priority);
     // console.log(postFound);
     const editedPost = await postFunctions.editPost(
       req.params.id,
       req.body.title,
       req.body.body,
-      mt
+      mt,
+      req.body.editPost_priority
     );
     // console.log(editedPost);
     return res.status(200).json(editedPost);
