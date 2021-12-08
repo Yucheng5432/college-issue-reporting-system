@@ -29,11 +29,13 @@
     emailAlert.text('')
     yearAlert.addClass('hidden')
     yearAlert.text('')**/
-
+    let searchPostForm = $("#signup-form")
     
         // username
-    usernameSignup.blur(function(event){
-        var userNameStr = usernameSignup.val()
+    searchPostForm.submit(function(event){
+        event.preventDefault()
+    // usernameSignup.blur(function(event){
+        var userNameStr = usernameSignup.val().trim()
         if(!userNameStr){
             valid = false
             userAlert.show() 
@@ -41,6 +43,7 @@
             return
         }
         else{
+            valid = true
             userAlert.hide()
         }
        
@@ -52,6 +55,7 @@
             return
         }
         else{
+            valid = true
             userAlert.hide()
         }
         if (!userNameStr.match(/^[a-z0-9]+$/i)) {
@@ -65,10 +69,20 @@
         else{
             valid = true
         }
-    })
+        if(userNameStr.length < 4){
+            valid = false
+            userAlert.show() 
+            userAlert.html('Length of username must be atleast 4')
+            return
+        }
+        else{
+            valid = true
+            userAlert.hide()
+        }
+    // })
         //password
-        passwordSignup.blur(function(event){
-            var passwordStr = passwordSignup.val()
+        // passwordSignup.blur(function(event){
+            var passwordStr = passwordSignup.val().trim()
             if(!passwordStr){
                 valid = false
                 passAlert.show() 
@@ -76,13 +90,36 @@
           
                 return
             }
-            else{
+            else{ 
+                valid = true
                 passAlert.hide()
-        }
-    })
+            }
+            if (/\s/.test(passwordStr)) {
+                valid = false
+                
+                passAlert.show() 
+                passAlert.html('Password has space')
+                return
+            }
+            else{
+                valid = true
+                userAlert.hide()
+            }
+            if(passwordStr.length < 6){
+                valid = false
+                passAlert.show() 
+                passAlert.html('Length of password must be atleast 6')
+                return
+            }
+            else{
+                valid = true
+                userAlert.hide()
+            }
+
+    // })
         //firstname
-        firstname.blur(function(event){
-            var firstnameStr = firstname.val()
+        // firstname.blur(function(event){
+            var firstnameStr = firstname.val().trim()
             if(!firstnameStr){
                 valid = false
                 firstAlert.show() 
@@ -90,6 +127,7 @@
                 return
             }
         else{
+            valid = true
             firstAlert.hide()
         }
         if (/\s/.test(firstnameStr)) {
@@ -100,6 +138,7 @@
             return
         }
         else{
+            valid = true
             firstAlert.hide()
         }
    
@@ -111,13 +150,14 @@
             return
         }
         else{
+            valid = true
             firstAlert.hide()
         }
-    })
+    // })
 
         //lastname
-        lastname.blur(function(event){
-            var lastnameStr = lastname.val()
+        // lastname.blur(function(event){
+            var lastnameStr = lastname.val().trim()
             if(!lastnameStr){
                 valid = false
                 lastAlert.show() 
@@ -126,6 +166,7 @@
                 return
             }
             else{
+                valid = true
                 lastAlert.hide()
             }
         if (/\s/.test(lastnameStr)) {
@@ -137,6 +178,7 @@
             return
         }
         else{
+            valid = true
             lastAlert.hide()
         }
         if (!lastnameStr.match(/^[a-z]+$/i)) {
@@ -144,17 +186,18 @@
 
   
             lastAlert.show() 
-            lastAlert.html('only alpabets allowed for lastname')
+            lastAlert.html('only alphabets allowed for lastname')
  
             return
         }
         else{
+            valid = true
             lastAlert.hide()
         }
-    })
+    // })
         //email
-        email.blur(function(event){
-            var emailStr = email.val()
+        // email.blur(function(event){
+            var emailStr = email.val().trim()
             if(!emailStr){
                 valid = false
                 emailAlert.show() 
@@ -163,7 +206,19 @@
                 return
             }
             else{
+                valid = true
                 emailAlert.hide()
+            }
+            if (/\s/.test(emailStr)) {
+                valid = false
+                
+                emailAlert.show() 
+                emailAlert.html('email cannot have spaces')
+                return
+            }
+            else{
+                valid = true
+                userAlert.hide()
             }
 
             if (!emailStr.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)){
@@ -175,37 +230,62 @@
                 return 
             }
             else{
+                valid = true
                 emailAlert.hide()
             }
-        })
+        // })
         //year
-        year.blur(function(event){
-            var yearStr = year.val()     
+        // year.blur(function(event){
+        var yearStr = year.val().trim()     
         if(!yearStr){
             valid = false
 
             yearAlert.show() 
-            yearAlert.html('You need to enter the expected graduation year')
+            yearAlert.html('You need to enter the year from which you are studying in the university.')
 
             return
         }
         else{
+            valid = true
             yearAlert.hide()
         }
+        if (/\s/.test(yearStr)) {
+            valid = false
+            
+            yearAlert.show() 
+            yearAlert.html('Year cannot have spaces')
+            return
+        }
+        else{
+            valid = true
+            userAlert.hide()
+        }
 
-        if(parseInt(yearStr)<2021){
+        if(parseInt(yearStr)<2017){
             valid = false
             event.preventDefault();
-            yearAlert.text('please enter valid graduation year')
-            yearAlert.removeClass('hidden')
-  
+            yearAlert.show()
+            yearAlert.html('Only users between 2017 to 2021 can signup.')
             return
         } 
         else{
+            valid = true
             yearAlert.hide()
         } 
-    });
-        signupForm.submit(function (event) {
+
+        if(parseInt(yearStr)>2021){
+            valid = false
+            event.preventDefault();
+            yearAlert.show()
+            yearAlert.html('Only users between 2017 to 2021 can signup.')
+            return
+        } 
+        else{
+            valid = true
+            yearAlert.hide()
+        } 
+    // });
+        // signupForm.submit(function (event) {
             if(valid===false)
             {
               event.preventDefault();
@@ -213,7 +293,7 @@
             else{
               signupForm.unbind().submit();
             }
-          })
+        //   })
    
-  
+});
 })(window.jQuery);
