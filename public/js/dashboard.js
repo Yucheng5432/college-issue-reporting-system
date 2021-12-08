@@ -20,7 +20,6 @@
     event.preventDefault();
     let query = searchTerm.val();
     console.log(query);
-    console.log(typeof(query));
     if(typeof(query)==='undefined'){
       errorInput.attr("style","display:block");
       searchTerm.focus();
@@ -72,8 +71,7 @@
         searchPostList.append("<p class=\"searchedPostsdate-div\">"+" by"+ post.username +"on"+ post.date +"</label><p>");
         searchPostList.append("<p class=\"searchedPost-body\">"+ post.body +"</p>");
         searchPostList.append("<p class=\"searchedPost-priority\"> Priority:"+ post.priority +"</p>");
-        console.log(post.image);
-          searchPostList.append("<img src=" + post.image + "class= \"searchedPost-image\" width=\"430\" height=\"400\" ");
+          searchPostList.append("<img src="+"\""+post.image+"\""+"class=\"post-image\" width=\"300\" height=\"300\">");
           searchPostList.append("<br>");
         //else{
         //  searchPostList.append("<br>");
