@@ -31,7 +31,7 @@ async function getAllPosts() {
     let mt2 = [];
     for (i = 0; i < allPosts.length; i++) {
       // console.log(allPosts[i].priority)
-      if (allPosts[i].priority === "yes") {
+      if (allPosts[i].priority === "Urgent") {
         mt.push(allPosts[i]);
         count++;
         // console.log(mt)
@@ -45,7 +45,7 @@ async function getAllPosts() {
     }
 
     for (j = 0; j < allPosts.length; j++) {
-      if (allPosts[j].priority === "no") {
+      if (allPosts[j].priority === "Normal") {
         mt2.push(allPosts[j]);
         // console.log(mt)
       }
@@ -101,7 +101,7 @@ async function addPost(
   postTags,
   image
 ) {
-  priority = priority.trim().toLowerCase();
+  //priority = priority.trim().toLowerCase();
   // if (arguments.length != 4) {
   //   throw "Incorrect number of arguments.";
   // }
@@ -134,7 +134,7 @@ async function addPost(
     throw "Priority is invalid or empty.";
   }
 
-  if (!priority.match("yes") && !priority.match("no")) {
+  if (!priority.match("Urgent") && !priority.match("Normal")) {
     throw "Priority can only have yes or no.";
   }
   console.log(image);
