@@ -32,17 +32,10 @@
       </div>
     </div>
 
-         <div class="editPost">
+        <div class="editPost">
         <h2>Edit Your Post</h2>
         <div class="editpostForm">  
-          {{!-- {{#if myPosts.length}}
-          {{#each myPosts}} --}}
-          {{!-- <label class="taglable">{{this._id}}</label> --}}
-          {{!-- {{/each}}
-          {{/if}} --}}
-        <form id="editpostForm" action="/editpost/{{newUrl}}" method="POST">
-        {{!-- {{/each}}
-        {{/if}} --}}
+        <form id="editpostForm" action="/editpost/{{newUrl}}?_method=PATCH" method="POST" enctype="multipart/form-data">
         <input type="text" id="title" name="title" placeholder="Title" class ="edit-post-input" ><br>
         <span hidden id="errorEditPost"></span>
 
@@ -57,8 +50,9 @@
                         <option value="no">Normal</option>
                         </select><br>
                         <br>
-
-        <button type="submit" class="Editpost-button" id="Editpost-button">post</button>
+        <input type="file" name="image">
+        <button type="submit">edit post</button>
+        {{!-- <button type="submit" class="Editpost-button" id="Editpost-button">post</button> --}}
         </form>
           </div>
     {{#if error}}

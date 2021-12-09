@@ -30,7 +30,7 @@ router.get("/:id", async (req, res) => {
     const post = await postFunctions.getPost(id);
     return res.status(200).json(post);
   } catch (error) {
-    if (error.message.includes("Post having ID")) {
+    if (error.message) {
       return res.status(404).json({ error: error.message });
     }
     return res.status(500).json({ error: error.message });
@@ -140,9 +140,20 @@ router.post("/", async (req, res) => {
 
 // 6. editing a post --done
 router.patch("/edit/:id", async (req, res) => {
-  let mt = []
+  let mt = [];
   // console.log(req.params.id);
+  let file = req.file;
+  let imagePath;
   try {
+    if (file) {
+      if (checkFileType(file)) {
+        imagePath = file.path.replace(/\\/g, "/");
+        console.log(imagePath);
+      } else {
+        res.redirect("/");
+        return;
+      }
+    }
     if (!req.params || !req.params.id) {
       throw "Post ID not provided for edit!";
     }
@@ -159,7 +170,7 @@ router.patch("/edit/:id", async (req, res) => {
         error: "Invalid post body, cannot be empty, type should be string.",
       });
     }
-    mt.push(req.body.tags)
+    mt.push(req.body.tags);
     let postFound = await postFunctions.getPost(req.params.id);
     // console.log(req.body.priority);
     // console.log(postFound);
@@ -168,7 +179,8 @@ router.patch("/edit/:id", async (req, res) => {
       req.body.title,
       req.body.body,
       mt,
-      req.body.editPost_priority
+      req.body.editPost_priority,
+      imagePath
     );
     // console.log(editedPost);
     return res.status(200).json(editedPost);

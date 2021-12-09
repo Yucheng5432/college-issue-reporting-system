@@ -4,16 +4,17 @@ const data = require("../data");
 const userFunctions = data.users;
 const dashboardData = data.dashboard;
 const postFunctions = require("../data/posts");
-const xss = require("xss"); 
+const path = require("path");
+const xss = require("xss");
 
 let myid = "";
 let url = "";
 let { ObjectId } = require("mongodb");
 
 router.get("/", async (req, res) => {
-  if(xss(req.session.user)){
+  if (xss(req.session.user)) {
     res.redirect("/dashboard");
-  }else{
+  } else {
     res.render("login", { title: "Login Page" });
   }
   /*if (!req.session.user) {
@@ -25,9 +26,9 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/login", async (req, res) => {
-  if(xss(req.session.user)){
+  if (xss(req.session.user)) {
     res.redirect("/dashboard");
-  }else{
+  } else {
     res.redirect("/");
   }
   /*if (!req.session.user) {
@@ -39,9 +40,9 @@ router.get("/login", async (req, res) => {
 
 // GET SignUP
 router.get("/signup", async (req, res) => {
-  if(xss(req.session.user)){
+  if (xss(req.session.user)) {
     res.redirect("/dashboard");
-  }else{
+  } else {
     res.render("signup", { title: "Signup Page" });
   }
   /*
@@ -63,7 +64,7 @@ router.post("/signup", async (req, res) => {
     let email = xss(reqBody.email.trim());
     let major = xss(reqBody.major.trim());
     let year = xss(reqBody.year.trim());
-    let bio = "Introduce yourself"
+    let bio = "Introduce yourself";
     year = parseInt(year);
     if (!username) {
       res
@@ -365,9 +366,9 @@ router.get("/logout", async (req, res) => {
 
 router.get("/editProfile", async (req, res) => {
   let username = xss(req.session.user);
-  if(xss(req.session.user)){
+  if (xss(req.session.user)) {
     res.status(200).render("editProfile", { username: username });
-  }else{
+  } else {
     res.render("login", { title: "Login Page" });
   }
   /*if (!req.session.user) {
@@ -389,7 +390,7 @@ router.post("/editProfile", async (req, res) => {
     let lastName = xss(reqBody.lastname.trim());
     //let lastName = req.body["lastname"].trim();
     let email = xss(reqBody.email.trim());
-   // let email = req.body["email"].trim();
+    // let email = req.body["email"].trim();
     // let major = req.body["major"].trim();
     let year = xss(reqBody.year.trim());
     //let year = req.body["year"].trim();
@@ -527,7 +528,7 @@ router.post("/editProfile", async (req, res) => {
 
     year = year.toString();
     const isCredentialsValid = await userFunctions.updateUser(
-      myid, 
+      myid,
       username,
       firstName,
       lastName,
@@ -583,45 +584,78 @@ router.get("/editPost", async (req, res) => {
   }
 });
 
-router.post("/editPost/:id", async (req, res) => {
-  let mt = []
+router.patch("/editPost/:id", async (req, res) => {
+  // let mt = [];
   // console.log(req.params.id);
+  let file = req.file;
+  let tags = req.body.tags;
+  console.log(file);
+  let imagePath;
   try {
-      // if (!req.params || !req.params.id) {
-      //   throw "Post ID not provided for edit!";
-      // }
-      // if (!req.body) {
-      //   throw "No request body provided!";
-      // }
-      // if (req.body.postTitle && typeof req.body.postTitle != "string") {
-      //   return res.status(400).json({
-      //     error: "Invalid post title, cannot be empty, type should be string.",
-      //   });
-      // }
-      // if (req.body.postBody && typeof req.body.postBody != "string") {
-      //   return res.status(400).json({
-      //     error: "Invalid post body, cannot be empty, type should be string.",
-      //   });
-      // }
+    if (file) {
+      if (checkFileType(file)) {
+        imagePath = file.path.replace(/\\/g, "/");
+        console.log(imagePath);
+      } else {
+        res.redirect("/editPost");
+        return;
+      }
+    }
+    // if (!req.params || !req.params.id) {
+    //   throw "Post ID not provided for edit!";
+    // }
+    // if (!req.body) {
+    //   throw "No request body provided!";
+    // }
+    // if (req.body.postTitle && typeof req.body.postTitle != "string") {
+    //   return res.status(400).json({
+    //     error: "Invalid post title, cannot be empty, type should be string.",
+    //   });
+    // }
+    // if (req.body.postBody && typeof req.body.postBody != "string") {
+    //   return res.status(400).json({
+    //     error: "Invalid post body, cannot be empty, type should be string.",
+    //   });
+    // }
     let postFound = await postFunctions.getPost(req.params.id);
-    mt.push(xss(req.body.tags))
+    // mt.push(xss(req.body.tags));
+    console.log(tags.trim().length);
+    if (tags != null || tags != undefined || tags.trim().length != 0) {
+      tags = req.body.tags.replace(/\s/g, "").split(",");
+    }
 
     // console.log(req.body.editPost_priority);
     // console.log(postFound);
     const editedPost = await postFunctions.editPost(
-      xss(req.params.id),
-      xss(req.body.title),
-        xss(req.body.body),
-      mt,
-      req.body.editPost_priority
+      req.params.id,
+      req.body.title,
+      req.body.body,
+      tags,
+      req.body.editPost_priority,
+      imagePath
     );
-    // console.log(editedPost);
-    res.redirect("/myprofile");
-    // res.status(200).json(editedPost);
 
+    if (editedPost != null) {
+      res.redirect("/myprofile");
+    }
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
 });
+
+//checking the filetypes
+function checkFileType(file) {
+  const filetypes = /jpeg|jpg|png|gif/;
+
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+
+  const mimetype = filetypes.test(file.mimetype);
+
+  if (mimetype && extname) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 module.exports = router;

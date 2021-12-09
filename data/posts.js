@@ -137,7 +137,7 @@ async function addPost(
   if (!priority.match("yes") && !priority.match("no")) {
     throw "Priority can only have yes or no.";
   }
-  console.log(image);
+  // console.log(image);
 
   if (image === undefined || !image) {
     let image = false;
@@ -192,7 +192,14 @@ async function deletePost(postID) {
 }
 
 // edit a post
-async function editPost(postID, postTitle, postBody, postTags, postPriority) {
+async function editPost(
+  postID,
+  postTitle,
+  postBody,
+  postTags,
+  postPriority,
+  imagePath1
+) {
   // console.log(postID, postTitle);
   if (!postID || !ObjectId.isValid(postID)) {
     throw "Post ID is invalid.";
@@ -204,22 +211,34 @@ async function editPost(postID, postTitle, postBody, postTags, postPriority) {
     throw "Post body should be of type string.";
   }
 
+  console.log(imagePath1);
   try {
     const postCollection = await posts();
 
     const oldPost = await postCollection.findOne({ _id: ObjectId(postID) });
     // console.log(oldPost);
+
     let editedTitle = postTitle ? postTitle : oldPost.title; //Set existing title if not provided
     let editedBody = postBody ? postBody : oldPost.body;
     let editedTag = postTags ? postTags : oldPost.tags;
     let editedPriority = postPriority ? postPriority : oldPost.priority;
-    let date = new Date(); //Set existing body if not provided
+    let date = new Date().toString(); //Set existing body if not provided
+    let editImage = imagePath1 ? imagePath1 : oldPost.image;
     const editedPost = await postCollection.updateOne(
       { _id: ObjectId(postID) },
-      { $set: { title: editedTitle, body: editedBody, tags: editedTag, priority: editedPriority, date: date } }
+      {
+        $set: {
+          title: editedTitle,
+          body: editedBody,
+          tags: editedTag,
+          priority: editedPriority,
+          date: date,
+          image: editImage,
+        },
+      }
     );
     if (!editedPost || editedPost.modifiedCount === 0) {
-      throw new Error("Failed to edit post.");
+      throw "Failed to edit post.";
     }
 
     let post = await this.getPost(postID);
