@@ -269,6 +269,7 @@ h2 {
 }
 
 .logout-link {
+  font-weight: bold;
   text-align: center;
 }
 
@@ -329,7 +330,7 @@ ul {
 
 .search {
   float: left;
-  position: relative;
+  /*position: relative;*/
   top: 15px;
   right: -150px;
 }
@@ -340,20 +341,24 @@ ul {
 
 .title {
   float: left;
-  position: relative;
+  /*position: relative;*/
   top: 15px;
   right: 40px;
 }
 
 .logout-li {
+  margin-top: 10px;
   float: right;
   /* border-right: 1px solid rgb(255, 255, 255); */
 }
 
 .username {
   color: white;
-  position: relative;
-  top: 45px;
+  float: left;
+  /*position: relative;*/
+  margin-left: 30px;
+  margin-top: 15px;
+
   right: -150px;
 }
 
@@ -528,6 +533,7 @@ li form {
 }
 
 .errorInput {
+  margin-top: 15px;
   float: left;
   color: white;
   font-family: Arial, Helvetica, sans-serif;
