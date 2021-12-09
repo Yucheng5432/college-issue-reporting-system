@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const postFunctions = require("../data/posts");
 const path = require("path");
+const xss = require("xss");
 
 //1. Get all posts routes --done
 router.get("/", async (req, res) => {
@@ -22,7 +23,7 @@ router.get("/", async (req, res) => {
 
 // 2. Get posts by id --done
 router.get("/:id", async (req, res) => {
-  const id = req.params.id;
+  const id = xss(req.params.id);
   try {
     if (!id) {
       throw "Post ID not provided for edit!";
@@ -40,7 +41,7 @@ router.get("/:id", async (req, res) => {
 // http://localhost:3000/posts/userPosts/:username
 // 3. Get posts by username --done
 router.get("/userPosts/:username", async (req, res) => {
-  const username = req.params.username;
+  const username = xss(req.params.username);
   //console.log(username);
   // console.log(req.params.username);
   if (!username) {
@@ -56,7 +57,7 @@ router.get("/userPosts/:username", async (req, res) => {
 
 // 4. find post by search term --pending
 router.post("/search/:searchterm", async (req, res) => {
-  const searchTerm = req.body.searchterm;
+  const searchTerm = xss(req.body.searchterm);
   console.log(searchTerm);
   if (!req.body.searchterm) {
     return res.status(500).json({ error: "No search term provided" });
@@ -71,7 +72,7 @@ router.post("/search/:searchterm", async (req, res) => {
 
 // 5. add post --done
 router.post("/", async (req, res) => {
-  const username = req.session.user;
+  const username = xss(req.session.user);
   let file = req.file;
   let imagePath;
   // console.log(file);
