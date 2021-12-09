@@ -216,48 +216,48 @@ async function updateUser(
   password = password.trim();
 
   if (
-    typeof firstName != "string" ||
-    typeof lastName != "string" ||
-    typeof email != "string" ||
-    typeof password != "string" ||
-    typeof year != "string"
+   firstName && typeof firstName != "string" ||
+   lastName && typeof lastName != "string" ||
+   email && typeof email != "string" ||
+   password && typeof password != "string" ||
+   year && typeof year != "string"
   ) {
     throw "All fields must be string";
   }
 
-  if (
-    !userId ||
-    userId == "" ||
-    !firstName ||
-    firstName == "" ||
-    !lastName ||
-    lastName == "" ||
-    !email ||
-    email == "" ||
-    !password ||
-    password == "" ||
-    !year ||
-    year == ""
-  ) {
-    throw "Please enter all the fields";
-  }
+  // if (
+  //   !userId ||
+  //   userId == "" ||
+  //   !firstName ||
+  //   firstName == "" ||
+  //   !lastName ||
+  //   lastName == "" ||
+  //   !email ||
+  //   email == "" ||
+  //   !password ||
+  //   password == "" ||
+  //   !year ||
+  //   year == ""
+  // ) {
+  //   throw "Please enter all the fields";
+  // }
 
   if (/\s/.test(userId)) {
     throw `userID has spaces`;
   }
-  if (typeof firstName != "string") {
+  if (firstName && typeof firstName != "string") {
     throw `First name must be a string`;
   }
   if (/\s/.test(firstName)) {
     throw `Firstname has spaces`;
   }
-  if (typeof lastName != "string") {
+  if (lastName && typeof lastName != "string") {
     throw `Last name must be a string`;
   }
   if (/\s/.test(lastName)) {
     throw `Lastname has spaces`;
   }
-  if (
+  if (email &&
     !email.match(
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     )
@@ -270,18 +270,16 @@ async function updateUser(
   // if(typeof major != 'string'){
   //     throw `Major must be a string`
   // }
-  if (!year.match("^[0-9]+$")) {
-    throw `Year must be numeric value`;
-  }
+
   year = parseInt(year);
-  if (typeof year != "number") {
+  if (year && typeof year != "number") {
     throw `Year must be a number`;
   }
 
-  if (year > 2021) {
+  if (year && year > 2021) {
     throw "Year must be 2021 or before 2021!!";
   }
-  if (year < 2017) {
+  if (year && year < 2017) {
     throw "Only students on or after year 2017 are allowed.";
   }
   //Check whether id present in database
@@ -323,9 +321,17 @@ async function updateUser(
     }
   }
   // }
+  let updatedUserData
+  oldPassword = userData.password
+   firstName = firstName ? firstName : userData.firstName;
+   lastName = lastName ? lastName : userData.lastName;
+   email = email ? email : userData.email;
+   year = year ? year : userData.year;
   const plainTextPassword = password;
   const hash = await bcrypt.hash(plainTextPassword, saltRounds);
-  const updatedUserData = {
+  // console.log(password)
+  if(password){
+   updatedUserData = {
     // userName: username,
     firstName: firstName,
     lastName: lastName,
@@ -338,6 +344,22 @@ async function updateUser(
     { _id: idd },
     { $set: updatedUserData }
   );
+  }else{
+     updatedUserData = {
+      // userName: username,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: oldPassword,
+      year: year,
+    };
+    // console.log(updatedUserData)
+    idd = userData._id;
+    let updatedUser = await users.updateOne(
+      { _id: idd },
+      { $set: updatedUserData }
+    );
+  }
 
   let updatedData = await users.findOne({ _id: idd });
   updatedData._id = updatedData._id.toString();

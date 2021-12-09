@@ -221,10 +221,16 @@ async function editPost(
     let editedTitle = postTitle ? postTitle : oldPost.title; //Set existing title if not provided
     let editedBody = postBody ? postBody : oldPost.body;
     let editedTag = postTags ? postTags : oldPost.tags;
+    let oldPostTag = oldPost.tags
+    // console.log(editedTag)
+    for(i in editedTag){
+
+    }
     let editedPriority = postPriority ? postPriority : oldPost.priority;
     let date = new Date().toString(); //Set existing body if not provided
     let editImage = imagePath1 ? imagePath1 : oldPost.image;
-    const editedPost = await postCollection.updateOne(
+    if(editedTag[i].trim().length != 0){
+     editedPost = await postCollection.updateOne(
       { _id: ObjectId(postID) },
       {
         $set: {
@@ -237,6 +243,21 @@ async function editPost(
         },
       }
     );
+    }else{
+       editedPost = await postCollection.updateOne(
+        { _id: ObjectId(postID) },
+        {
+          $set: {
+            title: editedTitle,
+            body: editedBody,
+            tags: oldPostTag,
+            priority: editedPriority,
+            date: date,
+            image: editImage,
+          },
+        }
+      );
+    }
     if (!editedPost || editedPost.modifiedCount === 0) {
       throw "Failed to edit post.";
     }

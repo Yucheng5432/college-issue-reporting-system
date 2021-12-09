@@ -396,14 +396,14 @@ router.post("/editProfile", async (req, res) => {
     //let year = req.body["year"].trim();
     // let bio = req.body["bio"];
     let bio = xss(reqBody.bio);
-    year = parseInt(year);
-    if (!username) {
-      res.status(404).render("editProfile", {
-        hasErrors: true,
-        error: "Must supply username!.",
-      });
-      return;
-    }
+    // year = parseInt(year);
+    // if (!username) {
+    //   res.status(404).render("editProfile", {
+    //     hasErrors: true,
+    //     error: "Must supply username!.",
+    //   });
+    //   return;
+    // }
     if (/\s/.test(username)) {
       res.status(400).render("editProfile", {
         hasErrors: true,
@@ -411,27 +411,27 @@ router.post("/editProfile", async (req, res) => {
       });
       return;
     }
-    if (!username.match(/^[a-z0-9]+$/i)) {
+    if (username && !username.match(/^[a-z0-9]+$/i)) {
       res.status(400).render("editProfile", {
         hasErrors: true,
         error: `Only alphanumeric characters allowed!`,
       });
       return;
     }
-    if (username.length < 4) {
+    if (username && username.length < 4) {
       res.status(400).render("editProfile", {
         hasErrors: true,
         error: `Length of username must be atleast 4 characters long!`,
       });
       return;
     }
-    if (!password) {
-      res.status(404).render("editProfile", {
-        hasErrors: true,
-        error: "Must supply password!",
-      });
-      return;
-    }
+    // if (!password) {
+    //   res.status(404).render("editProfile", {
+    //     hasErrors: true,
+    //     error: "Must supply password!",
+    //   });
+    //   return;
+    // }
     if (/\s/.test(password)) {
       res.status(400).render("editProfile", {
         hasErrors: true,
@@ -439,20 +439,20 @@ router.post("/editProfile", async (req, res) => {
       });
       return;
     }
-    if (password.length < 6) {
+    if (password && password.length < 6) {
       res.status(400).render("editProfile", {
         hasErrors: true,
         error: `Password must be atleast 6 characters long!`,
       });
       return;
     }
-    if (!firstName) {
-      res.status(404).render("editProfile", {
-        hasErrors: true,
-        error: "Must supply firstname!.",
-      });
-      return;
-    }
+    // if (!firstName) {
+    //   res.status(404).render("editProfile", {
+    //     hasErrors: true,
+    //     error: "Must supply firstname!.",
+    //   });
+    //   return;
+    // }
     if (/\s/.test(firstName)) {
       res.status(400).render("editProfile", {
         hasErrors: true,
@@ -460,13 +460,13 @@ router.post("/editProfile", async (req, res) => {
       });
       return;
     }
-    if (!lastName) {
-      res.status(404).render("editProfile", {
-        hasErrors: true,
-        error: "Must supply lastname!",
-      });
-      return;
-    }
+    // if (!lastName) {
+    //   res.status(404).render("editProfile", {
+    //     hasErrors: true,
+    //     error: "Must supply lastname!",
+    //   });
+    //   return;
+    // }
     if (/\s/.test(lastName)) {
       res.status(400).render("editProfile", {
         hasErrors: true,
@@ -474,20 +474,20 @@ router.post("/editProfile", async (req, res) => {
       });
       return;
     }
-    if (!email) {
-      res.status(404).render("editProfile", {
-        hasErrors: true,
-        error: "Must supply email!",
-      });
-      return;
-    }
+    // if (!email) {
+    //   res.status(404).render("editProfile", {
+    //     hasErrors: true,
+    //     error: "Must supply email!",
+    //   });
+    //   return;
+    // }
     if (/\s/.test(email)) {
       res
         .status(400)
         .render("editProfile", { hasErrors: true, error: `Email has spaces` });
       return;
     }
-    if (
+    if (email &&
       !email.match(
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       )
@@ -506,19 +506,27 @@ router.post("/editProfile", async (req, res) => {
     //   res.status(400).render("editProfile", { hasErrors: true, error: `Major has spaces` });
     //   return;
     // }
-    if (!year) {
-      res
-        .status(404)
-        .render("editProfile", { hasErrors: true, error: "Must supply year!" });
-      return;
-    }
+    // if (!year) {
+    //   res
+    //     .status(404)
+    //     .render("editProfile", { hasErrors: true, error: "Must supply year!" });
+    //   return;
+    // }
     if (/\s/.test(year)) {
       res
         .status(400)
         .render("editProfile", { hasErrors: true, error: `Year has spaces` });
       return;
     }
-    if (typeof year != "number") {
+    // if (year && typeof year != "number") {
+    //   res.status(400).render("editProfile", {
+    //     hasErrors: true,
+    //     error: "Year must be of type number",
+    //   });
+    //   return;
+    // }
+
+    if (year && !year.match("^[0-9]+$")) {
       res.status(400).render("editProfile", {
         hasErrors: true,
         error: "Year must be of type number",
