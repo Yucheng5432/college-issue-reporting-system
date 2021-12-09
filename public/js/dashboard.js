@@ -18,25 +18,17 @@
   //search posts
   searchPostForm.submit(function(event){
     event.preventDefault();
-    let query = searchTerm.val();
+    let query = searchTerm.val().trim();
     console.log(query);
-    if(typeof(query)==='undefined'){
+    if(!query){
       errorInput.attr("style","display:block");
       searchTerm.focus();
     }
-    if(searchTerm.val().trim()===""){
+    if(query === null){
       errorInput.attr("style","display:block");
       searchTerm.focus();
     }
-    if(typeof(query)!= 'string'){
-      errorInput.attr("style","display:block");
-      searchTerm.focus();
-    }
-    if(query.split(" ").join("").length === 0){
-      errorInput.attr("style","display:block");
-      searchTerm.focus();
-    }
-    if(query ===" "){
+    if(query ==="" || query ===" "||query.trim() ===" "){
       errorInput.attr("style","display:block");
       searchTerm.focus();
     }

@@ -33,7 +33,31 @@
         </p>
       </div>
     </div>
-
+ <div class="myprofile-card">
+          <h4 class="myprofile-title">My profile</h4>
+              
+          <div class="myprofile-innercard">
+              {{#if photo}}
+                <img src={{photo}} class ="img-upload" width="100" height="100">
+              {{/if}}
+            <form method="POST" class="profile-input"  action="/photo/upload" enctype="multipart/form-data">
+              <input type="file" name="image">
+              <button class="profile-button" type="submit">edit photo</button>
+            </form>
+            <br>
+                <p class="myprofile" for="usernameText">{{username}}</p>
+                <p class="myprofile" for="firstnameText">{{firstname}}</p>
+                <p class="myprofile1" for="lastnameText">{{lastname}}</p>
+                <p class="myprofile" for="emialText">{{email}}</p>
+                <p class="myprofile" for="majorText">{{major}}</p>
+                <p class="myprofile" for="yearText">{{year}}</p>
+                <p class="myprofile" for="BioText">{{bio}}</p>
+                
+            <form id="editPost" method="post" name="postForm" action="/editProfile"></form>    
+                <button type="submit" onclick="location.href = 'http://localhost:3000/editProfile';" id="editProfilebtn" name="editProfilebtn" class="editProfilebtn">Edit </button>
+            </form>
+            </div>
+        </div>
         <div class="private" id="private">
              {{#if myPosts.length}}
              {{#each myPosts}}
@@ -101,32 +125,6 @@
               </div>
               <div id="noResult"  class="noResult" hidden><p>Sorry, no results were found.</p></div>
       </div>
-
-        <div class="myprofile-card">
-          <h4 class="myprofile-title">My profile</h4>
-              
-          <div class="myprofile-innercard">
-              {{#if photo}}
-                <img src={{photo}} class ="img-upload" width="100" height="100">
-              {{/if}}
-            <form method="POST" class="profile-input"  action="/photo/upload" enctype="multipart/form-data">
-              <input type="file" name="image">
-              <button class="profile-button" type="submit">edit photo</button>
-            </form>
-            <br>
-                <p class="myprofile" for="usernameText">{{username}}</p>
-                <p class="myprofile" for="firstnameText">{{firstname}}</p>
-                <p class="myprofile1" for="lastnameText">{{lastname}}</p>
-                <p class="myprofile" for="emialText">{{email}}</p>
-                <p class="myprofile" for="majorText">{{major}}</p>
-                <p class="myprofile" for="yearText">{{year}}</p>
-                <p class="myprofile" for="BioText">{{bio}}</p>
-                
-            <form id="editPost" method="post" name="postForm" action="/editProfile"></form>    
-                <button type="submit" onclick="location.href = 'http://localhost:3000/editProfile';" id="editProfilebtn" name="editProfilebtn" class="editProfilebtn">Edit </button>
-            </form>
-            </div>
-        </div>
 
      <div class="search-result">
     <div id="searchTitle" hidden>
