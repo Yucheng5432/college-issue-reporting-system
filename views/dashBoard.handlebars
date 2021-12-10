@@ -51,9 +51,10 @@
                         <option value="Normal">Normal</option>
                         </select><br>
                         <br>
-        <input type="file" name="image">
-        <button type="submit" id="createPostBtn">post</button>
-        {{!-- <button type="submit" class="post-button" id="createPostBtn">post</button> --}}
+        <input type="file" id="post-image" name="image">
+        <button type="submit" id="createPostBtn">post</button><br>
+        <span hidden id="error_inputFile"></span>
+        
       </form>
       <script src="/public/js/createPost.js"></script>
   </div>

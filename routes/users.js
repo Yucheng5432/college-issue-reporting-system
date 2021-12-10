@@ -222,7 +222,7 @@ router.post("/login", async (req, res) => {
     let reqBody = req.body;
     let username = xss(reqBody.username.trim().toLowerCase());
     let password = xss(reqBody.password.trim());
-    
+
     /*
     let username = req.body["username"];
     let password = req.body["password"];
@@ -286,8 +286,8 @@ router.post("/login", async (req, res) => {
       // console.log(isCredentialsValid);
       req.session.user = username;
       req.session.id = isCredentialsValid._id;
-       let a = isCredentialsValid._id
-      req.session.userid = a
+      let a = isCredentialsValid._id;
+      req.session.userid = a;
       // console.log(req.session.user)
       // console.log(req.session.id)
       myid = isCredentialsValid._id.toString();
@@ -322,7 +322,13 @@ router.get("/dashboard", async (req, res) => {
       posts: allPostDashboard,
     });
   } catch (e) {
-    res.status(400).json({ error: "Post not found" });
+    let error = true;
+    res.status(400).render("dashboard", {
+      title: userName.toLowerCase(),
+      username: userName.toLowerCase(),
+      posts: allPostDashboard,
+      error: error,
+    });
     return;
   }
 });
@@ -374,9 +380,9 @@ router.get("/editProfile", async (req, res) => {
   let username = xss(req.session.user);
   if (xss(req.session.user)) {
     res.status(200).render("editProfile", {
-       title: "editProfile",
-       username: username 
-      });
+      title: "editProfile",
+      username: username,
+    });
   } else {
     res.render("login", { title: "Login Page" });
   }
@@ -496,7 +502,8 @@ router.post("/editProfile", async (req, res) => {
         .render("editProfile", { hasErrors: true, error: `Email has spaces` });
       return;
     }
-    if (email &&
+    if (
+      email &&
       !email.match(
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       )
@@ -643,19 +650,22 @@ router.patch("/editPost/:id", async (req, res) => {
 
     // console.log(req.body.editPost_priority);
     // console.log(postFound);
-    let post = await postFunctions.checkPostOwnership(req.session.userid, req.params.id)
-    if(post === true){
-    const editedPost = await postFunctions.editPost(
-      req.params.id,
-      req.body.title,
-      req.body.body,
-      tags,
-      req.body.editPost_priority,
-      imagePath
+    let post = await postFunctions.checkPostOwnership(
+      req.session.userid,
+      req.params.id
     );
-    }else{
-      res.status(400).json("Dont try to play with other users data!!")
-      return
+    if (post === true) {
+      const editedPost = await postFunctions.editPost(
+        req.params.id,
+        req.body.title,
+        req.body.body,
+        tags,
+        req.body.editPost_priority,
+        imagePath
+      );
+    } else {
+      res.status(400).json("Dont try to play with other users data!!");
+      return;
       // return
     }
     if (editedPost != null) {

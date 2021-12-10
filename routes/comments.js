@@ -17,12 +17,6 @@ router.get("/:id", async (req, res) => {
     }
 
     let comments = post.comments;
-    // console.log(id);
-    // console.log(post);
-
-    // const comments = await commentsData.getAllPostComments(id);
-    // console.log(comments);
-    // console.log(comments);
 
     res.status(200).json(comments);
   } catch (e) {
@@ -33,16 +27,17 @@ router.get("/:id", async (req, res) => {
 
 // 2. POST /comments/{postId} --done
 router.post("/:id", async (req, res) => {
-  // console.log(req.body);
-  // console.log(req.session.user);
   let commentData = req.body.comment;
   const postId = ObjectId(req.params.id);
   const username = req.session.user;
 
-  // console.log(commentData);
-  // console.log(postId);
   try {
-    if (!commentData || !postId || !username) {
+    if (!commentData) {
+      res.redirect("/");
+      return;
+    }
+
+    if (!postId || !username) {
       res.status(400).json({ error: "improper data in body" });
       return;
     }
@@ -53,10 +48,9 @@ router.post("/:id", async (req, res) => {
     }
 
     if (commentData.trim("").length == 0) {
-      res.status(400).json({ error: "comment is empty" });
+      res.redirect("/");
+      return;
     }
-
-    // console.log("Entering the createcomment");
 
     let comment = await commentsData.createComment(
       postId,

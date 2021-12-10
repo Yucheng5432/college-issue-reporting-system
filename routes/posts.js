@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const postFunctions = require("../data/posts");
+const dashboardData = require("../data/dashboard");
 const path = require("path");
 const xss = require("xss");
-const data = require('../data')
+const data = require("../data");
 const userData = data.users;
+
 //1. Get all posts routes --done
 router.get("/", async (req, res) => {
   try {
@@ -13,10 +15,6 @@ router.get("/", async (req, res) => {
     }
     const posts = await postFunctions.getAllPosts();
     return res.status(200).json(posts);
-    // res.render("dashboard", {
-    //   title: "Dashboard",
-    //   posts: posts,
-    // });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -43,8 +41,7 @@ router.get("/:id", async (req, res) => {
 // 3. Get posts by username --done
 router.get("/userPosts/:username", async (req, res) => {
   const username = xss(req.params.username);
-  //console.log(username);
-  // console.log(req.params.username);
+
   if (!username) {
     return res.status(500).json({ error: "No username parameter!" });
   }
@@ -74,16 +71,14 @@ router.post("/search/:searchterm", async (req, res) => {
 // 5. add post --done
 router.post("/", async (req, res) => {
   const username = xss(req.session.user);
-  // console.log(req.session.userid)
   let file = req.file;
   let imagePath;
-  // console.log(file);
   try {
     if (file) {
       if (checkFileType(file)) {
         imagePath = file.path.replace(/\\/g, "/");
       } else {
-        res.redirect("/");
+        res.status(400).json({ error: "Please attach only images!" });
         return;
       }
     }
@@ -121,7 +116,6 @@ router.post("/", async (req, res) => {
     }
 
     let tags = newPost.tags.replace(/\s/g, "").split(",");
-    // console.log(newPost.priority)
 
     // call the addPost functions from the data
     const addPost = await postFunctions.addPost(
@@ -138,14 +132,16 @@ router.post("/", async (req, res) => {
       res.redirect("/");
     }
   } catch (error) {
-    res.render("dashBoard", { error: error.message });
+    res.status(400).render("dashBoard", {
+      error: error.message,
+    });
   }
 });
 
 // 6. editing a post --done
 router.patch("/edit/:id", async (req, res) => {
   let mt = [];
-  // console.log(req.params.id);
+
   let file = req.file;
   let imagePath;
   try {
@@ -176,8 +172,7 @@ router.patch("/edit/:id", async (req, res) => {
     }
     mt.push(req.body.tags);
     let postFound = await postFunctions.getPost(req.params.id);
-    // console.log(req.body.priority);
-    // console.log(postFound);
+
     const editedPost = await postFunctions.editPost(
       req.params.id,
       req.body.title,
@@ -186,7 +181,7 @@ router.patch("/edit/:id", async (req, res) => {
       req.body.editPost_priority,
       imagePath
     );
-    // console.log(editedPost);
+
     return res.status(200).json(editedPost);
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -220,7 +215,6 @@ router.delete("/delete/:id", async (req, res) => {
 
   try {
     let postFound = await postFunctions.getPost(id);
-    // console.log(postFound);
   } catch (e) {
     res.status(404).json({ error: "Post not found." });
     return;
@@ -231,8 +225,6 @@ router.delete("/delete/:id", async (req, res) => {
     if (deletePost != null) {
       res.redirect("/myprofile");
     }
-
-    // res.status(200).json(deletePost);
   } catch (e) {
     res.status(400).json({ error: e.message });
     return;
