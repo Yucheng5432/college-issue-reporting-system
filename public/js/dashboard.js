@@ -94,34 +94,34 @@ let form = document.getElementById("createpostForm")
 let createPostBtn = document.getElementById("createPostBtn")
 
 
-$("#createPostBtn").on("click", function (event) { 
+// $("#createPostBtn").on("click", function (event) { 
 
-  let valid = false
-  event.preventDefault();
-   if(!title.value.trim()){
-     span.hidden = false
-     span.innerHTML = "Title cannot be empty"
-     title.focus()
-     return
-   }else{
-     span.hidden = true
-     valid = true
-   }
+//   let valid = false
+//   event.preventDefault();
+//    if(!title.value.trim()){
+//      span.hidden = false
+//      span.innerHTML = "Title cannot be empty"
+//      title.focus()
+//      return
+//    }else{
+//      span.hidden = true
+//      valid = true
+//    }
 
-   if(!body.value.trim()){
-    span_body.hidden = false
-    span_body.innerHTML = "Body cannot be empty"
-    body.focus()
-    return
-  }else{
-    span_body.hidden = true
-    valid = true
-  }
+//    if(!body.value.trim()){
+//     span_body.hidden = false
+//     span_body.innerHTML = "Body cannot be empty"
+//     body.focus()
+//     return
+//   }else{
+//     span_body.hidden = true
+//     valid = true
+//   }
 
-  if(valid == true){
-    $('#createPostBtn').unbind().submit();
-  }
-});
+//   if(valid == true){
+//     $('#createPostBtn').unbind().submit();
+//   }
+// });
 //edit post
 let edittitle = document.getElementById("title")
 let editbody = document.getElementById("body")
