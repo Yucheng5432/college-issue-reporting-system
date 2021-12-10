@@ -9,10 +9,8 @@ router.post("/upload", async (req, res) => {
   const username = req.session.user;
   let file = req.file;
   if (!file) {
-    res.status(400).render("myprofile", {
-      hasErrors: hasErrors,
-      error: e,
-    });
+    res.redirect("/myprofile");
+    return;
   }
   imagePath = file.path.replace(/\\/g, "/");
 
@@ -23,13 +21,10 @@ router.post("/upload", async (req, res) => {
     );
     if (addProfilePhoto != null) {
       res.redirect("/myprofile");
+      return;
     }
   } catch (e) {
-    let hasErrors = true;
-    res.status(400).render("myprofile", {
-      hasErrors: hasErrors,
-      error: e,
-    });
+    res.status(400).json({ error: e.message });
     return;
   }
 });
@@ -40,10 +35,8 @@ router.get("/upload/:username", async (req, res) => {
   const username = req.params.username;
 
   if (!username) {
-    res.status(400).render("myprofile", {
-      hasErrors: hasErrors,
-      error: e,
-    });
+    res.status(400).json({ error: "Not valid user" });
+    return;
   }
 
   try {

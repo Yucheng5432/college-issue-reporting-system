@@ -96,6 +96,7 @@
                               {{else}}
                               <p class="commentNotresolve">{{body}}</p>
                             {{/if}}
+                            
                             <form  action="/comments/{{_id}}?_method=DELETE" method="POST">
                               <button type="submit" class="deleteComment">delete</button>
                             </form>

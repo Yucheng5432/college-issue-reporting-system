@@ -8,6 +8,10 @@ let { ObjectId } = require("mongodb");
 // 1.GET comments/{postId}   get all posts comments by given postID -- done
 // http://localhost:3000/comments/postid
 router.get("/:id", async (req, res) => {
+  if (!req.session.user) {
+    res.redirect("/");
+    return;
+  }
   const id = ObjectId(req.params.id);
   try {
     const post = await postsData.getPost(id);
@@ -27,6 +31,10 @@ router.get("/:id", async (req, res) => {
 
 // 2. POST /comments/{postId} --done
 router.post("/:id", async (req, res) => {
+  if (!req.session.user) {
+    res.redirect("/");
+    return;
+  }
   let commentData = req.body.comment;
   const postId = ObjectId(req.params.id);
   const username = req.session.user;
@@ -73,8 +81,12 @@ router.post("/:id", async (req, res) => {
 // 3. Delete comment    /comments/{commentId) --done
 
 router.delete("/:id", async (req, res) => {
+  if (!req.session.user) {
+    res.redirect("/");
+    return;
+  }
+
   const id = ObjectId(req.params.id);
-  console.log("Inside delete", id);
   if (!id) {
     res.status(400).json({ error: "comment id is undefined" });
     return;
@@ -104,7 +116,10 @@ router.delete("/:id", async (req, res) => {
 
 // 4. mark comment as resolved use commentId--done
 router.patch("/resolve/:id", async (req, res) => {
-  // console.log("Inside resolve", req.params.id);
+  if (!req.session.user) {
+    res.redirect("/");
+    return;
+  }
   try {
     const id = ObjectId(req.params.id);
     let status = await commentsData.markAsAnswer(id);
