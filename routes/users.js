@@ -222,6 +222,7 @@ router.post("/login", async (req, res) => {
     let reqBody = req.body;
     let username = xss(reqBody.username.trim().toLowerCase());
     let password = xss(reqBody.password.trim());
+    
     /*
     let username = req.body["username"];
     let password = req.body["password"];
@@ -282,9 +283,13 @@ router.post("/login", async (req, res) => {
     );
 
     if (isCredentialsValid != null) {
-      // console.log(req.session.user);
+      // console.log(isCredentialsValid);
       req.session.user = username;
       req.session.id = isCredentialsValid._id;
+       let a = isCredentialsValid._id
+      req.session.userid = a
+      // console.log(req.session.user)
+      // console.log(req.session.id)
       myid = isCredentialsValid._id.toString();
       res.redirect("/dashboard");
     } else {
@@ -638,6 +643,8 @@ router.patch("/editPost/:id", async (req, res) => {
 
     // console.log(req.body.editPost_priority);
     // console.log(postFound);
+    let post = await postFunctions.checkPostOwnership(req.session.userid, req.params.id)
+    if(post === true){
     const editedPost = await postFunctions.editPost(
       req.params.id,
       req.body.title,
@@ -646,7 +653,11 @@ router.patch("/editPost/:id", async (req, res) => {
       req.body.editPost_priority,
       imagePath
     );
-
+    }else{
+      res.status(400).json("Dont try to play with other users data!!")
+      return
+      // return
+    }
     if (editedPost != null) {
       res.redirect("/myprofile");
     }
