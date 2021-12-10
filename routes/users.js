@@ -65,7 +65,6 @@ router.post("/signup", async (req, res) => {
     let email = xss(reqBody.email.trim());
     let major = xss(reqBody.major.trim());
     let year = xss(reqBody.year.trim());
-    let bio = "Introduce yourself";
     year = parseInt(year);
     if (!username) {
       res
@@ -199,7 +198,7 @@ router.post("/signup", async (req, res) => {
       password,
       major,
       year,
-      bio
+      
     );
 
     if (isCredentialsValid != null) {
@@ -351,7 +350,6 @@ router.get("/myprofile", async (req, res) => {
         email: user.email,
         major: user.major,
         year: user.year,
-        bio: user.bio,
         photo: photo,
         myPosts: myPosts,
       });
@@ -406,11 +404,10 @@ router.post("/editProfile", async (req, res) => {
     //let lastName = req.body["lastname"].trim();
     let email = xss(reqBody.email.trim());
     // let email = req.body["email"].trim();
-    // let major = req.body["major"].trim();
+    let major = xss(reqBody.major.trim())
     let year = xss(reqBody.year.trim());
     //let year = req.body["year"].trim();
-    // let bio = req.body["bio"];
-    let bio = xss(reqBody.bio);
+  
     // year = parseInt(year);
     // if (!username) {
     //   res.status(404).render("editProfile", {
@@ -514,6 +511,17 @@ router.post("/editProfile", async (req, res) => {
       });
       return;
     }
+
+    if(major && !major.match("Computer Science") && !major.match("Business") && !major.match("Engineering") && !major.match("System-and-Analytics") && !major.match("Mechanical Engineering")
+  && !major.match("Chemical Engineering") && !major.match("Material Science")){
+    res.status(400).render("editProfile", {
+      hasErrors: true,
+      error: `Major must be from the following fields only
+      Computer Science, Business, Engineering, System-and-Analytics,
+      Mechanical Engineering, Chemical Engineering, Material Science`,
+    });
+    return;
+  }
     // if (!major) {
     //   res.status(404).render("editProfile", {  hasErrors: true,error: "Must supply major!" });
     //   return;
@@ -557,9 +565,9 @@ router.post("/editProfile", async (req, res) => {
       firstName,
       lastName,
       email,
+      major,
       password,
       year,
-      bio
     );
 
     if (isCredentialsValid != null) {
@@ -599,7 +607,6 @@ router.get("/editPost", async (req, res) => {
       email: user.email,
       major: user.major,
       year: user.year,
-      bio: user.bio,
       myPosts: myPosts,
       newUrl: newUrl,
     });
@@ -664,7 +671,7 @@ router.patch("/editPost/:id", async (req, res) => {
         imagePath
       );
     } else {
-      res.status(400).json("Dont try to play with other users data!!");
+      res.status(400).json("You cannot change/access other users data!!");
       return;
       // return
     }

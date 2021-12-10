@@ -12,7 +12,6 @@ async function createUser(
   password,
   major,
   year,
-  bio
 ) {
   username = username.trim().toLowerCase();
   firstName = firstName.trim();
@@ -36,9 +35,7 @@ async function createUser(
       !major ||
       major == "" ||
       !year ||
-      year == "" ||
-      !bio ||
-      bio == ""
+      year == "" 
     ) {
       throw `You must enter all the fields`;
     }
@@ -82,10 +79,7 @@ async function createUser(
     if (typeof year != "number") {
       throw `Year must be a number`;
     }
-
-    if (typeof bio != "string") {
-      throw `Bio must be a string`;
-    }
+    
     if (year > 2021) {
       throw "Year must be 2021 or before 2021!!";
     }
@@ -105,7 +99,6 @@ async function createUser(
     password: hash,
     major: major,
     year: year,
-    bio: bio,
   };
 
   sameUserName = await user.findOne({ userName: username });
@@ -206,6 +199,7 @@ async function updateUser(
   firstName,
   lastName,
   email,
+  major,
   password,
   year
 ) {
@@ -214,13 +208,15 @@ async function updateUser(
   lastName = lastName.trim();
   email = email.trim();
   password = password.trim();
+  major = major.trim()
 
   if (
    firstName && typeof firstName != "string" ||
    lastName && typeof lastName != "string" ||
    email && typeof email != "string" ||
    password && typeof password != "string" ||
-   year && typeof year != "string"
+   year && typeof year != "string" ||
+   major && typeof major != "string"
   ) {
     throw "All fields must be string";
   }
@@ -266,6 +262,12 @@ async function updateUser(
   }
   if (/\s/.test(email)) {
     throw `Email has spaces`;
+  }
+  if(major && !major.match("Computer Science") && !major.match("Business") && !major.match("Engineering") && !major.match("System-and-Analytics") && !major.match("Mechanical Engineering")
+  && !major.match("Chemical Engineering") && !major.match("Material Science")){
+    throw `Major must be from the following fields only
+    Computer Science, Business, Engineering, System-and-Analytics,
+    Mechanical Engineering, Chemical Engineering, Material Science`
   }
   // if(typeof major != 'string'){
   //     throw `Major must be a string`
@@ -326,6 +328,7 @@ async function updateUser(
    firstName = firstName ? firstName : userData.firstName;
    lastName = lastName ? lastName : userData.lastName;
    email = email ? email : userData.email;
+   major = major ? major : userData.major;
    year = year ? year : userData.year;
   const plainTextPassword = password;
   const hash = await bcrypt.hash(plainTextPassword, saltRounds);
@@ -337,6 +340,7 @@ async function updateUser(
     lastName: lastName,
     email: email,
     password: hash,
+    major: major,
     year: year,
   };
   idd = userData._id;
@@ -351,6 +355,7 @@ async function updateUser(
       lastName: lastName,
       email: email,
       password: oldPassword,
+      major: major,
       year: year,
     };
     // console.log(updatedUserData)
