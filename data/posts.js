@@ -1,6 +1,8 @@
 const mongoCollections = require("../config/mongoCollections");
 const posts = mongoCollections.posts;
 let { ObjectId } = require("mongodb");
+const data = require("../data")
+const userData = data.users
 
 // get post by id
 async function getPost(postID) {
@@ -94,6 +96,7 @@ async function getUserPosts(userName) {
 
 // create a post
 async function addPost(
+  userId,
   userName,
   postTitle,
   postBody,
@@ -105,6 +108,13 @@ async function addPost(
   // if (arguments.length != 4) {
   //   throw "Incorrect number of arguments.";
   // }
+  if (
+    !userId ||
+    typeof userId != "string" ||
+    userId.trim("").length == 0
+  ) {
+    throw "User Id is invalid or empty.";
+  }
   if (
     !postTitle ||
     typeof postTitle != "string" ||
@@ -142,12 +152,15 @@ async function addPost(
   if (image === undefined || !image) {
     let image = false;
   }
+  // console.log(req.session.user)
 
+  // let user = await userData.getUserbyUsername(req.session.user)
   try {
     const postCollection = await posts();
 
     let newPost = {
       //Define new post
+      userid: userId,
       title: postTitle,
       body: postBody,
       tags: postTags,
@@ -315,6 +328,22 @@ async function findPostsbySearchterm(searchterm) {
   return searchedPosts;
 }
 
+async function checkPostOwnership(useridd, postId){
+  try{
+  const postCollection = await posts();
+  const post = await postCollection.findOne({ _id: ObjectId(postId) });
+  // console.log(post)
+  if(post.userid === useridd){
+    return true
+  }else{
+    throw 'This is not your post.'
+  }
+}
+catch(e){
+  // console.log(e)
+}
+}
+// checkPostOwnership("61a7cc001913116d67d3d4b3","61b29f74b2d58a4b86c07e10")
 module.exports = {
   addPost,
   getUserPosts,
@@ -324,4 +353,5 @@ module.exports = {
   editPost,
   findPostsbySearchterm,
   resolvePost,
+  checkPostOwnership
 };

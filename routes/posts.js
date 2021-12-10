@@ -3,7 +3,8 @@ const router = express.Router();
 const postFunctions = require("../data/posts");
 const path = require("path");
 const xss = require("xss");
-
+const data = require('../data')
+const userData = data.users;
 //1. Get all posts routes --done
 router.get("/", async (req, res) => {
   try {
@@ -73,6 +74,7 @@ router.post("/search/:searchterm", async (req, res) => {
 // 5. add post --done
 router.post("/", async (req, res) => {
   const username = xss(req.session.user);
+  // console.log(req.session.userid)
   let file = req.file;
   let imagePath;
   // console.log(file);
@@ -123,6 +125,7 @@ router.post("/", async (req, res) => {
 
     // call the addPost functions from the data
     const addPost = await postFunctions.addPost(
+      req.session.userid,
       username,
       newPost.title,
       newPost.body,
