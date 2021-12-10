@@ -10,6 +10,7 @@ const xss = require("xss");
 let myid = "";
 let url = "";
 let { ObjectId } = require("mongodb");
+const { title } = require("process");
 
 router.get("/", async (req, res) => {
   if (xss(req.session.user)) {
@@ -367,7 +368,10 @@ router.get("/logout", async (req, res) => {
 router.get("/editProfile", async (req, res) => {
   let username = xss(req.session.user);
   if (xss(req.session.user)) {
-    res.status(200).render("editProfile", { username: username });
+    res.status(200).render("editProfile", {
+       title: "editProfile",
+       username: username 
+      });
   } else {
     res.render("login", { title: "Login Page" });
   }
