@@ -1,64 +1,57 @@
 <div class="myprofile">
-
+{{!--html validation passing --}}
 
     <div class="header-nav">
       <ul class= "menu">
-        <li>
-          <a href="/myprofile" class="header">Welcome, {{username}}</a>
-        </li>
-        <li class="search">
-            <form id="searchForm" class="searchForm" method="get">
-                <label for="search">Search Post:</label>
-                <input type="text" id= "search">
-                <button type="submit">search</button>
-            </form>
-        </li>
-
-        <li class="logout-li">
-            <a  href="/logout">Logout</a>
-        </li>
+          <li>
+              <a href="/myprofile" class="header">Welcome, {{username}}</a>
+          </li>
+          <li class="search">
+              <form id="searchForm" class="searchForm" method="get">
+                  <label for="search">Search Post:</label>
+                  <input type="text" id= "search">
+                  <button type="submit">search</button>
+              </form>
+          </li>
+          <li class="logout-li">
+                <a  href="/logout">Logout</a>
+          </li>
       </ul>
     </div>
 
     <div class="nav">
-     <div class="navList">
-       <p></p>
-        <p>
-            <a href="/dashboard" style="color: black;text-decoration: none;font-size: 20px;">Dashboard</a>
-        </p>
-        <p>
-            <a href="/myprofile" style="color: black;text-decoration: none; font-size: 20px;">My Profile</a>
-        </p>
-      </div>
+        <div class="navList">
+            <p><a href="/dashboard" style="color: black;text-decoration: none;font-size: 20px;">Dashboard</a></p>
+            <p><a href="/myprofile" style="color: black;text-decoration: none; font-size: 20px;">My Profile</a></p>
+        </div>
     </div>
 
-        <div class="editPost">
-        <h2>Edit Your Post</h2>
+      <div class="editPost">
+            <h2>Edit Your Post</h2>
         <div class="editpostForm">  
-        <form id="editpostForm" action="/editpost/{{newUrl}}?_method=PATCH" method="POST" enctype="multipart/form-data">
-        <input type="text" id="title" name="title" placeholder="Title" class ="edit-post-input" ><br>
-        <span hidden id="errorEditPost"></span>
-
-        <textarea type="text" id="body" name="body" placeholder="Description" class="edit-post-body"></textarea><br>
-        <span hidden id="error_editbody"></span>
-
-        <textarea type="text" id="tags" name="tags" placeholder="Tags" class ="edit-post-tag" ></textarea><br>
-
-         <label class="editPost_priority" for="editPost_priority">Priority:</label>
-                    <select name="editPost_priority" id="editPost_priority">
+              <form id="editpostForm" action="/editpost/{{newUrl}}?_method=PATCH" method="POST" enctype="multipart/form-data">
+                    <input type="text" id="title" name="title" placeholder="Title" class ="edit-post-input" ><br>
+                    <span hidden id="errorEditPost"></span>
+                    <textarea id="body" name="body" placeholder="Description" class="edit-post-body"></textarea><br>
+                      <span hidden id="error_editbody"></span>
+                      <textarea id="tags" name="tags" placeholder="Tags" class ="edit-post-tag" ></textarea><br>
+                      <label class="editPost_priority" for="editPost_priority">Priority:</label>
+                      <select name="editPost_priority" id="editPost_priority">
                         <option value="Urgent">Urgent</option>
                         <option value="Normal">Normal</option>
-                        </select><br>
+                      </select><br>
                         <br>
-        <input type="file" name="image">
-        <button type="submit">edit post</button>
-        {{!-- <button type="submit" class="Editpost-button" id="Editpost-button">post</button> --}}
-        </form>
+                      <input type="file" name="image">
+                      <button type="submit">edit post</button>
+                      {{!-- <button type="submit" class="Editpost-button" id="Editpost-button">post</button> --}}
+               </form>
           </div>
-    {{#if error}}
-      <div id="errorEditPost" class="error">
-          <h3>{{error_message}}</h3>
-      </div>
-    {{/if}}
+                    {{#if error}}
+                        <div id="errorEditPost" class="error">
+                          <h3>{{error_message}}</h3>
+                        </div>
+                     {{/if}}
         
         </div>
+
+</div>
