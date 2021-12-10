@@ -1,4 +1,5 @@
-
+const data = require("../../data")
+const user = data.users
 (function () {
  
     const myForm = document.getElementById("login-form");

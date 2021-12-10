@@ -5,6 +5,7 @@ const session = require("express-session");
 var methodOverride = require("method-override");
 const multer = require("multer");
 const path = require("path");
+const Handlebars = require("handlebars")
 
 const storage = multer.diskStorage({
   destination: (req, res, cb) => {
@@ -64,6 +65,25 @@ app.use("/dashboard", async (req, res, next) => {
   } else {
     next();
   }
+});
+
+Handlebars.registerHelper( "when",function(operand_1, operator, operand_2, options) {
+  var operators = {
+   'eq': function(l,r) { return l == r; },
+   'noteq': function(l,r) { return l != r; },
+   'gt': function(l,r) { return Number(l) > Number(r); },
+   'or': function(l,r) { return l || r; },
+   'and': function(l,r) { return l && r; },
+   '%': function(l,r) { return (l % r) === 0; }
+  }
+  , result = operators[operator](operand_1,operand_2);
+
+  if (result) return options.fn(this);
+  else  return options.inverse(this);
+});
+
+Handlebars.registerHelper("setVar", function(varName, varValue, options) {
+  options.data.root[varName] = varValue;
 });
 
 configRoutes(app);
