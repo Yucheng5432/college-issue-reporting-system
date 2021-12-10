@@ -9,8 +9,10 @@ router.post("/upload", async (req, res) => {
   const username = req.session.user;
   let file = req.file;
   if (!file) {
-    res.status(500).json({ error: "Cannot upload" });
-    return;
+    res.status(400).render("myprofile", {
+      hasErrors: hasErrors,
+      error: e,
+    });
   }
   imagePath = file.path.replace(/\\/g, "/");
 
@@ -38,7 +40,10 @@ router.get("/upload/:username", async (req, res) => {
   const username = req.params.username;
 
   if (!username) {
-    res.status(404).json({ error: "No username" });
+    res.status(400).render("myprofile", {
+      hasErrors: hasErrors,
+      error: e,
+    });
   }
 
   try {
