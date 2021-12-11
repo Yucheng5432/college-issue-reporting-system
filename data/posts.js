@@ -1,8 +1,8 @@
 const mongoCollections = require("../config/mongoCollections");
 const posts = mongoCollections.posts;
 let { ObjectId } = require("mongodb");
-const data = require("../data")
-const userData = data.users
+const data = require("../data");
+const userData = data.users;
 
 // get post by id
 async function getPost(postID) {
@@ -98,11 +98,7 @@ async function addPost(
   postTags,
   image
 ) {
-  if (
-    !userId ||
-    typeof userId != "string" ||
-    userId.trim("").length == 0
-  ) {
+  if (!userId || typeof userId != "string" || userId.trim("").length == 0) {
     throw "User Id is invalid or empty.";
   }
   if (
@@ -133,13 +129,19 @@ async function addPost(
   ) {
     throw "Priority is invalid or empty.";
   }
-
   if (!priority.match("Urgent") && !priority.match("Normal")) {
-    throw "Priority can only have yes or no.";
+    throw "Priority can only have urgent or normal";
   }
-
-  if (image === undefined || !image) {
-    let image = false;
+  if (!Array.isArray(postTags)) {
+    throw "tags should be array";
+  }
+  if (image) {
+    if (image.trim("").length === 0 || typeof image != "string") {
+      throw "invalid image path";
+    }
+    if (image.includes("public/images/") === false) {
+      throw "invalid path";
+    }
   }
 
   try {
@@ -151,7 +153,7 @@ async function addPost(
       body: postBody,
       tags: postTags,
       username: userName,
-      priority: priority,
+      priority: priority.trim(""),
       resolved: false,
       date: new Date().toString(),
       image: image,
@@ -216,29 +218,28 @@ async function editPost(
     let editedTitle = postTitle ? postTitle : oldPost.title; //Set existing title if not provided
     let editedBody = postBody ? postBody : oldPost.body;
     let editedTag = postTags ? postTags : oldPost.tags;
-    let oldPostTag = oldPost.tags
-    for(i in editedTag){
-
+    let oldPostTag = oldPost.tags;
+    for (i in editedTag) {
     }
     let editedPriority = postPriority ? postPriority : oldPost.priority;
     let date = new Date().toString(); //Set existing body if not provided
     let editImage = imagePath1 ? imagePath1 : oldPost.image;
-    if(editedTag[i].trim().length != 0){
-     editedPost = await postCollection.updateOne(
-      { _id: ObjectId(postID) },
-      {
-        $set: {
-          title: editedTitle,
-          body: editedBody,
-          tags: editedTag,
-          priority: editedPriority,
-          date: date,
-          image: editImage,
-        },
-      }
-    );
-    }else{
-       editedPost = await postCollection.updateOne(
+    if (editedTag[i].trim().length != 0) {
+      editedPost = await postCollection.updateOne(
+        { _id: ObjectId(postID) },
+        {
+          $set: {
+            title: editedTitle,
+            body: editedBody,
+            tags: editedTag,
+            priority: editedPriority,
+            date: date,
+            image: editImage,
+          },
+        }
+      );
+    } else {
+      editedPost = await postCollection.updateOne(
         { _id: ObjectId(postID) },
         {
           $set: {
@@ -305,20 +306,19 @@ async function findPostsbySearchterm(searchterm) {
   return searchedPosts;
 }
 
-async function checkPostOwnership(useridd, postId){
-  try{
-  const postCollection = await posts();
-  const post = await postCollection.findOne({ _id: ObjectId(postId) });
-  // console.log(post)
-  if(post.userid === useridd){
-    return true
-  }else{
-    throw 'This is not your post.'
+async function checkPostOwnership(useridd, postId) {
+  try {
+    const postCollection = await posts();
+    const post = await postCollection.findOne({ _id: ObjectId(postId) });
+    // console.log(post)
+    if (post.userid === useridd) {
+      return true;
+    } else {
+      throw "This is not your post.";
+    }
+  } catch (e) {
+    throw e.message;
   }
-}
-catch(e){
-  throw e.message;
-}
 }
 
 module.exports = {
@@ -330,5 +330,5 @@ module.exports = {
   editPost,
   findPostsbySearchterm,
   resolvePost,
-  checkPostOwnership
+  checkPostOwnership,
 };

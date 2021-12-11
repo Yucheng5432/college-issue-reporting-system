@@ -4,6 +4,7 @@ const postFunctions = require("../data/posts");
 const path = require("path");
 const xss = require("xss");
 const data = require("../data");
+const { type } = require("os");
 
 //1. Get all posts routes
 router.get("/", async (req, res) => {
@@ -48,7 +49,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // http://localhost:3000/posts/userPosts/:username
-// 3. Get posts by username --done
+// 3. Get posts by username
 router.get("/userPosts/:username", async (req, res) => {
   const username = xss(req.params.username);
 
@@ -69,7 +70,7 @@ router.get("/userPosts/:username", async (req, res) => {
   }
 });
 
-// 4. find post by search term --pending
+// 4. find post by search term
 router.post("/search/:searchterm", async (req, res) => {
   const searchTerm = xss(req.body.searchterm);
   if (!req.body.searchterm) {
@@ -89,7 +90,7 @@ router.post("/search/:searchterm", async (req, res) => {
   }
 });
 
-// 5. add post --done
+// 5. add post
 router.post("/", async (req, res) => {
   const username = xss(req.session.user);
   let file = req.file;
@@ -144,6 +145,16 @@ router.post("/", async (req, res) => {
         error: "Invalid username, cannot be empty, type should be string.",
       });
     }
+    if (
+      !newPost.priority ||
+      typeof newPost.priority != "string" ||
+      typeof newPost.priority.trim("").length === 0
+    ) {
+      return res.status(400).json({
+        title: "error",
+        error: "priority cannot be empty",
+      });
+    }
 
     let tags = newPost.tags.replace(/\s/g, "").split(",");
 
@@ -169,7 +180,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// 6. editing a post --done
+// 6. editing a post
 router.patch("/edit/:id", async (req, res) => {
   let mt = [];
 
@@ -201,6 +212,23 @@ router.patch("/edit/:id", async (req, res) => {
         title: "error",
         error: "Invalid post body, cannot be empty, type should be string.",
       });
+    }
+    if (
+      !req.body.editPost_priority ||
+      typeof req.body.editPost_priority != "string"
+    ) {
+      return res.status(400).json({
+        title: "error",
+        error: "priority is empty r not string.",
+      });
+    }
+    if (imagePath) {
+      if (imagePath.trim("").length === 0 || typeof imagePath != "string") {
+        throw "invalid image path";
+      }
+      if (imagePath.includes("public/images/") === false) {
+        throw "invalid path";
+      }
     }
     mt.push(req.body.tags);
     let postFound = await postFunctions.getPost(req.params.id);
