@@ -53,7 +53,7 @@
                         </select><br>
                         <br>
         <input type="file" id="post-image" name="image">
-        <button type="submit" id="createPostBtn">post</button><br>
+        <button type="submit" id="createPostBtn" class="commentbtn">post</button><br>
         <span hidden id="error_inputFile"></span>
         
       </form>
@@ -87,7 +87,7 @@
                             {{/if}}
                             
                       <div class="commentsCard">
-                      <label class="comments">comments:</label>
+                      <label class="comments">{{comments.length}} comments </label>
                       <br>
                         {{#if comments.length}}
                         {{#each comments}}
@@ -107,9 +107,9 @@
                         {{/if}}
                         <br>  
                         <form  action="/comments/{{_id}}" method="POST">
-                          <textarea  id="comment" name="comment" placeholder="reply here" class="createComment"></textarea><br>
-                           <span hidden id="errorcommentPost"></span>
-                          <button type="submit" class="commentbtn"  id="commentPostBtn">comment</button>
+                          <textarea  id="comment{{_id}}"  name="comment" placeholder="reply here" class="createComment"></textarea><br>
+                           <span hidden id="errorcommentPost{{_id}}"></span>
+                          <button type="submit" class="commentbtn"  id="commentPostBtn{{_id}}">comment</button>
                         </form>
                         
                       </div>

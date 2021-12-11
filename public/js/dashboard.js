@@ -65,9 +65,9 @@
             );
             searchPostList.append(
               '<p class="searchedPostsdate-div">' +
-                " by" +
+                " by " +
                 post.username +
-                "on" +
+                " on" +
                 post.date +
                 "</label><p>"
             );
@@ -79,13 +79,16 @@
                 post.priority +
                 "</p>"
             );
+            if(post.image){
             searchPostList.append(
               "<img src=" +
                 '"' +
                 post.image +
                 '"' +
                 'class="post-image" width="300" height="300">'
-            );
+            );}else{
+              searchPostList.append();
+            }
             searchPostList.append("<br>");
             
             searchPostList.append('<label class="searchedtags">Tag: </label>');

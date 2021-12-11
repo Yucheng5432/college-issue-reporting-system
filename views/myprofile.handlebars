@@ -52,7 +52,7 @@
                 <p class="myprofile" >Major: {{major}}</p>
                 <p class="myprofile" >Year: {{year}}</p>
                 
-            <form id="editPost" method="post" name="postForm" action="/editProfile"></form>    
+            <form id="editPost" method="post" name="postForm" action="/editProfile"> 
                 <button type="submit" onclick="location.href = 'http://localhost:3000/editProfile';" id="editProfilebtn" name="editProfilebtn" class="editProfilebtn">Edit </button>
             </form>
             </div>
@@ -61,8 +61,8 @@
         <div class="private" id="private">
              {{#if myPosts.length}}
              {{#each myPosts}}
-              <div class="card" id="card">
-                  <div class="innercard" id="innercard">
+              <div class="card">
+                  <div class="innercard">
                       <h4 class="poststitle-div">{{title}}</h4>
                       <label class="postsdate-div">by {{username}} on {{date}}</label>
                             <p class="post-body">{{body}}</p> 
@@ -80,34 +80,36 @@
                             <br>
                             <div class="operatePost"> 
                             <form method="get" class="edit-form" action="http://localhost:3000/editPost">
-                            <button type="submit" class="edit-button" name="editPostbtn" id="editPostbtn" value={{this._id}}>Edit</button>
+                            <button type="submit" class="edit-button" name="editPostbtn" id="editPostbtn{{_id}}" value={{this._id}}>Edit</button>
                             </form>
                             <form  class="delete-form" action="/posts/delete/{{_id}}?_method=DELETE" method="POST">
-                              <button type="submit" class="delete-button" id="deletePostbtn">delete post</button>
+                              <button type="submit" class="delete-button" id="deletePostbtn{{_id}}">delete post</button>
                             </form>  
                     </div>
                       <div class="commentsCard-mp">
-                      <label class="comments">Comments</label>
+                      <label class="comments">{{comments.length}} comments</label>
 					            <br>
                         {{#if comments.length}}
                         {{#each comments}}
-                            <label>{{userName}}</label>
+                            <label class="commentsDate">by {{userName}} on {{date}}:</label>
                             {{#if answer}}
                               <p class="commentresolve">{{body}}</p>
                               {{else}}
                               <p class="commentNotresolve">{{body}}</p>
                             {{/if}}
-
+                            <form  action="/comments/{{_id}}?_method=DELETE" method="POST">
+                              <button type="submit" class="deleteComment">delete</button>
+                            </form>
                             <form  action="/comments/resolve/{{_id}}?_method=PATCH" method="POST">
-                              <button type="submit">mark as resolve</button>
+                              <button type="submit" class="resolveComment">mark as resolve</button>
                             </form>
                         {{/each}}
                         {{/if}}
                         <br>  
-                        <form id="createComment" action="/comments/{{_id}}" method="POST">
-                          <textarea id="comment1" name="comment1" placeholder="reply here" class="createComment"></textarea><br>
-                          <span hidden id="errorcommentPost"></span>
-                          <button type="submit" class="commentbtn" id ="commentPostBtn">comment</button>
+                        <form id="createComment{{_id}}" action="/comments/{{_id}}" method="POST">
+                          <textarea id="comment{{_id}}" name="comment" placeholder="reply here" class="createComment"></textarea><br>
+                          <span hidden id="errorcommentPost{{_id}}"></span>
+                          <button type="submit" class="commentbtn" id ="commentPostBtn{{_id}}">comment</button>
                         </form>
                       </div>
                   </div>
