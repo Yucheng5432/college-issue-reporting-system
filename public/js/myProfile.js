@@ -7,14 +7,6 @@
   let noResult = $("#noResult"); //no result by searching
   let private = $("#private"); //get private div
     
-//    $("#delete").on("click", function (event) {
-//      event.preventDefault();
-//      $.ajax({
-//        type: "DELETE",
-//        url: "/comments/",
-//      });
-//    });
- 
      //search posts
   searchPostForm.submit(function(event){
     event.preventDefault();
@@ -65,9 +57,6 @@
         searchPostList.append("<p class=\"searchedPost-priority\"> Priority:"+ post.priority +"</p>");
           searchPostList.append("<img src="+"\""+post.image+"\""+"class=\"post-image\" width=\"300\" height=\"300\">");
           searchPostList.append("<br>");
-        //else{
-        //  searchPostList.append("<br>");
-        //}
         searchPostList.append("<label class=\"searchedtags\">Tag: </label>");
         for(let j=0;j<post.tags.length;j++){
           searchPostList.append("<label class=\"searchedtaglable\">"+ post.tags[j] +" "+"</label>");

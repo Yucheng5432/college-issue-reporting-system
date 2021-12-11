@@ -7,16 +7,11 @@ let { ObjectId } = require("mongodb");
 //postID must be for a specific post
 //Username will be user who is logged in
 async function createComment(postID, userName, body) {
-  // console.log("Inside the create comment");
-  // console.log(userName, body, postID);
-  // if (arguments.length != 5) throw "Please provide all the parameters.";
   if (typeof userName != "string") throw "Username  is not string.";
   if (!ObjectId.isValid(postID)) throw "Invalid postID";
   if (typeof body != "string") {
     throw "body is not string";
   }
-
-  // console.log("Inside the create");
 
   const allPosts = await posts();
 
@@ -72,22 +67,18 @@ async function getComment(id) {
   const allPosts = await posts();
 
   let getPostById = await allPosts.findOne({ "comments._id": id });
-  // console.log(getPostById);
   let comment = getPostById.comments.find((comment) => comment._id.equals(id));
-  // console.log(comment);
 
   return comment;
 }
 
-// 5. delete a comment --done
+// 5. delete a comment 
 async function deleteComment(cid) {
   console.log("Entering delete comment");
   console.log(cid);
   if (!cid || !ObjectId.isValid(cid)) throw "Invalid comment id.";
   const allPosts = await posts();
-
   let post = await allPosts.findOne({ "comments._id": cid });
-
   let removedComment = await allPosts.updateOne(
     { _id: post._id },
     { $pull: { comments: { _id: cid } } }
@@ -97,7 +88,6 @@ async function deleteComment(cid) {
   if (removedComment.deletedCount === 0) {
     throw "Unable to remove comment";
   }
-
   return true;
 }
 

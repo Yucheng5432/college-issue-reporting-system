@@ -9,11 +9,9 @@ async function getPost(postID) {
   if (!postID || !ObjectId.isValid(postID)) {
     throw "Post ID is invalid.";
   }
-  // console.log("inside data", postID);
   try {
     const postCollection = await posts();
     const post = await postCollection.findOne({ _id: ObjectId(postID) });
-    // console.log(post);
     if (!post) {
       throw `Post having ID ${postID} does not exist.`;
     }
@@ -32,11 +30,9 @@ async function getAllPosts() {
     let mt = [];
     let mt2 = [];
     for (i = 0; i < allPosts.length; i++) {
-      // console.log(allPosts[i].priority)
       if (allPosts[i].priority === "Urgent") {
         mt.push(allPosts[i]);
         count++;
-        // console.log(mt)
         if (count === allPosts.length) {
           allPosts.sort(function (a, b) {
             return new Date(a.date) - new Date(b.date);
@@ -49,7 +45,6 @@ async function getAllPosts() {
     for (j = 0; j < allPosts.length; j++) {
       if (allPosts[j].priority === "Normal") {
         mt2.push(allPosts[j]);
-        // console.log(mt)
       }
     }
 
@@ -60,7 +55,6 @@ async function getAllPosts() {
       return new Date(a.date) - new Date(b.date);
     });
     let arr3 = mt.concat(mt2);
-    // console.log(arr3)
     return arr3;
     return allPosts;
   } catch (error) {
@@ -104,10 +98,6 @@ async function addPost(
   postTags,
   image
 ) {
-  //priority = priority.trim().toLowerCase();
-  // if (arguments.length != 4) {
-  //   throw "Incorrect number of arguments.";
-  // }
   if (
     !userId ||
     typeof userId != "string" ||
@@ -147,19 +137,15 @@ async function addPost(
   if (!priority.match("Urgent") && !priority.match("Normal")) {
     throw "Priority can only have yes or no.";
   }
-  // console.log(image);
 
   if (image === undefined || !image) {
     let image = false;
   }
-  // console.log(req.session.user)
 
-  // let user = await userData.getUserbyUsername(req.session.user)
   try {
     const postCollection = await posts();
 
     let newPost = {
-      //Define new post
       userid: userId,
       title: postTitle,
       body: postBody,
@@ -175,7 +161,6 @@ async function addPost(
     const addNewPost = await postCollection.insertOne(newPost);
 
     if (!addNewPost || addNewPost.insertedCount == 0) {
-      //Verify if post was added
       throw "Post was not added.";
     }
 
@@ -184,7 +169,6 @@ async function addPost(
     throw error.message;
   }
 }
-// addPost("aaaa","night","night","yes","#sh")
 
 //delete a post
 async function deletePost(postID) {
@@ -213,7 +197,6 @@ async function editPost(
   postPriority,
   imagePath1
 ) {
-  // console.log(postID, postTitle);
   if (!postID || !ObjectId.isValid(postID)) {
     throw "Post ID is invalid.";
   }
@@ -229,13 +212,11 @@ async function editPost(
     const postCollection = await posts();
 
     const oldPost = await postCollection.findOne({ _id: ObjectId(postID) });
-    // console.log(oldPost);
 
     let editedTitle = postTitle ? postTitle : oldPost.title; //Set existing title if not provided
     let editedBody = postBody ? postBody : oldPost.body;
     let editedTag = postTags ? postTags : oldPost.tags;
     let oldPostTag = oldPost.tags
-    // console.log(editedTag)
     for(i in editedTag){
 
     }
@@ -281,7 +262,6 @@ async function editPost(
     throw error.message;
   }
 }
-// editPost("61afd6973e6e42f8774ca938","2nd edit","Check for tags update","#check","yes")
 
 // mark post as resolve
 async function resolvePost(postID, commentID) {
@@ -322,9 +302,6 @@ async function findPostsbySearchterm(searchterm) {
   const searchedPosts = await postCollection
     .find({ tags: { $elemMatch: { $eq: searchterm } } })
     .toArray();
-  //  .aggregate([{ $match: { $text: { $search: phrase } } }]).toArray();
-  //console.log(searchedPosts+"is from data");
-  //console.log(searchedPosts);
   return searchedPosts;
 }
 
@@ -340,10 +317,10 @@ async function checkPostOwnership(useridd, postId){
   }
 }
 catch(e){
-  // console.log(e)
+  throw e.message;
 }
 }
-// checkPostOwnership("61a7cc001913116d67d3d4b3","61b29f74b2d58a4b86c07e10")
+
 module.exports = {
   addPost,
   getUserPosts,

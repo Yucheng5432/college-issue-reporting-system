@@ -19,7 +19,6 @@
   searchPostForm.submit(function (event) {
     event.preventDefault();
     let query = searchTerm.val().trim();
-    console.log(query);
     if (!query) {
       errorInput.attr("style", "display:block");
       searchTerm.focus();
@@ -88,9 +87,7 @@
                 'class="post-image" width="300" height="300">'
             );
             searchPostList.append("<br>");
-            //else{
-            //  searchPostList.append("<br>");
-            //}
+            
             searchPostList.append('<label class="searchedtags">Tag: </label>');
             for (let j = 0; j < post.tags.length; j++) {
               searchPostList.append(

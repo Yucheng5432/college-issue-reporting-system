@@ -9,8 +9,6 @@ const user = data.users
     let passErrorDiv = document.getElementById('error_password')
      let some = document.getElementById('editPostbtn')
      console.log(some)
-    // let myUl = document.getElementById('attempts');
-    // let frmLabel = document.getElementById('formLabel');
     
     if (myForm) {
       myForm.addEventListener("submit", (event) => {
@@ -21,7 +19,6 @@ const user = data.users
         if(usernameInput.value.trim().length == 0){
           event.preventDefault();
           valid = false
-          // usernameInput.value = ''
           errorDiv.hidden = false
           errorDiv.innerHTML = 'User must enter username' 
           return 
@@ -35,7 +32,6 @@ const user = data.users
         if(usernameInput.value.trim().match(/\s/)){
           event.preventDefault();
           valid = false
-          // usernameInput.value = ''
           errorDiv.hidden = false
           errorDiv.innerHTML = 'Username contains spacess'  
           return
@@ -49,7 +45,6 @@ const user = data.users
         if(usernameInput.value.trim().length < 4){
           event.preventDefault();
           valid = false
-          // usernameInput.value = ''
           errorDiv.hidden = false
           errorDiv.innerHTML = 'Length of username must be greater than 4'  
           return
@@ -63,7 +58,6 @@ const user = data.users
         if(!usernameInput.value.trim().match(/^[a-z0-9]+$/i)){
           event.preventDefault();
           valid = false
-          // usernameInput.value = ''
           errorDiv.hidden = false
           errorDiv.innerHTML = 'Username can only be alphanumeric values'  
           return
@@ -77,7 +71,6 @@ const user = data.users
         if(!passswordInput.value.trim()){
           event.preventDefault();
           valid = false
-          // passswordInput.value = ''
           passErrorDiv.hidden = false
           passErrorDiv.innerHTML = 'User must enter password'
           return
@@ -89,7 +82,6 @@ const user = data.users
         if(passswordInput.value.trim().match(/\s/)){
           event.preventDefault();
           valid = false
-          // usernameInput.value = ''
           passErrorDiv.hidden = false
           passErrorDiv.innerHTML = 'Password contains spaces'  
           return
@@ -103,7 +95,6 @@ const user = data.users
         if(passswordInput.value.trim().length < 6){
           event.preventDefault();
           valid = false
-          // passswordInput.value = ''
           passErrorDiv.hidden = false
           passErrorDiv.innerHTML = 'Password length is lesser than 6'
           return

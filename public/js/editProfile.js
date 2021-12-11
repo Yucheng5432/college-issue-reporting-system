@@ -20,21 +20,7 @@
     if (myForm) {
       myForm.addEventListener("submit", (event) => {
         valid = true
-
-
-        // if(!passswordInput.value.trim()){
-        //     event.preventDefault();
-        //     valid = false
-        //     ErrorDivPass.hidden = false
-        //     ErrorDivPass.innerHTML = 'User must enter password'
-        //     passswordInput.focus()
-        //     return
-        //   }else{
-        //     valid = true
-        //     ErrorDivPass.hidden = true
-        //   }
           
-
         if(passswordInput.value && passswordInput.value.trim().match(/\s/)){
             event.preventDefault();
             valid = false
@@ -60,20 +46,6 @@
             ErrorDivPass.hidden = true
           }
 
-        // if(firstNameInput.value.trim().length == 0){
-        //   event.preventDefault();
-        //   valid = false
-        //   errorDivFirst.hidden = false
-        //   errorDivFirst.innerHTML = 'User must enter firstname' 
-        //   firstNameInput.focus()
-        //   return 
-        // }
-        //  else{
-        //   valid = true
-        //   errorDivFirst.hidden = true
-        // }
-
-
         if(firstNameInput.value.trim().match(/\s/)){
             event.preventDefault();
             valid = false
@@ -87,20 +59,6 @@
              errorDivFirst.hidden = true
           }
 
-
-        // if(lastNameInput.value.trim().length == 0){
-        //     event.preventDefault();
-        //     valid = false
-        //     errorDivLast.hidden = false
-        //     errorDivLast.innerHTML = 'User must enter lastname' 
-        //     lastNameInput.focus()
-        //     return 
-        //   }
-        //    else{
-        //     valid = true
-        //     errorDivLast.hidden = true
-        //   }
-
           if(lastNameInput.value.trim().match(/\s/)){
             event.preventDefault();
             valid = false
@@ -113,19 +71,6 @@
              valid = true
              errorDivLast.hidden = true
           }
-
-        // if(emailInput.value.trim().length == 0){
-        //     event.preventDefault();
-        //     valid = false
-        //     errorDivEmail.hidden = false
-        //     errorDivEmail.innerHTML = 'User must enter email' 
-        //     emailInput.focus()
-        //     return 
-        //   }
-        //    else{
-        //     valid = true
-        //     errorDivEmail.hidden = true
-        //   }
 
           if(emailInput.value.trim().match(/\s/)){
             event.preventDefault();
@@ -153,20 +98,6 @@
              valid = true
              errorDivEmail.hidden = true
           }
-        
-
-          // if(yearInput.value.trim().length == 0){
-          //   event.preventDefault();
-          //   valid = false
-          //   errorDivYear.hidden = false
-          //   errorDivYear.innerHTML = 'User must enter year' 
-          //   yearInput.focus()
-          //   return 
-          // }
-          //  else{
-          //   valid = true
-          //   errorDivYear.hidden = true
-          // }
 
           if(yearInput.value.trim().match(/\s/)){
             event.preventDefault();

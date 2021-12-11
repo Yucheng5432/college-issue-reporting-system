@@ -88,7 +88,6 @@ async function createUser(
     }
   } catch (e) {}
   const user = await usersCollection();
-  //   const saltRounds = 5;
   const plainTextPassword = password;
   const hash = await bcrypt.hash(plainTextPassword, saltRounds);
   let userData = {
@@ -156,16 +155,13 @@ async function checkUser(username, password) {
       throw `Either the username or password is invalid`;
     }
   } catch (e) {
-    // console.log(e)
   }
   if (checkUsername) {
     let compareToMerlin = false;
     compareToMerlin = await bcrypt.compare(password, checkUsername.password);
 
     if (compareToMerlin) {
-      // console.log(checkUsername)
       return checkUsername;
-      // return { authenticated: true };
     } else {
       throw "Either the username or password is invalid";
     }
@@ -189,10 +185,9 @@ async function getUserbyUsername(userName) {
   if (!userData) {
     throw `Cannot find user with given emai : ${email} into database`;
   }
-  // console.log(userData)
   return userData;
 }
-//-------------------------------------------------------------------------------//
+
 async function updateUser(
   userId,
   username,
@@ -220,23 +215,6 @@ async function updateUser(
   ) {
     throw "All fields must be string";
   }
-
-  // if (
-  //   !userId ||
-  //   userId == "" ||
-  //   !firstName ||
-  //   firstName == "" ||
-  //   !lastName ||
-  //   lastName == "" ||
-  //   !email ||
-  //   email == "" ||
-  //   !password ||
-  //   password == "" ||
-  //   !year ||
-  //   year == ""
-  // ) {
-  //   throw "Please enter all the fields";
-  // }
 
   if (/\s/.test(userId)) {
     throw `userID has spaces`;
@@ -269,9 +247,6 @@ async function updateUser(
     Computer Science, Business, Engineering, System-and-Analytics,
     Mechanical Engineering, Chemical Engineering, Material Science`
   }
-  // if(typeof major != 'string'){
-  //     throw `Major must be a string`
-  // }
 
   year = parseInt(year);
   if (year && typeof year != "number") {
@@ -296,11 +271,9 @@ async function updateUser(
   //Check for same username in database
   if (userData) {
     userId = userData._id.toString();
-    // console.log(userId)
     for (j = 0; j < userarr.length; j++) {
       userarr[j]._id = userarr[j]._id.toString();
       if (userarr[j]._id === userId) {
-        // console.log('HII')
         continue;
       }
       if (userarr[j].userName === username) {
@@ -309,10 +282,6 @@ async function updateUser(
     }
   }
 
-  //Check for email is in use with other user
-  // if(userData){
-  //   userId = userData._id.toString()
-  //   console.log(userId)
   for (i = 0; i < userarr.length; i++) {
     userarr[i]._id = userarr[i]._id.toString();
     if (userarr[i]._id === userId) {
@@ -322,7 +291,6 @@ async function updateUser(
       throw "This email is already in use with other user.";
     }
   }
-  // }
   let updatedUserData
   oldPassword = userData.password
    firstName = firstName ? firstName : userData.firstName;
@@ -332,10 +300,8 @@ async function updateUser(
    year = year ? year : userData.year;
   const plainTextPassword = password;
   const hash = await bcrypt.hash(plainTextPassword, saltRounds);
-  // console.log(password)
   if(password){
    updatedUserData = {
-    // userName: username,
     firstName: firstName,
     lastName: lastName,
     email: email,
@@ -350,7 +316,6 @@ async function updateUser(
   );
   }else{
      updatedUserData = {
-      // userName: username,
       firstName: firstName,
       lastName: lastName,
       email: email,
@@ -358,7 +323,7 @@ async function updateUser(
       major: major,
       year: year,
     };
-    // console.log(updatedUserData)
+
     idd = userData._id;
     let updatedUser = await users.updateOne(
       { _id: idd },
@@ -368,7 +333,6 @@ async function updateUser(
 
   let updatedData = await users.findOne({ _id: idd });
   updatedData._id = updatedData._id.toString();
-  // console.log(updatedData)
   return updatedData;
 }
 

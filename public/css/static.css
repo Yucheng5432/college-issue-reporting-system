@@ -17,7 +17,6 @@
 }
 
 .body {
-  /* background-color: #f5f4f4; */
   background-color: #f5f4f4;
 }
 
@@ -242,17 +241,6 @@
   color: black;
   /* width: 200px; */
 }
-/*.header-nav,
-.content {
-	position: absolute;
-	left: 0;
-	right: 0;
-}*/
-/* .header {
-  color: black;
-  position: relative;
-  font-size: small;
-} */
 
 .nav {
   float: left;
@@ -330,18 +318,12 @@ ul {
 
 .search {
   float: left;
-  /*position: relative;*/
   top: 15px;
   right: -150px;
 }
 
-/* .nav-dash {
-  background-color: aquamarine;
-} */
-
 .title {
   float: left;
-  /*position: relative;*/
   top: 15px;
   right: 40px;
 }
@@ -349,13 +331,11 @@ ul {
 .logout-li {
   margin-top: 10px;
   float: right;
-  /* border-right: 1px solid rgb(255, 255, 255); */
 }
 
 .username {
   color: white;
   float: left;
-  /*position: relative;*/
   margin-left: 30px;
   margin-top: 15px;
 
@@ -517,7 +497,6 @@ li form {
   position: relative;
   margin-bottom: 20px;
   margin-left: -2px;
-  /* margin-right: -25px; */
 }
 
 .operatePost {
@@ -542,4 +521,5 @@ li form {
 .noResult {
   font-family: Arial, Helvetica, sans-serif;
   color: black;
+  text-align: center;
 }

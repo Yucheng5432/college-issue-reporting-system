@@ -5,7 +5,7 @@ const commentsData = data.comments;
 const postsData = data.posts;
 let { ObjectId } = require("mongodb");
 
-// 1.GET comments/{postId}   get all posts comments by given postID -- done
+// 1.GET comments/{postId}   get all posts comments by given postID 
 // http://localhost:3000/comments/postid
 router.get("/:id", async (req, res) => {
   if (!req.session.user) {
@@ -24,12 +24,14 @@ router.get("/:id", async (req, res) => {
 
     res.status(200).json(comments);
   } catch (e) {
-    res.status(404).json({ error: "No comments found" });
+    res.status(404).json({ 
+      title: "error",
+      error: "No comments found" });
     return;
   }
 });
 
-// 2. POST /comments/{postId} --done
+// 2. POST /comments/{postId} 
 router.post("/:id", async (req, res) => {
   if (!req.session.user) {
     res.redirect("/");
@@ -46,12 +48,16 @@ router.post("/:id", async (req, res) => {
     }
 
     if (!postId || !username) {
-      res.status(400).json({ error: "improper data in body" });
+      res.status(400).json({ 
+        title: "error",
+        error: "improper data in body" });
       return;
     }
 
     if (!ObjectId.isValid(postId)) {
-      res.status(400).json({ error: "Post Id is not valid" });
+      res.status(400).json({ 
+        title: "error",
+        error: "Post Id is not valid" });
       return;
     }
 
@@ -69,16 +75,20 @@ router.post("/:id", async (req, res) => {
     if (comment != null) {
       res.redirect("/");
     } else {
-      res.status(400).json({ error: "Comment not created" });
+      res.status(400).json({ 
+        title: "error",
+        error: "Comment not created" });
       return;
     }
   } catch (e) {
-    res.status(500).json({ error: "comments not found" });
+    res.status(500).json({ 
+      title: "error",
+      error: "comments not found" });
     return;
   }
 });
 
-// 3. Delete comment    /comments/{commentId) --done
+// 3. Delete comment    /comments/{commentId) 
 
 router.delete("/:id", async (req, res) => {
   if (!req.session.user) {
@@ -88,33 +98,41 @@ router.delete("/:id", async (req, res) => {
 
   const id = ObjectId(req.params.id);
   if (!id) {
-    res.status(400).json({ error: "comment id is undefined" });
+    res.status(400).json({ 
+      title: "error",
+      error: "comment id is undefined" });
     return;
   }
 
   try {
     await commentsData.getComment(id);
   } catch (e) {
-    res.status(404).json({ error: "No comment found with this comment id." });
+    res.status(404).json({ 
+      title: "error",
+      error: "No comment found with this comment id." });
     return;
   }
 
   try {
     const deleteComment = await commentsData.deleteComment(id);
     if (!deleteComment) {
-      res.status(404).json({ error: "Comment cannot be deleted." });
+      res.status(404).json({ 
+        title: "error",
+        error: "Comment cannot be deleted." });
       return;
     } else {
       res.redirect("/");
     }
-    // res.status(200).json(deleteComment);
+    
   } catch (e) {
-    res.status(500).json({ error: e.message });
+    res.status(500).json({ 
+      title: "error",
+      error: e.message });
     return;
   }
 });
 
-// 4. mark comment as resolved use commentId--done
+// 4. mark comment as resolved use commentId
 router.patch("/resolve/:id", async (req, res) => {
   if (!req.session.user) {
     res.redirect("/");
@@ -123,13 +141,14 @@ router.patch("/resolve/:id", async (req, res) => {
   try {
     const id = ObjectId(req.params.id);
     let status = await commentsData.markAsAnswer(id);
-    console.log(status);
 
     if (status != null) {
       res.redirect("/myprofile");
     }
   } catch (e) {
-    res.status(404).json({ error: e.message });
+    res.status(404).json({ 
+      title: "error",
+      error: e.message });
     return;
   }
 });

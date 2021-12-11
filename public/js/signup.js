@@ -6,7 +6,6 @@
     let year = $('#year')
     let email =$('#email')
     let signupForm = $('#signup-form')
-    //let submitButton = $('#signup_button');
 
     let userAlert = $('#error_username')
     let passAlert = $('#error_password')  
@@ -16,25 +15,10 @@
     let yearAlert = $('#error_year')
 
     let valid =true
-    
-    /**userAlert.addClass('hidden')
-    userAlert.text('')
-    passAlert.addClass('hidden')
-    passAlert.text('')
-    firstAlert.addClass('hidden')
-    firstAlert.text('')
-    lastAlert.addClass('hidden')
-    lastAlert.text('')
-    emailAlert.addClass('hidden')
-    emailAlert.text('')
-    yearAlert.addClass('hidden')
-    yearAlert.text('')**/
+
     let searchPostForm = $("#signup-form")
-    
-        // username
     searchPostForm.submit(function(event){
         event.preventDefault()
-    // usernameSignup.blur(function(event){
         var userNameStr = usernameSignup.val().trim()
         if(!userNameStr){
             valid = false
@@ -79,9 +63,7 @@
             valid = true
             userAlert.hide()
         }
-    // })
-        //password
-        // passwordSignup.blur(function(event){
+
             var passwordStr = passwordSignup.val().trim()
             if(!passwordStr){
                 valid = false
@@ -116,9 +98,6 @@
                 userAlert.hide()
             }
 
-    // })
-        //firstname
-        // firstname.blur(function(event){
             var firstnameStr = firstname.val().trim()
             if(!firstnameStr){
                 valid = false
@@ -153,10 +132,7 @@
             valid = true
             firstAlert.hide()
         }
-    // })
 
-        //lastname
-        // lastname.blur(function(event){
             var lastnameStr = lastname.val().trim()
             if(!lastnameStr){
                 valid = false
@@ -194,9 +170,7 @@
             valid = true
             lastAlert.hide()
         }
-    // })
-        //email
-        // email.blur(function(event){
+
             var emailStr = email.val().trim()
             if(!emailStr){
                 valid = false
@@ -233,9 +207,7 @@
                 valid = true
                 emailAlert.hide()
             }
-        // })
-        //year
-        // year.blur(function(event){
+
         var yearStr = year.val().trim()     
         if(!yearStr){
             valid = false
@@ -284,8 +256,7 @@
             valid = true
             yearAlert.hide()
         } 
-    // });
-        // signupForm.submit(function (event) {
+
             if(valid===false)
             {
               event.preventDefault();
@@ -293,7 +264,7 @@
             else{
               signupForm.unbind().submit();
             }
-        //   })
+
    
 });
 })(window.jQuery);

@@ -12,7 +12,6 @@ const storage = multer.diskStorage({
     cb(null, "./public/images/");
   },
   filename: (req, file, cb) => {
-    // console.log(file);
     cb(
       null,
       file.fieldname + "-" + Date.now() + path.extname(file.originalname)
@@ -59,7 +58,6 @@ app.use(async (req, res, next) => {
 });
 
 app.use("/dashboard", async (req, res, next) => {
-  // console.log(req.session);
   if (!req.session.user) {
     return res.status(403).render("notLogin", { title: "Not Authorised" });
   } else {

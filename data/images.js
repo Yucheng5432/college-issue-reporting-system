@@ -13,8 +13,6 @@ async function uploadProfilePhoto(username, image) {
   try {
     const user = await imagesCollection();
 
-    // console.log(await getProfilePhoto(username));
-
     if ((await getProfilePhoto(username)) != false) {
       let updateImage = {
         image: image,
