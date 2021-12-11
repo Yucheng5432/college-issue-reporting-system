@@ -45,12 +45,13 @@
               <button class="profile-button" type="submit">edit photo</button>
             </form>
             <br>
-                <p class="myprofile" >{{username}}</p>
-                <p class="myprofile" >{{firstname}}</p>
-                <p class="myprofile1" >{{lastname}}</p>
-                <p class="myprofile" >{{email}}</p>
-                <p class="myprofile" >{{major}}</p>
-                <p class="myprofile" >{{year}}</p>    
+                <p class="myprofile" >Username: {{username}}</p>
+                <p class="myprofile" >Firstname: {{firstname}}</p>
+                <p class="myprofile1" >Lastname: {{lastname}}</p>
+                <p class="myprofile" >Email-id: {{email}}</p>
+                <p class="myprofile" >Major: {{major}}</p>
+                <p class="myprofile" >Year: {{year}}</p>
+                
             <form id="editPost" method="post" name="postForm" action="/editProfile"></form>    
                 <button type="submit" onclick="location.href = 'http://localhost:3000/editProfile';" id="editProfilebtn" name="editProfilebtn" class="editProfilebtn">Edit </button>
             </form>
