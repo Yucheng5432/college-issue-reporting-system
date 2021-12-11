@@ -1,26 +1,26 @@
 const express = require("express");
 const router = express.Router();
 const postFunctions = require("../data/posts");
-const dashboardData = require("../data/dashboard");
 const path = require("path");
 const xss = require("xss");
 const data = require("../data");
-const userData = data.users;
 
-//1. Get all posts routes --done
+//1. Get all posts routes
 router.get("/", async (req, res) => {
   try {
     if (!req.body) {
-      return res.status(500).json({ 
+      return res.status(500).json({
         title: "error",
-        error: "No request body provided!" });
+        error: "No request body provided!",
+      });
     }
     const posts = await postFunctions.getAllPosts();
     return res.status(200).json(posts);
   } catch (error) {
-    return res.status(500).json({ 
+    return res.status(500).json({
       title: "error",
-      error: error.message });
+      error: error.message,
+    });
   }
 });
 
@@ -35,13 +35,15 @@ router.get("/:id", async (req, res) => {
     return res.status(200).json(post);
   } catch (error) {
     if (error.message) {
-      return res.status(404).json({ 
+      return res.status(404).json({
         title: "error",
-        error: error.message });
+        error: error.message,
+      });
     }
-    return res.status(500).json({ 
+    return res.status(500).json({
       title: "error",
-      error: error.message });
+      error: error.message,
+    });
   }
 });
 
@@ -51,17 +53,19 @@ router.get("/userPosts/:username", async (req, res) => {
   const username = xss(req.params.username);
 
   if (!username) {
-    return res.status(500).json({ 
+    return res.status(500).json({
       title: "error",
-      error: "No username parameter!" });
+      error: "No username parameter!",
+    });
   }
   try {
     const posts = await postFunctions.getUserPosts(username);
     return res.status(200).json(posts);
   } catch (error) {
-    return res.status(500).json({ 
+    return res.status(500).json({
       title: "error",
-      error: error.message });
+      error: error.message,
+    });
   }
 });
 
@@ -69,17 +73,19 @@ router.get("/userPosts/:username", async (req, res) => {
 router.post("/search/:searchterm", async (req, res) => {
   const searchTerm = xss(req.body.searchterm);
   if (!req.body.searchterm) {
-    return res.status(500).json({ 
+    return res.status(500).json({
       title: "error",
-      error: "No search term provided" });
+      error: "No search term provided",
+    });
   }
   try {
     const posts = await postFunctions.findPostsbySearchterm(searchTerm);
     return res.status(200).json(posts);
   } catch (error) {
-    return res.status(500).json({ 
+    return res.status(500).json({
       title: "error",
-      error: error.message });
+      error: error.message,
+    });
   }
 });
 
@@ -93,17 +99,19 @@ router.post("/", async (req, res) => {
       if (checkFileType(file)) {
         imagePath = file.path.replace(/\\/g, "/");
       } else {
-        res.status(400).json({ 
+        res.status(400).json({
           title: "error",
-          error: "Please attach only images!" });
+          error: "Please attach only images!",
+        });
         return;
       }
     }
 
     if (!req.body) {
-      return res.status(500).json({ 
+      return res.status(500).json({
         title: "error",
-        error: "No request body provided!" });
+        error: "No request body provided!",
+      });
     }
     const newPost = req.body;
     if (
@@ -208,9 +216,10 @@ router.patch("/edit/:id", async (req, res) => {
 
     return res.status(200).json(editedPost);
   } catch (error) {
-    return res.status(500).json({ 
+    return res.status(500).json({
       title: "error",
-      error: error.message });
+      error: error.message,
+    });
   }
 });
 
@@ -228,13 +237,15 @@ router.patch("/resolve/:id/:cid", async (req, res) => {
     return res.status(200).json(resolvePost);
   } catch (error) {
     if (error.message.includes("Post having ID")) {
-      return res.status(404).json({ 
+      return res.status(404).json({
         title: "error",
-        error: error.message });
+        error: error.message,
+      });
     }
-    return res.status(500).json({ 
+    return res.status(500).json({
       title: "error",
-      error: error.message });
+      error: error.message,
+    });
   }
 });
 
