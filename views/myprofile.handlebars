@@ -50,9 +50,7 @@
                 <p class="myprofile1" >{{lastname}}</p>
                 <p class="myprofile" >{{email}}</p>
                 <p class="myprofile" >{{major}}</p>
-                <p class="myprofile" >{{year}}</p>
-                <p class="myprofile" >{{bio}}</p>
-                
+                <p class="myprofile" >{{year}}</p>    
             <form id="editPost" method="post" name="postForm" action="/editProfile"></form>    
                 <button type="submit" onclick="location.href = 'http://localhost:3000/editProfile';" id="editProfilebtn" name="editProfilebtn" class="editProfilebtn">Edit </button>
             </form>
@@ -88,25 +86,27 @@
                             </form>  
                     </div>
                       <div class="commentsCard-mp">
-                      <label class="comments">Comments</label>
+                      <label class="comments">{{comments.length}} comments</label>
 					            <br>
                         {{#if comments.length}}
                         {{#each comments}}
-                            <label>{{userName}}</label>
+                            <label class="commentsDate">by {{userName}} on {{date}}:</label>
                             {{#if answer}}
                               <p class="commentresolve">{{body}}</p>
                               {{else}}
                               <p class="commentNotresolve">{{body}}</p>
                             {{/if}}
-
+                            <form  action="/comments/{{_id}}?_method=DELETE" method="POST">
+                              <button type="submit" class="deleteComment">delete</button>
+                            </form>
                             <form  action="/comments/resolve/{{_id}}?_method=PATCH" method="POST">
-                              <button type="submit">mark as resolve</button>
+                              <button type="submit" class="resolveComment">mark as resolve</button>
                             </form>
                         {{/each}}
                         {{/if}}
                         <br>  
                         <form id="createComment" action="/comments/{{_id}}" method="POST">
-                          <textarea id="comment1" name="comment1" placeholder="reply here" class="createComment"></textarea><br>
+                          <textarea id="comment" name="comment" placeholder="reply here" class="createComment"></textarea><br>
                           <span hidden id="errorcommentPost"></span>
                           <button type="submit" class="commentbtn" id ="commentPostBtn">comment</button>
                         </form>
@@ -116,15 +116,7 @@
           {{/each}}
           {{/if}}
         </div>
-            {{!-- 
-       <div class="search-result">
-          <div id="searchTitle" hidden>
-            <h2 >Search Result</h2>
-          </div>
-              <div id="searchPostsList" class="searchCard" hidden>
-              </div>
-              <div id="noResult"  class="noResult" hidden><p>Sorry, no results were found.</p></div>
-      </div>--}}
+
 
       <div class="search-result">
             <div id="searchTitle" hidden>

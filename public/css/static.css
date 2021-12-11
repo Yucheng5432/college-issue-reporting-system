@@ -82,7 +82,27 @@
 }
 .deleteComment {
   position: relative;
-  top: -15px;
+  top: -13px;
+  font-size: 10px;
+  size: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.deleteComment:hover {
+  opacity: 1;
+  background-color: rgb(238, 127, 127);
+}
+
+.resolveComment:hover {
+  opacity: 1;
+  background-color: aquamarine;
+}
+
+.resolveComment {
+  position: relative;
+  top: -33px;
+  right: -50px;
   font-size: 10px;
   size: 10px;
   border-radius: 10px;
@@ -91,10 +111,18 @@
 
 .commentresolve,
 .searchedcommentresolve {
-  color: green;
+  color: rgb(8, 8, 8);
+  background-color: rgb(149, 189, 109);
+  font-size: 12px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-weight: bolder;
 }
+
 .commentNotresolve {
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: bolder;
+  color: black;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   position: relative;
@@ -204,9 +232,19 @@
   display: inline-block;
   border: 1px solid #ccc;
 }
-.commentbtn {
+
+.commentbtn,
+.editProfilebtn {
   margin-bottom: 10px;
+  background-color: rgb(209, 169, 169);
+  border-radius: 10px;
 }
+
+.commentbtn:hover,
+.editProfilebtn:hover {
+  opacity: 0.9;
+}
+
 .private {
   float: left;
   margin-top: 20px;
@@ -223,15 +261,16 @@
 .commentsCard {
   width: 435px;
   height: auto;
-  background-color: rgb(243, 243, 243);
+  background-color: rgb(245, 245, 245);
   position: relative;
   top: -3px;
+  left: -2px;
 }
 
 .commentsCard-mp {
   width: 435px;
   height: auto;
-  background-color: rgb(243, 243, 243);
+  background-color: rgb(245, 245, 245);
   position: relative;
   top: -45px;
   margin-top: 10px;
@@ -416,10 +455,16 @@ li form {
   background-color: rgb(255, 248, 248);
 }
 
-.comments,
 .searchedcomments {
   font-size: 14px;
 }
+
+.comments {
+  font-size: 12px;
+  background-color: rgb(186, 224, 224);
+  font-weight: 700;
+}
+
 .reply {
   font-size: 14px;
 }

@@ -53,7 +53,7 @@
                         </select><br>
                         <br>
         <input type="file" id="post-image" name="image">
-        <button type="submit" id="createPostBtn">post</button><br>
+        <button type="submit" id="createPostBtn" class="commentbtn">post</button><br>
         <span hidden id="error_inputFile"></span>
         
       </form>
@@ -87,7 +87,7 @@
                             {{/if}}
                             
                       <div class="commentsCard">
-                      <label class="comments">comments:</label>
+                      <label class="comments">{{comments.length}} comments </label>
                       <br>
                         {{#if comments.length}}
                         {{#each comments}}
