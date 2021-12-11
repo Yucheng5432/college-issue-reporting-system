@@ -38,7 +38,7 @@
               
           <div class="myprofile-innercard">
               {{#if photo}}
-                <img src={{photo}} class ="img-upload" width="100" height="100">
+                <img src={{photo}} alt="Profile photo" class ="img-upload" width="100" height="100">
               {{/if}}
             <form method="POST" class="profile-input"  action="/photo/upload" enctype="multipart/form-data">
               <input type="file" name="image">
