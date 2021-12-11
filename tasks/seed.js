@@ -12,10 +12,13 @@ const main = async () => {
   //   1. Create first post
   try {
     firstPost = await posts.addPost(
+      "1",
       "rajpaynaik",
       "Scholarship not processed",
       "Please process my scholarship, its been 5 months.",
-      ["financial", "stevens"]
+      "Urgent",
+      ["financial", "stevens"],
+      'public/images/imageDemo02.png'
     );
 
     console.log(firstPost);
@@ -26,10 +29,13 @@ const main = async () => {
   //   2. Create second post
   try {
     secondPost = await posts.addPost(
-      "rajpaynaik",
+      "2",
+      "Yash Koladia",
       "Courses not registered",
       "I am not able to register my courses on workday",
-      ["registrar", "workday"]
+      "Urgent",
+      ["registrar", "workday"],
+      'public/images/imageDemo03.jpg'
     );
 
     console.log(secondPost);
@@ -40,13 +46,32 @@ const main = async () => {
   //   3. Create third post
   try {
     thirdPost = await posts.addPost(
-      "lightyagami",
-      "Scholarship not processed",
-      "Please process my scholarship, its been 5 months.",
-      ["financial", "stevens"]
+      "3",
+      "Yucheng Su",
+      "Course selection question",
+      "Has anyone taken the CS-554 course? Is this course difficult?",
+      "Normal",
+      ["course", "CS-554"],
+      'public/images/imageDemo01.jpg'
     );
 
     console.log(thirdPost);
+  } catch (e) {
+    console.log(e);
+  }
+
+  //   4. Create fourth post
+  try {
+    fourthPost = await posts.addPost(
+      "4",
+      "Yinglu Wang",
+      "Course selection question",
+      "Is the school cafeteria open today?",
+      "Normal",
+      ["lunch", "cafeteria"],
+    );
+
+    console.log(fourthPost);
   } catch (e) {
     console.log(e);
   }
