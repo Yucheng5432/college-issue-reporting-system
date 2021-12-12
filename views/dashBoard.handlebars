@@ -6,7 +6,7 @@
           </li>
         <li class="search">
             <form id="searchForm" >
-                <label for="searchTerm" class="searchTerm">Search:</label>
+                <label for="searchTerm" class="searchTerm">search:</label>
                 <input type="text" id= "searchTerm" placeholder="search posts" class ="search-input">
                 <button type="submit" class="search-button">search</button>
             </form>
@@ -44,12 +44,12 @@
         <input type="text" id="title" name="title" placeholder="Title" class ="create-post-input"><br>
         <span hidden id="errorCreatePost"></span>
         <br>
-        <label for="body" class="body">Body:</label>
+        <label for="body" class="body">description:</label>
         <br>
         <textarea  id="body" name="body" placeholder="Description" class="create-post-body"></textarea><br>
         <span hidden id="error_body"></span>
         <br>
-        <label for="tags" class="tags">Tags:</label>
+        <label for="tags" class="tags">tags:</label>
         <br>
         <textarea  id="tags" name="tags" placeholder="Tags" class ="create-post-tag" ></textarea><br>
 
@@ -84,10 +84,10 @@
                       <p class="postsdate-div">by {{username}} on {{date}}</p>
                             <p class="post-body">{{body}}</p> 
                             {{#when priority 'eq' 'Urgent'}}
-                              <p class="post-priority">Priority: {{priority}}</p>
+                              <p class="post-priority">Priority {{priority}}</p>
                             {{/when}}
                             {{#when priority 'eq' 'Normal'}}
-                              <p class="post-priorityN">Priority: {{priority}}</p>
+                              <p class="post-priorityN">Priority {{priority}}</p>
                             {{/when}}
           
                             {{#if image}}
@@ -122,11 +122,11 @@
                         {{/if}}
                         <br>  
                         <form  action="/comments/{{_id}}" method="POST">
-                          <label for="comment{{_id}}" class="comment">Comment here:</label>
+                          <label for="comment{{_id}}" class="comment">comment:</label>
                           <br>
                           <textarea  id="comment"  name="comment" placeholder="reply here" class="createComment"></textarea><br>
                            <span hidden id="errorcommentPost"></span>
-                          <button type="submit" class="commentBtn"  id="commentPostBtn">comment</button>
+                          <button type="submit" class="commentbtn"  id="commentPostBtn">comment</button>
                         </form>
                         
                       </div>

@@ -6,7 +6,7 @@
         </li>
         <li class="search">
             <form id="searchForm">
-               <label for="searchTerm" class="searchTerm">Search:</label>
+               <label for="searchTerm" class="searchTerm">search:</label>
                  <input type="text" id= "searchTerm" placeholder="search posts" class ="search-input">
                 <button type="submit" class="search-button">search</button>
             </form>
@@ -42,7 +42,7 @@
                 <img src={{photo}} alt="Profile photo" class ="img-upload" width="100" height="100">
               {{/if}}
             <form method="POST" class="profile-input"  action="/photo/upload" enctype="multipart/form-data">
-              <label for="image" class="image">Photo:</label>
+              <label for="image" class="image">upload image:</label>
               <input type="file" name="image" id="image">
               <button class="profile-button" type="submit" id="edit-photo">edit photo</button>
               <span id = "error_editprofilephoto" ></span>
@@ -72,10 +72,10 @@
                       <label class="postsdate-div">by {{username}} on {{date}}</label>
                             <p class="post-body">{{body}}</p> 
                             {{#when priority 'eq' 'Urgent'}}
-                              <p class="post-priority">Priority: {{priority}}</p>
+                              <p class="post-priorityU">Priority: {{priority}}</p>
                             {{/when}}
                             {{#when priority 'eq' 'Normal'}}
-                              <p class="post-priorityN">Priority: {{priority}}</p>
+                              <p class="post-priorityMN">Priority: {{priority}}</p>
                             {{/when}}
 							              {{#if image}}
                             <img src={{image}} alt="Posted image" class="post-image" width="430" height="400" >
@@ -115,14 +115,7 @@
                             </form>
                         {{/each}}
                         {{/if}}
-                        <br>  
-                        <form id="createComment{{_id}}" action="/comments/{{_id}}" method="POST">
-                         <label for="comment{{_id}}" class="comment">Comment here:</label>
-                         <br>
-                          <textarea id="comment{{_id}}" name="comment" placeholder="reply here" class="createComment"></textarea><br>
-                          <span hidden id="errorcommentPost{{_id}}"></span>
-                          <button type="submit" class="commentbtn" id ="commentPostBtn{{_id}}">comment</button>
-                        </form>
+                        <br> 
                       </div>
                   </div>
               </div>
