@@ -3,20 +3,17 @@ const data = require("../data");
 const posts = data.posts;
 const users = data.users;
 const comments = data.comments;
-//const bcrypt = require("bcrypt");const saltRounds = 12;
 const main = async () => {
   console.log("Into the seed file");
   const db = await dbConnection();
-  //   await db.dropDatabase();
+  // await db.dropDatabase();
   let firstUser, secondUser, thirdUser,fourthUser;
   let post1,post2,post3,post4,post5,post6,post7,post8;
-  //const hashpassword = await bcrypt.hash("123456",saltRounds);
-  //let firstPost, secondPost, thirdPost;
   
   // create first User
   try{
     firstUser = await users.createUser(
-      "user1",
+      "yucheng",
       "Yucheng",
       "Su",
       "yuchengsu@gmail.com",
@@ -32,7 +29,7 @@ const main = async () => {
     // create second User
     try{
       secondUser = await users.createUser(
-        "user2",
+        "raj",
         "Raj",
         "Paynaik",
         "rajpaynaik@gmail.com",
@@ -48,7 +45,7 @@ const main = async () => {
     // create third User
     try{
       thirdUser = await users.createUser(
-        "user3",
+        "yash",
         "Yash",
         "Koladia",
         "yashkoladia@gmail.com",
@@ -64,7 +61,7 @@ const main = async () => {
     // create fourth User
     try{
       fourthUser = await users.createUser(
-        "user4",
+        "yinglu",
         "Yinglu",
         "Wang",
         "yingluWang@gmail.com",
