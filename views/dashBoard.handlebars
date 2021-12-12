@@ -6,6 +6,7 @@
           </li>
         <li class="search">
             <form id="searchForm" >
+                <label for="searchTerm" class="searchTerm">Search:</label>
                 <input type="text" id= "searchTerm" placeholder="search posts" class ="search-input">
                 <button type="submit" class="search-button">search</button>
             </form>
@@ -35,14 +36,20 @@
   </div>
 
  <div class="createPost">
-    <h2>Create a Post</h2>
+    <h1>Create a Post</h1>
   <div class="createpostForm">  
       <form id="createpostForm" action="/posts" method="POST" enctype="multipart/form-data">
+        <label for="title" class="title">Title:</label>
+        <br>
         <input type="text" id="title" name="title" placeholder="Title" class ="create-post-input"><br>
         <span hidden id="errorCreatePost"></span>
         <br>
+        <label for="body" class="body">Body:</label>
+        <br>
         <textarea  id="body" name="body" placeholder="Description" class="create-post-body"></textarea><br>
         <span hidden id="error_body"></span>
+        <br>
+        <label for="tags" class="tags">Tags:</label>
         <br>
         <textarea  id="tags" name="tags" placeholder="Tags" class ="create-post-tag" ></textarea><br>
 
@@ -52,6 +59,7 @@
                         <option value="Normal">Normal</option>
                         </select><br>
                         <br>
+         <label for="post-image" class="post-image">Photo:</label>
         <input type="file" id="post-image" name="image">
         <button type="submit" id="createPostBtn" class="commentbtn">post</button><br>
         <span hidden id="error_inputFile"></span>
@@ -71,7 +79,8 @@
           {{#each posts}}
               <div class="card">
                   <div class="innercard">
-                      <h4 class="poststitle-div">{{title}}</h4>
+                      <h2 class="poststitle-div">{{title}}</h2>
+                      <br>
                       <p class="postsdate-div">by {{username}} on {{date}}</p>
                             <p class="post-body">{{body}}</p> 
                             {{#when priority 'eq' 'Urgent'}}
@@ -113,6 +122,8 @@
                         {{/if}}
                         <br>  
                         <form  action="/comments/{{_id}}" method="POST">
+                          <label for="comment{{_id}}" class="comment">Comment here:</label>
+                          <br>
                           <textarea  id="comment{{_id}}"  name="comment" placeholder="reply here" class="createComment"></textarea><br>
                            <span hidden id="errorcommentPost{{_id}}"></span>
                           <button type="submit" class="commentPostBtn"  id="commentPostBtn{{_id}}">comment</button>

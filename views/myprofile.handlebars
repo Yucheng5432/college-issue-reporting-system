@@ -6,6 +6,7 @@
         </li>
         <li class="search">
             <form id="searchForm">
+               <label for="searchTerm" class="searchTerm">Search:</label>
                  <input type="text" id= "searchTerm" placeholder="search posts" class ="search-input">
                 <button type="submit" class="search-button">search</button>
             </form>
@@ -34,16 +35,19 @@
       </div>
     </div>
  <div class="myprofile-card">
-          <h4 class="myprofile-title">My profile</h4>
+          <h1 class="myprofile-title">My profile</h1>
               
           <div class="myprofile-innercard">
               {{#if photo}}
                 <img src={{photo}} alt="Profile photo" class ="img-upload" width="100" height="100">
               {{/if}}
             <form method="POST" class="profile-input"  action="/photo/upload" enctype="multipart/form-data">
-              <input type="file" name="image">
-              <button class="profile-button" type="submit">edit photo</button>
+              <label for="image" class="image">Photo:</label>
+              <input type="file" name="image" id="image">
+              <button class="profile-button" type="submit" id="edit-photo">edit photo</button>
+              <span id = "error_editprofilephoto" ></span>
             </form>
+            <br>
             <br>
                 <p class="myprofile" >Username: {{username}}</p>
                 <p class="myprofile" >Firstname: {{firstname}}</p>
@@ -63,7 +67,8 @@
              {{#each myPosts}}
               <div class="card">
                   <div class="innercard">
-                      <h4 class="poststitle-div">{{title}}</h4>
+                      <h2 class="poststitle-div">{{title}}</h2>
+                      <br>
                       <label class="postsdate-div">by {{username}} on {{date}}</label>
                             <p class="post-body">{{body}}</p> 
                             {{#when priority 'eq' 'Urgent'}}
@@ -73,7 +78,7 @@
                               <p class="post-priorityN">Priority: {{priority}}</p>
                             {{/when}}
 							              {{#if image}}
-                            <img src={{image}} class="post-image" width="430" height="400" >
+                            <img src={{image}} alt="Posted image" class="post-image" width="430" height="400" >
                             {{/if}}
                             <br>
                             <label class="tags">tags:</label>
@@ -112,6 +117,8 @@
                         {{/if}}
                         <br>  
                         <form id="createComment{{_id}}" action="/comments/{{_id}}" method="POST">
+                         <label for="comment{{_id}}" class="comment">Comment here:</label>
+                         <br>
                           <textarea id="comment{{_id}}" name="comment" placeholder="reply here" class="createComment"></textarea><br>
                           <span hidden id="errorcommentPost{{_id}}"></span>
                           <button type="submit" class="commentbtn" id ="commentPostBtn{{_id}}">comment</button>

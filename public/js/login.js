@@ -1,6 +1,5 @@
-const data = require("../../data")(
-  // const user = data.users
-  function () {
+  // function () {
+    (function () {
     const myForm = document.getElementById("login-form");
     let usernameInput = document.getElementById("username");
     let passswordInput = document.getElementById("password");
@@ -91,5 +90,5 @@ const data = require("../../data")(
         }
       });
     }
-  }
-)();
+// }();
+})();

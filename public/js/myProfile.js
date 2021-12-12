@@ -78,6 +78,21 @@
 
 });
 
+let imageInput = document.getElementById("error_editprofilephoto")
+$("#edit-photo").on("click", function (event) {
+  event.preventDefault();
+  let img = $("#image").val()
+
+  if ( !(/\.(jpe?g|png|jpg)$/i.test(img)) ){
+     imageInput.hidden = false
+     imageInput.innerHTML = "please enter a photo."
+  }else{
+    $("#edit-photo").unbind('click').click();
+  }
+  
+});
+
+
 })(window.jQuery);
 
  

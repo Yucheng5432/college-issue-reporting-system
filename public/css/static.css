@@ -16,6 +16,10 @@
   border-radius: 10px;
 }
 
+h1{
+  text-align: center;
+}
+
 .body {
   background-color: #f5f4f4;
 }

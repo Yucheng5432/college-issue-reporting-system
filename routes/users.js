@@ -173,14 +173,14 @@ router.post("/signup", async (req, res) => {
       });
       return;
     }
-    if (major.trim("").length == 0) {
-      res.status(400).render("signup", {
-        title: "signupError",
-        hasErrors: true,
-        error: `Major is empty`,
-      });
-      return;
-    }
+    // if (/\s/.test(major)) {
+    //   res.status(400).render("signup", {
+    //     title: "signupError",
+    //     hasErrors: true,
+    //     error: `Major has spaces`,
+    //   });
+    //   return;
+    // }
     if (!year) {
       res.status(404).render("signup", {
         title: "signupError",

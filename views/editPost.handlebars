@@ -5,13 +5,13 @@
           <li>
               <a href="/myprofile" class="header">Welcome, {{username}}</a>
           </li>
-          <li class="search">
+          {{!-- <li class="search">
               <form id="searchForm" class="searchForm" method="get">
                   <label for="search">Search Post:</label>
                   <input type="text" id= "search">
                   <button type="submit">search</button>
               </form>
-          </li>
+          </li> --}}
           <li class="logout-li">
                 <a  href="/logout">Logout</a>
           </li>
@@ -26,21 +26,30 @@
     </div>
 
       <div class="editPost">
-            <h2>Edit Your Post</h2>
+            <h1>Edit Your Post</h1>
         <div class="editpostForm">  
               <form id="editpostForm" action="/editpost/{{newUrl}}?_method=PATCH" method="POST" enctype="multipart/form-data">
+                 <label for="title" class="title">Title:</label>
+                 <br>
                     <input type="text" id="title" name="title" placeholder="Title" class ="edit-post-input" ><br>
                     <span hidden id="errorEditPost"></span>
+                 <label for="body" class="body">Description:</label>
+                 <br>
                     <textarea id="body" name="body" placeholder="Description" class="edit-post-body"></textarea><br>
                       <span hidden id="error_editbody"></span>
+                  <label for="tags" class="tags">Tags:</label>
+                  <br>
                       <textarea id="tags" name="tags" placeholder="Tags" class ="edit-post-tag" ></textarea><br>
-                      <label class="editPost_priority" for="editPost_priority">Priority:</label>
+                  
+                    <label class="editPost_priority" for="editPost_priority">Priority:</label>
                       <select name="editPost_priority" id="editPost_priority">
                         <option value="Urgent">Urgent</option>
                         <option value="Normal">Normal</option>
                       </select><br>
                         <br>
-                      <input type="file" name="image">
+                   <label for="image" class="image" >Photo:</label>
+                   <br>
+                      <input type="file" id = "image" name="image">
                       <button type="submit">edit post</button>
                </form>
           </div>
