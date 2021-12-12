@@ -50,7 +50,8 @@
                    <label for="image" class="image" >Photo:</label>
                    <br>
                       <input type="file" id = "image" name="image">
-                      <button type="submit">edit post</button>
+                      <button type="submit" id="editPhotobtn">edit post</button>
+                      <span id="error_imgEditpost"></span>
                </form>
           </div>
                     {{#if error}}
@@ -60,5 +61,5 @@
                      {{/if}}
         
         </div>
-
 </div>
+        <script src="/public/js/editPost.js"></script>

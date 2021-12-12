@@ -182,6 +182,9 @@ router.post("/", async (req, res) => {
 
 // 6. editing a post
 router.patch("/edit/:id", async (req, res) => {
+  if(!req.session.user){
+    res.redirect("http://localhost:3000/")
+  }
   let mt = [];
 
   let file = req.file;
