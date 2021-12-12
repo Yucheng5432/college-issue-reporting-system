@@ -3,6 +3,7 @@ const data = require("../data");
 const posts = data.posts;
 const users = data.users;
 const comments = data.comments;
+const images = data.images;
 const main = async () => {
   console.log("Into the seed file");
   const db = await dbConnection();
@@ -362,6 +363,46 @@ const main = async () => {
   } catch (e) {
     console.log(e);
   }
+
+       //1.add photo in firstUser
+       try {
+        await images.uploadProfilePhoto(
+          firstUser.userName,
+          "public/images/myprofilephotoDemo.png"
+        );
+      } catch (e) {
+        console.log(e);
+      }
+
+      //2.add photo in secondUser
+      try {
+        await images.uploadProfilePhoto(
+          secondUser.userName,
+          "public/images/myprofilephotoDemo.png"
+        );
+      } catch (e) {
+        console.log(e);
+      }
+
+      //3.add photo in thirdUser
+      try {
+        await images.uploadProfilePhoto(
+          thirdUser.userName,
+          "public/images/image03.png"
+        );
+      } catch (e) {
+        console.log(e);
+      }
+
+      //4.add photo in fourthUser
+      try {
+        await images.uploadProfilePhoto(
+          fourthUser.userName,
+          "public/images/image03.png"
+        );
+      } catch (e) {
+        console.log(e);
+      }
 
   await db.serverConfig.close();
   console.log("Done seeding the database");

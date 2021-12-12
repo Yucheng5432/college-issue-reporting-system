@@ -1,14 +1,14 @@
 {
-    "name": "cs-546c-project-testing",
+    "name": "college-issue-reporting-system",
     "version": "1.0.0",
-    "description": "Lab10",
+    "description": "This web application allows users to post issues related to campus or academic life.",
     "main": "app.js",
     "scripts": {
         "seed": "node ./tasks/seed.js",
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node app.js"
     },
-    "author": "Paynaik Raj 10472984",
+    "author": "Yucheng Su, Raj Paynaik, Yash Koladia, Yinglu Wang ",
     "license": "MIT",
     "dependencies": {
         "axios": "^0.24.0",
