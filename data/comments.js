@@ -40,7 +40,6 @@ async function createComment(postID, userName, body) {
 
 // 2. Get all comments by post id.
 async function getAllPostComments(postId) {
-  console.log("inside comments", postId);
   if (!postId) {
     throw "Please provide the id.";
   }
@@ -51,7 +50,7 @@ async function getAllPostComments(postId) {
   const allPosts = await posts();
 
   const postFound = await allPosts.findOne({ _id: postId }).toArray();
-  console.log(postFound);
+
   if (postFound === null) {
     throw "No post found with the given id.";
   }
@@ -72,10 +71,8 @@ async function getComment(id) {
   return comment;
 }
 
-// 5. delete a comment 
+// 5. delete a comment
 async function deleteComment(cid) {
-  console.log("Entering delete comment");
-  console.log(cid);
   if (!cid || !ObjectId.isValid(cid)) throw "Invalid comment id.";
   const allPosts = await posts();
   let post = await allPosts.findOne({ "comments._id": cid });
@@ -91,7 +88,7 @@ async function deleteComment(cid) {
   return true;
 }
 
-// 6. mark comment answer as true --done
+// 6. mark comment answer as true
 async function markAsAnswer(cid) {
   if (!cid || !ObjectId.isValid(cid)) throw "Invalid comment id.";
 
@@ -99,18 +96,6 @@ async function markAsAnswer(cid) {
 
   let post = await allPosts.findOne({ "comments._id": cid });
 
-  // if (post.resolved === true) {
-  //   updatedComment = await allPosts.updateOne(
-  //     { _id: post._id, "comments._id": cid },
-  //     { $set: { "comments.$.answer": false, resolved: false } }
-  //   );
-  // } else {
-  //   // update the comment as resolved
-  //   updatedComment = await allPosts.updateOne(
-  //     { _id: post._id, "comments._id": cid },
-  //     { $set: { "comments.$.answer": true, resolved: true } }
-  //   );
-  // }
   let resolveComments = post.comments.map((e) =>
     e._id.equals(cid) ? ((e.answer = true), e) : e
   );

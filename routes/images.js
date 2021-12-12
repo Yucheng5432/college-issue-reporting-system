@@ -24,9 +24,10 @@ router.post("/upload", async (req, res) => {
       return;
     }
   } catch (e) {
-    res.status(400).json({ 
+    res.status(400).json({
       title: "error",
-      error: e.message });
+      error: e.message,
+    });
     return;
   }
 });
@@ -37,9 +38,10 @@ router.get("/upload/:username", async (req, res) => {
   const username = req.params.username;
 
   if (!username) {
-    res.status(400).json({ 
+    res.status(400).json({
       title: "error",
-      error: "Not valid user" });
+      error: "Not valid user",
+    });
     return;
   }
 
@@ -47,9 +49,10 @@ router.get("/upload/:username", async (req, res) => {
     const image = await imagesFunctions.getProfilePhoto(username);
     return res.status(200).json(image);
   } catch (e) {
-    res.status(404).json({ 
+    res.status(404).json({
       title: "error",
-      error: e });
+      error: e,
+    });
     return;
   }
 });

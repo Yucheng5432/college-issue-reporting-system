@@ -18,7 +18,6 @@ router.get("/", async (req, res) => {
   } else {
     res.render("login", { title: "Login Page" });
   }
- 
 });
 
 router.get("/login", async (req, res) => {
@@ -27,7 +26,6 @@ router.get("/login", async (req, res) => {
   } else {
     res.redirect("/");
   }
- 
 });
 
 // GET SignUP
@@ -52,21 +50,19 @@ router.post("/signup", async (req, res) => {
     let year = xss(reqBody.year.trim());
     year = parseInt(year);
     if (!username) {
-      res
-        .status(404)
-        .render("signup", {
-          title: "signupError", 
-          hasErrors: true, 
-          error: "Must supply username!." });
+      res.status(404).render("signup", {
+        title: "signupError",
+        hasErrors: true,
+        error: "Must supply username!.",
+      });
       return;
     }
     if (/\s/.test(username)) {
-      res
-        .status(400)
-        .render("signup", {
-          title: "signupError", 
-          hasErrors: true, 
-          error: `Username has spaces` });
+      res.status(400).render("signup", {
+        title: "signupError",
+        hasErrors: true,
+        error: `Username has spaces`,
+      });
       return;
     }
     if (!username.match(/^[a-z0-9]+$/i)) {
@@ -86,28 +82,26 @@ router.post("/signup", async (req, res) => {
       return;
     }
     if (!password) {
-      res
-        .status(404)
-        .render("signup", {
-          title: "signupError", 
-          hasErrors: true, 
-          error: "Must supply password!" });
+      res.status(404).render("signup", {
+        title: "signupError",
+        hasErrors: true,
+        error: "Must supply password!",
+      });
       return;
     }
     if (/\s/.test(password)) {
-      res
-        .status(400)
-        .render("signup", {
-          title: "signupError", 
-          hasErrors: true, 
-          error: `Username has spaces` });
+      res.status(400).render("signup", {
+        title: "signupError",
+        hasErrors: true,
+        error: `Username has spaces`,
+      });
       return;
     }
     if (password.length < 6) {
       res.status(400).render("signup", {
         title: "signupError",
         hasErrors: true,
-        error: `Password must be atleast 6 characters long!`
+        error: `Password must be atleast 6 characters long!`,
       });
       return;
     }
@@ -115,53 +109,48 @@ router.post("/signup", async (req, res) => {
       res.status(404).render("signup", {
         title: "signupError",
         hasErrors: true,
-        error: "Must supply firstname!"
+        error: "Must supply firstname!",
       });
       return;
     }
     if (/\s/.test(firstName)) {
-      res
-        .status(400)
-        .render("signup", {
-          title: "signupError", 
-          hasErrors: true, 
-          error: `Username has spaces` });
+      res.status(400).render("signup", {
+        title: "signupError",
+        hasErrors: true,
+        error: `Username has spaces`,
+      });
       return;
     }
     if (!lastName) {
-      res
-        .status(404)
-        .render("signup", { 
-          title: "signupError",
-          hasErrors: true, 
-          error: "Must supply lastname!" });
+      res.status(404).render("signup", {
+        title: "signupError",
+        hasErrors: true,
+        error: "Must supply lastname!",
+      });
       return;
     }
     if (/\s/.test(lastName)) {
-      res
-        .status(400)
-        .render("signup", {
-          title: "signupError", 
-          hasErrors: true, 
-          error: `Username has spaces` });
+      res.status(400).render("signup", {
+        title: "signupError",
+        hasErrors: true,
+        error: `Username has spaces`,
+      });
       return;
     }
     if (!email) {
-      res
-        .status(404)
-        .render("signup", {
-          title: "signupError", 
-          hasErrors: true, 
-          error: "Must supply email!" });
+      res.status(404).render("signup", {
+        title: "signupError",
+        hasErrors: true,
+        error: "Must supply email!",
+      });
       return;
     }
     if (/\s/.test(email)) {
-      res
-        .status(400)
-        .render("signup", {
-          title: "signupError", 
-          hasErrors: true, 
-          error: `Email has spaces` });
+      res.status(400).render("signup", {
+        title: "signupError",
+        hasErrors: true,
+        error: `Email has spaces`,
+      });
       return;
     }
     if (
@@ -169,48 +158,43 @@ router.post("/signup", async (req, res) => {
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       )
     ) {
-      res
-        .status(400)
-        .render("signup", {
-          title: "signupError", 
-          hasErrors: true, 
-          error: `Enter valid email-id` });
+      res.status(400).render("signup", {
+        title: "signupError",
+        hasErrors: true,
+        error: `Enter valid email-id`,
+      });
       return;
     }
-    if (!major) {
-      res
-        .status(404)
-        .render("signup", {
-          title: "signupError", 
-          hasErrors: true, 
-          error: "Must supply major!" });
+    if (!major || typeof major != "string") {
+      res.status(404).render("signup", {
+        title: "signupError",
+        hasErrors: true,
+        error: "Invalid major!",
+      });
       return;
     }
-    if (/\s/.test(major)) {
-      res
-        .status(400)
-        .render("signup", {
-          title: "signupError", 
-          hasErrors: true, 
-          error: `Major has spaces` });
+    if (major.trim("").length == 0) {
+      res.status(400).render("signup", {
+        title: "signupError",
+        hasErrors: true,
+        error: `Major is empty`,
+      });
       return;
     }
     if (!year) {
-      res
-        .status(404)
-        .render("signup", { 
-          title: "signupError",
-          hasErrors: true, 
-          error: "Must supply year!" });
+      res.status(404).render("signup", {
+        title: "signupError",
+        hasErrors: true,
+        error: "Must supply year!",
+      });
       return;
     }
     if (/\s/.test(year)) {
-      res
-        .status(400)
-        .render("signup", {
-          title: "signupError", 
-          hasErrors: true, 
-          error: `Year has spaces` });
+      res.status(400).render("signup", {
+        title: "signupError",
+        hasErrors: true,
+        error: `Year has spaces`,
+      });
       return;
     }
     if (typeof year != "number") {
@@ -229,8 +213,7 @@ router.post("/signup", async (req, res) => {
       email,
       password,
       major,
-      year,
-      
+      year
     );
 
     if (isCredentialsValid != null) {
@@ -244,10 +227,11 @@ router.post("/signup", async (req, res) => {
       return;
     }
   } catch (e) {
-    res.render("signup", { 
+    res.render("signup", {
       title: "signupError",
-      hasErrors: true, 
-      error: e });
+      hasErrors: true,
+      error: e,
+    });
   }
 });
 
@@ -267,12 +251,11 @@ router.post("/login", async (req, res) => {
       return;
     }
     if (/\s/.test(username)) {
-      res
-        .status(400)
-        .render("login", { 
-          title: "loginError",
-          hasErrors: true, 
-          error: `Username has spaces` });
+      res.status(400).render("login", {
+        title: "loginError",
+        hasErrors: true,
+        error: `Username has spaces`,
+      });
       return;
     }
     if (!username.match(/^[a-z0-9]+$/i)) {
@@ -300,12 +283,11 @@ router.post("/login", async (req, res) => {
       return;
     }
     if (/\s/.test(password)) {
-      res
-        .status(400)
-        .render("login", { 
-          title: "loginError",
-          hasErrors: true, 
-          error: `Password has spaces` });
+      res.status(400).render("login", {
+        title: "loginError",
+        hasErrors: true,
+        error: `Password has spaces`,
+      });
       return;
     }
     if (password.length < 6) {
@@ -372,30 +354,35 @@ router.get("/dashboard", async (req, res) => {
 
 // get all posts by username
 router.get("/myprofile", async (req, res) => {
-  const userName = xss(req.session.user);
+  if (xss(req.session.user)) {
+    const userName = xss(req.session.user);
 
-  try {
-    if (userName != null) {
-      const myPosts = await dashboardData.getAllPostsByUserName(userName);
-      const user = await userFunctions.getUserbyUsername(userName);
-      const photo = await dashboardData.getProfilePhotoByUserName(userName);
-      res.status(200).render("myprofile", {
-        title: userName.toLowerCase(),
-        username: userName.toLowerCase(),
-        firstname: user.firstName,
-        lastname: user.lastName,
-        email: user.email,
-        major: user.major,
-        year: user.year,
-        photo: photo,
-        myPosts: myPosts,
+    try {
+      if (userName != null) {
+        const myPosts = await dashboardData.getAllPostsByUserName(userName);
+        const user = await userFunctions.getUserbyUsername(userName);
+        const photo = await dashboardData.getProfilePhotoByUserName(userName);
+        res.status(200).render("myprofile", {
+          title: userName.toLowerCase(),
+          username: userName.toLowerCase(),
+          firstname: user.firstName,
+          lastname: user.lastName,
+          email: user.email,
+          major: user.major,
+          year: user.year,
+          photo: photo,
+          myPosts: myPosts,
+        });
+      }
+    } catch (e) {
+      res.status(400).json({
+        title: "myprofileError",
+        error: "Users Post not able to display.",
       });
+      return;
     }
-  } catch (e) {
-    res.status(400).json({ 
-      title: "myprofileError",
-      error: "Users Post not able to display." });
-    return;
+  } else {
+    return res.status(403).render("notLogin");
   }
 });
 
@@ -412,18 +399,24 @@ router.get("/logout", async (req, res) => {
   }
 });
 
+// get edit profile page
 router.get("/editProfile", async (req, res) => {
-  let username = xss(req.session.user);
   if (xss(req.session.user)) {
-    res.status(200).render("editProfile", {
-      title: "editProfile",
-      username: username,
-    });
+    let username = xss(req.session.user);
+    if (xss(req.session.user)) {
+      res.status(200).render("editProfile", {
+        title: "editProfile",
+        username: username,
+      });
+    } else {
+      res.render("login", { title: "Login Page" });
+    }
   } else {
-    res.render("login", { title: "Login Page" });
+    res.status(403).render("notLogin");
   }
 });
 
+// edit your profile
 router.post("/editProfile", async (req, res) => {
   try {
     let reqBody = req.body;
@@ -432,9 +425,9 @@ router.post("/editProfile", async (req, res) => {
     let firstName = xss(reqBody.firstname.trim());
     let lastName = xss(reqBody.lastname.trim());
     let email = xss(reqBody.email.trim());
-    let major = xss(reqBody.major.trim())
+    let major = xss(reqBody.major.trim());
     let year = xss(reqBody.year.trim());
-  
+
     if (/\s/.test(username)) {
       res.status(400).render("editProfile", {
         title: "editProfileError",
@@ -459,7 +452,7 @@ router.post("/editProfile", async (req, res) => {
       });
       return;
     }
- 
+
     if (/\s/.test(password)) {
       res.status(400).render("editProfile", {
         title: "editProfileError",
@@ -476,7 +469,7 @@ router.post("/editProfile", async (req, res) => {
       });
       return;
     }
-   
+
     if (/\s/.test(firstName)) {
       res.status(400).render("editProfile", {
         title: "editProfileError",
@@ -485,7 +478,7 @@ router.post("/editProfile", async (req, res) => {
       });
       return;
     }
- 
+
     if (/\s/.test(lastName)) {
       res.status(400).render("editProfile", {
         title: "editProfileError",
@@ -494,14 +487,13 @@ router.post("/editProfile", async (req, res) => {
       });
       return;
     }
-  
+
     if (/\s/.test(email)) {
-      res
-        .status(400)
-        .render("editProfile", { 
-          title: "editProfileError",
-          hasErrors: true, 
-          error: `Email has spaces` });
+      res.status(400).render("editProfile", {
+        title: "editProfileError",
+        hasErrors: true,
+        error: `Email has spaces`,
+      });
       return;
     }
     if (
@@ -518,25 +510,32 @@ router.post("/editProfile", async (req, res) => {
       return;
     }
 
-    if(major && !major.match("Computer Science") && !major.match("Business") && !major.match("Engineering") && !major.match("System-and-Analytics") && !major.match("Mechanical Engineering")
-  && !major.match("Chemical Engineering") && !major.match("Material Science")){
-    res.status(400).render("editProfile", {
-      title: "editProfileError",
-      hasErrors: true,
-      error: `Major must be from the following fields only
+    if (
+      major &&
+      !major.match("Computer Science") &&
+      !major.match("Business") &&
+      !major.match("Engineering") &&
+      !major.match("System-and-Analytics") &&
+      !major.match("Mechanical Engineering") &&
+      !major.match("Chemical Engineering") &&
+      !major.match("Material Science")
+    ) {
+      res.status(400).render("editProfile", {
+        title: "editProfileError",
+        hasErrors: true,
+        error: `Major must be from the following fields only
       Computer Science, Business, Engineering, System-and-Analytics,
       Mechanical Engineering, Chemical Engineering, Material Science`,
-    });
-    return;
-  }
+      });
+      return;
+    }
 
     if (/\s/.test(year)) {
-      res
-        .status(400)
-        .render("editProfile", { 
-          title : "editProfileError",
-          hasErrors: true, 
-          error: `Year has spaces` });
+      res.status(400).render("editProfile", {
+        title: "editProfileError",
+        hasErrors: true,
+        error: `Year has spaces`,
+      });
       return;
     }
 
@@ -558,51 +557,59 @@ router.post("/editProfile", async (req, res) => {
       email,
       major,
       password,
-      year,
+      year
     );
 
     if (isCredentialsValid != null) {
       req.session.user = username;
       res.redirect("/myprofile");
     } else {
-      res
-        .status(400)
-        .render("editProfile", { 
-          title: "editProfileError",
-          hasErrors: true, 
-          error: "error" });
+      res.status(400).render("editProfile", {
+        title: "editProfileError",
+        hasErrors: true,
+        error: "error",
+      });
       return;
     }
   } catch (e) {
-    res.render("editProfile", { 
+    res.render("editProfile", {
       title: "editProfileError",
-      hasErrors: true, 
-      error: e });
+      hasErrors: true,
+      error: e,
+    });
   }
 });
 
 router.get("/editPost", async (req, res) => {
-  let userName = xss(req.session.user);
-  const user = await userFunctions.getUserbyUsername(userName);
-  const myPosts = await dashboardData.getAllPostsByUserName(userName);
-  let urL = req.originalUrl;
-  const slug = urL.substring(urL.indexOf("=") + 1); 
-  let newUrl = ObjectId(slug);
-
   if (xss(req.session.user)) {
-    res.render("editPost", {
-      title: userName.toLowerCase(),
-      username: userName.toLowerCase(),
-      firstname: user.firstName,
-      lastname: user.lastName,
-      email: user.email,
-      major: user.major,
-      year: user.year,
-      myPosts: myPosts,
-      newUrl: newUrl,
-    });
+    try {
+      let userName = xss(req.session.user);
+      const user = await userFunctions.getUserbyUsername(userName);
+      const myPosts = await dashboardData.getAllPostsByUserName(userName);
+      let urL = req.originalUrl;
+      const slug = urL.substring(urL.indexOf("=") + 1);
+      let newUrl = ObjectId(slug);
+
+      if (xss(req.session.user)) {
+        res.render("editPost", {
+          title: userName.toLowerCase(),
+          username: userName.toLowerCase(),
+          firstname: user.firstName,
+          lastname: user.lastName,
+          email: user.email,
+          major: user.major,
+          year: user.year,
+          myPosts: myPosts,
+          newUrl: newUrl,
+        });
+      } else {
+        res.status(200).render("login");
+      }
+    } catch (e) {
+      res.status(500).json({ error: "Cannot edit post" });
+    }
   } else {
-    res.status(200).render("login");
+    res.status(403).render("notLogin");
   }
 });
 
@@ -646,9 +653,10 @@ router.patch("/editPost/:id", async (req, res) => {
       res.redirect("/myprofile");
     }
   } catch (error) {
-    return res.status(500).json({ 
-      title:"error",
-      error: error.message });
+    return res.status(500).json({
+      title: "error",
+      error: error.message,
+    });
   }
 });
 

@@ -11,7 +11,7 @@ async function createUser(
   email,
   password,
   major,
-  year,
+  year
 ) {
   username = username.trim().toLowerCase();
   firstName = firstName.trim();
@@ -35,7 +35,7 @@ async function createUser(
       !major ||
       major == "" ||
       !year ||
-      year == "" 
+      year == ""
     ) {
       throw `You must enter all the fields`;
     }
@@ -70,7 +70,7 @@ async function createUser(
     if (/\s/.test(email)) {
       throw `Email has spaces`;
     }
-    if (typeof major != "string") {
+    if (major.trim("").length === 0 || typeof major != "string") {
       throw `Major must be a string`;
     }
     if (!year.match("^[0-9]+$")) {
@@ -79,7 +79,7 @@ async function createUser(
     if (typeof year != "number") {
       throw `Year must be a number`;
     }
-    
+
     if (year > 2021) {
       throw "Year must be 2021 or before 2021!!";
     }
@@ -154,8 +154,7 @@ async function checkUser(username, password) {
     if (!checkUsername) {
       throw `Either the username or password is invalid`;
     }
-  } catch (e) {
-  }
+  } catch (e) {}
   if (checkUsername) {
     let compareToMerlin = false;
     compareToMerlin = await bcrypt.compare(password, checkUsername.password);
@@ -203,15 +202,15 @@ async function updateUser(
   lastName = lastName.trim();
   email = email.trim();
   password = password.trim();
-  major = major.trim()
+  major = major.trim();
 
   if (
-   firstName && typeof firstName != "string" ||
-   lastName && typeof lastName != "string" ||
-   email && typeof email != "string" ||
-   password && typeof password != "string" ||
-   year && typeof year != "string" ||
-   major && typeof major != "string"
+    (firstName && typeof firstName != "string") ||
+    (lastName && typeof lastName != "string") ||
+    (email && typeof email != "string") ||
+    (password && typeof password != "string") ||
+    (year && typeof year != "string") ||
+    (major && typeof major != "string")
   ) {
     throw "All fields must be string";
   }
@@ -231,7 +230,8 @@ async function updateUser(
   if (/\s/.test(lastName)) {
     throw `Lastname has spaces`;
   }
-  if (email &&
+  if (
+    email &&
     !email.match(
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     )
@@ -241,11 +241,19 @@ async function updateUser(
   if (/\s/.test(email)) {
     throw `Email has spaces`;
   }
-  if(major && !major.match("Computer Science") && !major.match("Business") && !major.match("Engineering") && !major.match("System-and-Analytics") && !major.match("Mechanical Engineering")
-  && !major.match("Chemical Engineering") && !major.match("Material Science")){
+  if (
+    major &&
+    !major.match("Computer Science") &&
+    !major.match("Business") &&
+    !major.match("Engineering") &&
+    !major.match("System-and-Analytics") &&
+    !major.match("Mechanical Engineering") &&
+    !major.match("Chemical Engineering") &&
+    !major.match("Material Science")
+  ) {
     throw `Major must be from the following fields only
     Computer Science, Business, Engineering, System-and-Analytics,
-    Mechanical Engineering, Chemical Engineering, Material Science`
+    Mechanical Engineering, Chemical Engineering, Material Science`;
   }
 
   year = parseInt(year);
@@ -291,31 +299,31 @@ async function updateUser(
       throw "This email is already in use with other user.";
     }
   }
-  let updatedUserData
-  oldPassword = userData.password
-   firstName = firstName ? firstName : userData.firstName;
-   lastName = lastName ? lastName : userData.lastName;
-   email = email ? email : userData.email;
-   major = major ? major : userData.major;
-   year = year ? year : userData.year;
+  let updatedUserData;
+  oldPassword = userData.password;
+  firstName = firstName ? firstName : userData.firstName;
+  lastName = lastName ? lastName : userData.lastName;
+  email = email ? email : userData.email;
+  major = major ? major : userData.major;
+  year = year ? year : userData.year;
   const plainTextPassword = password;
   const hash = await bcrypt.hash(plainTextPassword, saltRounds);
-  if(password){
-   updatedUserData = {
-    firstName: firstName,
-    lastName: lastName,
-    email: email,
-    password: hash,
-    major: major,
-    year: year,
-  };
-  idd = userData._id;
-  let updatedUser = await users.updateOne(
-    { _id: idd },
-    { $set: updatedUserData }
-  );
-  }else{
-     updatedUserData = {
+  if (password) {
+    updatedUserData = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: hash,
+      major: major,
+      year: year,
+    };
+    idd = userData._id;
+    let updatedUser = await users.updateOne(
+      { _id: idd },
+      { $set: updatedUserData }
+    );
+  } else {
+    updatedUserData = {
       firstName: firstName,
       lastName: lastName,
       email: email,

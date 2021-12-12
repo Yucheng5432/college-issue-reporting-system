@@ -1,26 +1,27 @@
 const express = require("express");
 const router = express.Router();
 const postFunctions = require("../data/posts");
-const dashboardData = require("../data/dashboard");
 const path = require("path");
 const xss = require("xss");
 const data = require("../data");
-const userData = data.users;
+const { type } = require("os");
 
-//1. Get all posts routes --done
+//1. Get all posts routes
 router.get("/", async (req, res) => {
   try {
     if (!req.body) {
-      return res.status(500).json({ 
+      return res.status(500).json({
         title: "error",
-        error: "No request body provided!" });
+        error: "No request body provided!",
+      });
     }
     const posts = await postFunctions.getAllPosts();
     return res.status(200).json(posts);
   } catch (error) {
-    return res.status(500).json({ 
+    return res.status(500).json({
       title: "error",
-      error: error.message });
+      error: error.message,
+    });
   }
 });
 
@@ -35,55 +36,61 @@ router.get("/:id", async (req, res) => {
     return res.status(200).json(post);
   } catch (error) {
     if (error.message) {
-      return res.status(404).json({ 
+      return res.status(404).json({
         title: "error",
-        error: error.message });
+        error: error.message,
+      });
     }
-    return res.status(500).json({ 
+    return res.status(500).json({
       title: "error",
-      error: error.message });
+      error: error.message,
+    });
   }
 });
 
 // http://localhost:3000/posts/userPosts/:username
-// 3. Get posts by username --done
+// 3. Get posts by username
 router.get("/userPosts/:username", async (req, res) => {
   const username = xss(req.params.username);
 
   if (!username) {
-    return res.status(500).json({ 
+    return res.status(500).json({
       title: "error",
-      error: "No username parameter!" });
+      error: "No username parameter!",
+    });
   }
   try {
     const posts = await postFunctions.getUserPosts(username);
     return res.status(200).json(posts);
   } catch (error) {
-    return res.status(500).json({ 
+    return res.status(500).json({
       title: "error",
-      error: error.message });
+      error: error.message,
+    });
   }
 });
 
-// 4. find post by search term --pending
+// 4. find post by search term
 router.post("/search/:searchterm", async (req, res) => {
   const searchTerm = xss(req.body.searchterm);
   if (!req.body.searchterm) {
-    return res.status(500).json({ 
+    return res.status(500).json({
       title: "error",
-      error: "No search term provided" });
+      error: "No search term provided",
+    });
   }
   try {
     const posts = await postFunctions.findPostsbySearchterm(searchTerm);
     return res.status(200).json(posts);
   } catch (error) {
-    return res.status(500).json({ 
+    return res.status(500).json({
       title: "error",
-      error: error.message });
+      error: error.message,
+    });
   }
 });
 
-// 5. add post --done
+// 5. add post
 router.post("/", async (req, res) => {
   const username = xss(req.session.user);
   let file = req.file;
@@ -93,17 +100,19 @@ router.post("/", async (req, res) => {
       if (checkFileType(file)) {
         imagePath = file.path.replace(/\\/g, "/");
       } else {
-        res.status(400).json({ 
+        res.status(400).json({
           title: "error",
-          error: "Please attach only images!" });
+          error: "Please attach only images!",
+        });
         return;
       }
     }
 
     if (!req.body) {
-      return res.status(500).json({ 
+      return res.status(500).json({
         title: "error",
-        error: "No request body provided!" });
+        error: "No request body provided!",
+      });
     }
     const newPost = req.body;
     if (
@@ -136,6 +145,16 @@ router.post("/", async (req, res) => {
         error: "Invalid username, cannot be empty, type should be string.",
       });
     }
+    if (
+      !newPost.priority ||
+      typeof newPost.priority != "string" ||
+      typeof newPost.priority.trim("").length === 0
+    ) {
+      return res.status(400).json({
+        title: "error",
+        error: "priority cannot be empty",
+      });
+    }
 
     let tags = newPost.tags.replace(/\s/g, "").split(",");
 
@@ -161,7 +180,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// 6. editing a post --done
+// 6. editing a post
 router.patch("/edit/:id", async (req, res) => {
   let mt = [];
 
@@ -194,6 +213,23 @@ router.patch("/edit/:id", async (req, res) => {
         error: "Invalid post body, cannot be empty, type should be string.",
       });
     }
+    if (
+      !req.body.editPost_priority ||
+      typeof req.body.editPost_priority != "string"
+    ) {
+      return res.status(400).json({
+        title: "error",
+        error: "priority is empty r not string.",
+      });
+    }
+    if (imagePath) {
+      if (imagePath.trim("").length === 0 || typeof imagePath != "string") {
+        throw "invalid image path";
+      }
+      if (imagePath.includes("public/images/") === false) {
+        throw "invalid path";
+      }
+    }
     mt.push(req.body.tags);
     let postFound = await postFunctions.getPost(req.params.id);
 
@@ -208,9 +244,10 @@ router.patch("/edit/:id", async (req, res) => {
 
     return res.status(200).json(editedPost);
   } catch (error) {
-    return res.status(500).json({ 
+    return res.status(500).json({
       title: "error",
-      error: error.message });
+      error: error.message,
+    });
   }
 });
 
@@ -228,13 +265,15 @@ router.patch("/resolve/:id/:cid", async (req, res) => {
     return res.status(200).json(resolvePost);
   } catch (error) {
     if (error.message.includes("Post having ID")) {
-      return res.status(404).json({ 
+      return res.status(404).json({
         title: "error",
-        error: error.message });
+        error: error.message,
+      });
     }
-    return res.status(500).json({ 
+    return res.status(500).json({
       title: "error",
-      error: error.message });
+      error: error.message,
+    });
   }
 });
 
