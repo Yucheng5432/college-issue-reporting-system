@@ -382,7 +382,7 @@ router.get("/myprofile", async (req, res) => {
       return;
     }
   } else {
-    return res.status(403).render("login");
+    return res.redirect("/")
   }
 });
 
@@ -412,7 +412,7 @@ router.get("/editProfile", async (req, res) => {
       res.render("login", { title: "Login Page" });
     }
   } else {
-    res.status(403).render("notLogin");
+    res.status(403).render("login",{title: "Login Page"});
   }
 });
 

@@ -21,7 +21,7 @@
       myForm.addEventListener("submit", (event) => {
         valid = true
           
-        if(passswordInput.value && passswordInput.value.trim().match(/\s/)){
+        if(passswordInput.value.match(/\s/)){
             event.preventDefault();
             valid = false
             ErrorDivPass.hidden = false
@@ -46,12 +46,12 @@
             ErrorDivPass.hidden = true
           }
 
-        if(firstNameInput.value.trim().match(/\s/)){
+        if(firstNameInput.value.match(/\s/)){
             event.preventDefault();
             valid = false
             errorDivFirst.hidden = false
             errorDivFirst.innerHTML = 'Firstname cannot contain spaces' 
-            passswordInput.focus() 
+            firstNameInput.focus() 
             return
           }
            else{
@@ -59,7 +59,7 @@
              errorDivFirst.hidden = true
           }
 
-          if(lastNameInput.value.trim().match(/\s/)){
+          if(lastNameInput.value.match(/\s/)){
             event.preventDefault();
             valid = false
             errorDivLast.hidden = false
@@ -72,7 +72,7 @@
              errorDivLast.hidden = true
           }
 
-          if(emailInput.value.trim().match(/\s/)){
+          if(emailInput.value.match(/\s/)){
             event.preventDefault();
             valid = false
             errorDivEmail.hidden = false
@@ -99,7 +99,7 @@
              errorDivEmail.hidden = true
           }
 
-          if(yearInput.value.trim().match(/\s/)){
+          if(yearInput.value.match(/\s/)){
             event.preventDefault();
             valid = false
             errorDivYear.hidden = false
