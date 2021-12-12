@@ -160,11 +160,11 @@
   });
   //comment
 
-  $("commentPostBtn").on("click", function (event) {
+  $(".commentPostBtn").on("click", function (event) {
     let valid = false;
     event.preventDefault();
 
-    if ($("comment").value.trim().length === 0) {
+    if ($(".createComment").value.trim().length === 0) {
       commentspan_body.hidden = false;
       commentspan_body.innerHTML = "cannot be empty";
       commentbody.focus();
@@ -175,7 +175,7 @@
     }
 
     if (valid == true) {
-      $("commentPostBtn").unbind().submit();
+      $(".commentPostBtn").unbind().submit();
     }
   });
 })(window.jQuery);

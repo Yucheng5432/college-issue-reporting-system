@@ -29,7 +29,7 @@ const main = async () => {
     // create second User
     try{
       secondUser = await users.createUser(
-        "raj",
+        "rajpaynaik",
         "Raj",
         "Paynaik",
         "rajpaynaik@gmail.com",
@@ -79,7 +79,7 @@ const main = async () => {
   try {
     post1 = await posts.addPost(
       firstUser._id,
-      "user1",
+      firstUser.userName,
       "Course selection question",
       "Has anyone taken the CS-546 course? Is this course difficult?",
       "Normal",
@@ -95,7 +95,7 @@ const main = async () => {
   try {
      post2 = await posts.addPost(
       firstUser._id,
-      "user1",
+      firstUser.userName,
       "Courses not registered",
       "I am not able to register my courses on workday",
       "Urgent",
@@ -111,7 +111,7 @@ const main = async () => {
   try {
     post3 = await posts.addPost(
       secondUser._id,
-      "user2",
+      secondUser.userName,
       "Medical Insurance",
       "How to use the medical insurance we purchased at school?",
       "Urgent",
@@ -127,7 +127,7 @@ const main = async () => {
   try {
     post4 = await posts.addPost(
       secondUser._id,
-      "user2",
+      secondUser.userName,
       "Lost my duck card",
       "I lost my duck card. My CWID is XXXXXX. Has anyone found it? My mobile number is XXX-XXXX-XXX, if you see it, please call this number to contact me. Thank you.",
       "Urgent",
@@ -143,7 +143,7 @@ const main = async () => {
   try {
     post5 = await posts.addPost(
       thirdUser._id,
-      "user3",
+      thirdUser.userName,
       "rent a parking space",
       "How to rent a parking space at school? How much one semester?",
       "Normal",
@@ -158,7 +158,7 @@ const main = async () => {
   try {
     post6 = await posts.addPost(
       thirdUser._id,
-      "user3",
+      thirdUser.userName,
       "Scholarship not processed",
       "Please process my scholarship, its been 5 months.",
       "Urgent",
@@ -174,7 +174,7 @@ const main = async () => {
   try {
     post7 = await posts.addPost(
       fourthUser._id,
-      "user4",
+      fourthUser.userName,
       "A question about school cafeteria",
       "Is the school cafeteria open today?",
       "Normal",
@@ -189,7 +189,7 @@ const main = async () => {
   try {
     post8 = await posts.addPost(
       fourthUser._id,
-      "user4",
+      fourthUser.userName,
       "Flood warning",
       "There will be flash floods tomorrow, schools will be closed, and all classes will be conducted online",
       "Normal",
@@ -205,7 +205,7 @@ const main = async () => {
   try {
     await comments.createComment(
       post1._id,
-      "user2",
+      secondUser.userName,
       "This course is very valuable, I recommend you to take this course."
     );
   } catch (e) {
@@ -216,7 +216,7 @@ const main = async () => {
   try {
     await comments.createComment(
       post1._id,
-      "user3",
+      thirdUser.userName,
       "I took this course last year. If you want to become a front-end engineer, this course will be very helpful to you."
     );
   } catch (e) {
@@ -227,7 +227,7 @@ const main = async () => {
   try {
     await comments.createComment(
       post2._id,
-      "user3",
+      thirdUser.userName,
       "I also had the same problem as you. Does anyone know the reason?"
     );
   } catch (e) {
@@ -238,7 +238,7 @@ const main = async () => {
   try {
     await comments.createComment(
       post2._id,
-      "user4",
+      fourthUser.userName,
       "I think it is because you did not submit your study plan."
     );
   } catch (e) {
@@ -249,7 +249,7 @@ const main = async () => {
    try {
     await comments.createComment(
       post3._id,
-      "user1",
+      firstUser.userName,
       "You need to download a Aetna Health app."
     );
   } catch (e) {
@@ -260,7 +260,7 @@ const main = async () => {
     try {
       await comments.createComment(
         post3._id,
-        "user4",
+        fourthUser.userName,
         "The school sent us an email about how to use our school insurance. You can check your email."
       );
     } catch (e) {
@@ -271,7 +271,7 @@ const main = async () => {
       try {
         await comments.createComment(
           post4._id,
-          "user1",
+          firstUser.userName,
           "You can cancel the previous duck card at the school and get a new one."
         );
       } catch (e) {
@@ -282,7 +282,7 @@ const main = async () => {
        try {
         await comments.createComment(
           post4._id,
-          "user2",
+          secondUser.userName,
           "I found my card!"
         );
       } catch (e) {
@@ -293,7 +293,7 @@ const main = async () => {
        try {
         await comments.createComment(
           post5._id,
-          "user2",
+          secondUser.userName,
           "The school’s parking spaces are in short supply, and now it’s late to rent. I think you may not be able to rent this semester."
         );
       } catch (e) {
@@ -304,7 +304,7 @@ const main = async () => {
        try {
         await comments.createComment(
           post6._id,
-          "user4",
+          fourthUser.userName,
           "My scholarship was not sent to me too."
         );
       } catch (e) {
@@ -315,7 +315,7 @@ const main = async () => {
       try {
         await comments.createComment(
           post6._id,
-          "user1",
+          firstUser.userName,
           "Don’t worry, the school will send scholarships next month."
         );
       } catch (e) {
@@ -326,7 +326,7 @@ const main = async () => {
        try {
         await comments.createComment(
           post7._id,
-          "user1",
+          firstUser.userName,
           "Yes, the school cafeteria is open today."
         );
       } catch (e) {
@@ -337,7 +337,7 @@ const main = async () => {
        try {
         await comments.createComment(
           post7._id,
-          "user2",
+          secondUser.userName,
           "The food in the school cafeteria is delicious today."
         );
       } catch (e) {
@@ -347,7 +347,7 @@ const main = async () => {
        try {
         await comments.createComment(
           post8._id,
-          "user2",
+          secondUser.userName,
           "Got it thanks."
         );
       } catch (e) {
@@ -357,7 +357,7 @@ const main = async () => {
        try {
         await comments.createComment(
           post8._id,
-          "user3",
+          thirdUser.userName,
           "Got it thanks."
         );
       } catch (e) {

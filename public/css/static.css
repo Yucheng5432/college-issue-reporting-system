@@ -253,6 +253,7 @@
 }
 
 .commentbtn,
+.commentPostBtn,
 .editProfilebtn {
   margin-bottom: 10px;
   background-color: rgb(209, 169, 169);
@@ -260,6 +261,7 @@
 }
 
 .commentbtn:hover,
+.commentPostBtn:hover,
 .editProfilebtn:hover {
   opacity: 0.9;
 }
