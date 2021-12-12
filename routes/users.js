@@ -382,7 +382,7 @@ router.get("/myprofile", async (req, res) => {
       return;
     }
   } else {
-    return res.status(403).render("notLogin");
+    return res.status(403).render("login");
   }
 });
 
@@ -609,7 +609,7 @@ router.get("/editPost", async (req, res) => {
       res.status(500).json({ error: "Cannot edit post" });
     }
   } else {
-    res.status(403).render("notLogin");
+    res.status(403).render("login");
   }
 });
 
