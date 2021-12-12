@@ -150,7 +150,7 @@ h1 {
 
 .post-priority {
   position: relative;
-  top: -137px;
+  top: -127px;
   right: -350px;
   width: 90px;
   font-size: small;
@@ -170,7 +170,7 @@ h1 {
 
 .post-priorityN {
   position: relative;
-  top: -135px;
+  top: -127px;
   right: -350px;
   width: 90px;
   font-size: small;
@@ -479,7 +479,7 @@ li form {
 .postsdate-div,
 .searchedPostsdate-div {
   position: relative;
-  top: -27px;
+  top: -34px;
   font-size: 13px;
   font-style: normal;
   background-color: rgb(255, 248, 248);

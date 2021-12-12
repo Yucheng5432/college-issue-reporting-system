@@ -36,7 +36,7 @@ async function uploadProfilePhoto(username, image) {
     };
 
     let newProfilePhoto = await user.insertOne(newImage);
-    console.log(newProfilePhoto);
+    // console.log(newProfilePhoto);
 
     if (newProfilePhoto.insertedCount == 0) {
       throw `Cannot upload image`;
