@@ -165,7 +165,7 @@ async function addPost(
       throw "Post was not added.";
     }
 
-    return await this.getPost(addNewPost.insertedId.toString()); //Return newly added post
+    return await getPost(addNewPost.insertedId.toString()); //Return newly added post
   } catch (error) {
     throw error.message;
   }
@@ -178,7 +178,7 @@ async function deletePost(postID) {
   }
   try {
     const postCollection = await posts();
-    const postToDelete = await this.getPost(postID); //Get details of post to delete
+    const postToDelete = await getPost(postID); //Get details of post to delete
     const post = await postCollection.removeOne({ _id: ObjectId(postID) });
     if (!post || post.deletedCount == 0) {
       throw `Post with ID ${postID} was not deleted.`;
@@ -256,7 +256,7 @@ async function editPost(
       throw "Failed to edit post.";
     }
 
-    let post = await this.getPost(postID);
+    let post = await getPost(postID);
     return post;
   } catch (error) {
     throw error.message;

@@ -48,6 +48,10 @@ async function createUser(
     if (!username.match(/^[a-z0-9]+$/i)) {
       throw `Only alphanumeric values allowed for username`;
     }
+    if (username.trim("").length < 4) {
+      throw "Length of username should me greater than 4 characters";
+    }
+
     if (typeof firstName != "string") {
       throw `First name must be a string`;
     }
