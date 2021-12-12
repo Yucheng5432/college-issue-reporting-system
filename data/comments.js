@@ -40,7 +40,6 @@ async function createComment(postID, userName, body) {
 
 // 2. Get all comments by post id.
 async function getAllPostComments(postId) {
-  console.log("inside comments", postId);
   if (!postId) {
     throw "Please provide the id.";
   }
@@ -51,7 +50,7 @@ async function getAllPostComments(postId) {
   const allPosts = await posts();
 
   const postFound = await allPosts.findOne({ _id: postId }).toArray();
-  console.log(postFound);
+
   if (postFound === null) {
     throw "No post found with the given id.";
   }
@@ -74,8 +73,6 @@ async function getComment(id) {
 
 // 5. delete a comment
 async function deleteComment(cid) {
-  console.log("Entering delete comment");
-  console.log(cid);
   if (!cid || !ObjectId.isValid(cid)) throw "Invalid comment id.";
   const allPosts = await posts();
   let post = await allPosts.findOne({ "comments._id": cid });

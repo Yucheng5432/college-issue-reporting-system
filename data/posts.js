@@ -2,7 +2,6 @@ const mongoCollections = require("../config/mongoCollections");
 const posts = mongoCollections.posts;
 let { ObjectId } = require("mongodb");
 const data = require("../data");
-const userData = data.users;
 
 // get post by id
 async function getPost(postID) {
@@ -296,7 +295,6 @@ async function resolvePost(postID, commentID) {
 
 // find post by search term
 async function findPostsbySearchterm(searchterm) {
-  console.log("searchTerm", searchterm);
   if (!searchterm) throw "No Search Term provided";
   const postCollection = await posts();
   //let phrase = '"' + searchterm + '"';
@@ -310,7 +308,7 @@ async function checkPostOwnership(useridd, postId) {
   try {
     const postCollection = await posts();
     const post = await postCollection.findOne({ _id: ObjectId(postId) });
-    // console.log(post)
+
     if (post.userid === useridd) {
       return true;
     } else {
