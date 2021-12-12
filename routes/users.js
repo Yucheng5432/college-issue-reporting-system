@@ -165,19 +165,19 @@ router.post("/signup", async (req, res) => {
       });
       return;
     }
-    if (!major) {
+    if (!major || typeof major != "string") {
       res.status(404).render("signup", {
         title: "signupError",
         hasErrors: true,
-        error: "Must supply major!",
+        error: "Invalid major!",
       });
       return;
     }
-    if (/\s/.test(major)) {
+    if (major.trim("").length == 0) {
       res.status(400).render("signup", {
         title: "signupError",
         hasErrors: true,
-        error: `Major has spaces`,
+        error: `Major is empty`,
       });
       return;
     }
