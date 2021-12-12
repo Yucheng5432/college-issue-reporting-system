@@ -12,6 +12,8 @@ The issues will be categorized by different tags that will help users search for
 
 `npm run seed`
 
+After initializing database, you have four users in database, all users' defalut password is 123456. Every user have their own posts and comments.
+
 3.Run the project:
 
 `npm start`
@@ -43,6 +45,9 @@ Users can edit their own profile infomation, includes password,firstname, lastna
 Post can be labelled as urgent or normal, which will prioritize the post.
 ### Upload an image
  User can upload an image associated with their issues.
+
+## Branch
+ Final3.0
 
 ## Group Members:
 - Yucheng Su
