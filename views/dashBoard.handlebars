@@ -124,9 +124,8 @@
                         <form  action="/comments/{{_id}}" method="POST">
                           <label for="comment{{_id}}" class="comment">comment:</label>
                           <br>
-                          <textarea  id="comment"  name="comment" placeholder="reply here" class="createComment"></textarea><br>
-                           <span hidden id="errorcommentPost"></span>
-                          <button type="submit" class="commentbtn"  id="commentPostBtn">comment</button>
+                          <textarea name="comment" id="comment{{_id}}" placeholder="reply here" class="createComment"></textarea><br> 
+                          <button type="submit" class="commentbtn">comment</button>
                         </form>
                         
                       </div>
