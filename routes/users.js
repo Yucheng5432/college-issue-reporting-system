@@ -173,14 +173,6 @@ router.post("/signup", async (req, res) => {
       });
       return;
     }
-    // if (/\s/.test(major)) {
-    //   res.status(400).render("signup", {
-    //     title: "signupError",
-    //     hasErrors: true,
-    //     error: `Major has spaces`,
-    //   });
-    //   return;
-    // }
     if (!year) {
       res.status(404).render("signup", {
         title: "signupError",
@@ -197,7 +189,7 @@ router.post("/signup", async (req, res) => {
       });
       return;
     }
-    if (typeof year != "number") {
+    if (typeof parseInt(year) != "number") {
       res.status(400).render("signup", {
         title: "signupError",
         hasErrors: true,
@@ -382,7 +374,7 @@ router.get("/myprofile", async (req, res) => {
       return;
     }
   } else {
-    return res.redirect("/")
+    return res.redirect("/");
   }
 });
 
@@ -412,7 +404,7 @@ router.get("/editProfile", async (req, res) => {
       res.render("login", { title: "Login Page" });
     }
   } else {
-    res.status(403).render("login",{title: "Login Page"});
+    res.status(403).render("login", { title: "Login Page" });
   }
 });
 
