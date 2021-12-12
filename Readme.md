@@ -12,14 +12,6 @@ Users can post an issue having title, description, and associated tags.
  The resolved comment is highlighted in green so that other users can view the solution easily.
  Users can prioritize the post as urgent or regular.
  Users can upload images along with their issues.
-
-### Dashboard Page:
-
-### Myprofile page:
-### Login page:
-### Signup page:
-### Editprofile page:
-### EditPost page:
 ### start service
 ```
 npm install
