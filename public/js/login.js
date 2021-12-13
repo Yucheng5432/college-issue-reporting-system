@@ -22,7 +22,7 @@
           valid = true;
           errorDiv.hidden = true;
         }
-
+        /*
         if (usernameInput.value.trim().match(/\s/)) {
           event.preventDefault();
           valid = false;
@@ -32,7 +32,7 @@
         } else {
           valid = true;
           errorDiv.hidden = true;
-        }
+        }*/
 
         if (usernameInput.value.trim().length < 4) {
           event.preventDefault();
@@ -66,7 +66,7 @@
           valid = true;
           passErrorDiv.hidden = true;
         }
-
+/*
         if (passswordInput.value.trim().match(/\s/)) {
           event.preventDefault();
           valid = false;
@@ -77,6 +77,7 @@
           valid = true;
           passErrorDiv.hidden = true;
         }
+        */
 
         if (passswordInput.value.trim().length < 6) {
           event.preventDefault();
