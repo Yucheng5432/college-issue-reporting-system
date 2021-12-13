@@ -105,6 +105,7 @@
               '<label class="searchedcomments">Comments</label><br>'
             );
             for (let k = 0; k < post.comments.length; k++) {
+              
               searchPostList.append(
                 '<label class="searchedcommentsDate">' +
                   "by " +
@@ -113,11 +114,21 @@
                   post.comments[k].date +
                   "</label>"
               );
-              searchPostList.append(
-                '<p class="searcommentresolve">' +
+
+              if(post.comments[k].answer === true)
+              {
+                searchPostList.append(
+                '<p class="commentresolve">' +
                   post.comments[k].body +
                   "</p>"
-              );
+                );
+              }else{
+                searchPostList.append(
+                  '<p class="commentNotresolve">' +
+                    post.comments[k].body +
+                    "</p>"
+                  );
+              }
             }
           }
         },
